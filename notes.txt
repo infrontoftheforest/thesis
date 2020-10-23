@@ -1,13 +1,17 @@
 TODO:
-General:
--
-
 Code:
--
+- Learn about ShyLU params
 
+General:
+- Get the papers already looked at into bibtex using jabref
+- Take notes on the papers
 
 Questions:
-Why is the diag modified in the matrix filtering? (3.2.2 of Wiesner)
+- Why is the diag modified in the matrix filtering? (3.2.2 of Wiesner)
+- ShyLU is described by them as being a solver on single-node multicore, as well
+as being a *subdomain solver* on HPC system. Are we creating subdomains for
+making a preconditioner? ShyLU does this or tartaros?
+-
 
 ################################################################################
 
@@ -19,35 +23,65 @@ Summaries and noteworthy points
   url      = {http://mediatum.ub.tum.de/?id=1229321},
 }
 # Idea of Preconditioning - Skimmed
-Speed depends on spectral properties of A. Construct a cheap and easy to invert approximation W of A, s.t. AW^-1 ~= I, (i.e. EW close to 1). Solve AW^(-1)*(Wx) = b. This right preconditioning preserves rhs b, and the residual norm. Literature Saad [171] and Benzi [21]. Many competing methods, maybe I should compare them to multigrid and schur preconditioning.
+Speed depends on spectral properties of A.
+Construct a cheap and easy to invert approximation W of A, s.t. AW^-1 ~= I,
+(i.e. EW close to 1). Solve AW^(-1)*(Wx) = b. This right preconditioning
+preserves rhs b, and the residual norm. Literature Saad [171] and Benzi [21].
+Many competing methods, maybe I should compare them to multigrid and schur
+preconditioning.
 
 # Basics of Multigrid Methods - Read
-Definition of a relaxation based method: defines iteration (x^(k+1) := M*x^(k) - Q^-1*b) and iteration matrix (M:= I - Q^-1*A). Richardson, Jacobi, Gauss-Seidl definitions. Gauss-Seidl convergers fro positive definite matricies monotonally w.r.t. to the energy norm. General overview: Axelsson [6], Hackbusch [86].
+Definition of a relaxation based method:
+defines iteration (x^(k+1) := M*x^(k) - Q^-1*b) and iteration matrix (M:= I -
+Q^-1*A). Richardson, Jacobi, Gauss-Seidl definitions. Gauss-Seidl convergers
+fro positive definite matricies monotonally w.r.t. to the energy norm. General
+overview: Axelsson [6], Hackbusch [86].
 
-Weak diag dominance important for convergence of relaxation-based methods. FEM generates matrices that are weakly diagonally dominant. Gershgorin
+Weak diag dominance important for convergence of relaxation-based methods. FEM
+generates matrices that are weakly diagonally dominant. Gershgorin
 
-Different behavior for the high and low freq error modes. Geometric Multigrid - transfer to coarser mesh to smooth. AMG - define coarse representation purely algebraically. Aggregation-based AMG: Agglomerate nodes into aggregates with a transfer operator.
+Different behavior for the high and low freq error modes. Geometric Multigrid
+- transfer to coarser mesh to smooth. AMG - define coarse representation
+purely algebraically. Aggregation-based AMG: Agglomerate nodes into aggregates
+with a transfer operator.
 
 ... More to add
 
 # Aggregation-based AMG methods
 
-The point: GMG: complex geometries and unstructured meshes: how to generate coarse?
-AMG: using information from A to determine mesh connectivity and build coarse level, then construct interp/restrict ops to transfer. Design of ops comes with complexities such as rigid body modes. In aggregation, Near null space modes are automatically considered during construction of the transfer operators per design.
+The point: GMG: complex geometries and unstructured meshes: how to generate
+coarse?  AMG: using information from A to determine mesh connectivity and
+build coarse level, then construct interp/restrict ops to transfer. Design of
+ops comes with complexities such as rigid body modes. In aggregation, Near
+null space modes are automatically considered during construction of the
+transfer operators per design.
 
-Setup needs fine level nullspace B approximation. Defining a tentative prolongation op indirectly defines B_{l+1}. Tentative Prolongators are then smoothed. R = P^T can be used, but more sophisticated is available.
+Setup needs fine level nullspace B approximation. Defining a tentative
+prolongation op indirectly defines B_{l+1}. Tentative Prolongators are then
+smoothed. R = P^T can be used, but more sophisticated is available.
 
 Requirements for prolongators are defined in [124] and [192, 197]...
 
-Can have a mapping between dof's of A and nodes. Graph G(A), Neighborhood Nb, set of connected nodes where g_{ij} = 1. Node geometrically defined on fine level. On coarser level, the aggregates are nodes, and their DoF's are the coefficients of the basis functions.
+Can have a mapping between dof's of A and nodes. Graph G(A), Neighborhood Nb,
+set of connected nodes where g_{ij} = 1. Node geometrically defined on fine
+level. On coarser level, the aggregates are nodes, and their DoF's are the
+coefficients of the basis functions.
 
-Matrix Filtering
-Useful for inherent anisotropy. Use the graph of a filted operator A instead. Threshold for the off-diag. Modify the diag by something? (Why?). Overall, filtering meets the O1 requirement: Support of coarse basis functions follow strong coupling because two DoFs are strongly coupled if abs(a_{ij}) is relatively large compared to sqrt(abs(a_{ii}*a_{jj})). Neighboring nodes are strongly coupled in the direction of anisotropy. (similar to normal AMG, find some sources to describe, maybe make an example with GMG and AMG. Could have intro to anisotropy in prev sections and then later mention exact matrix filtering later which SAAMG uses.).
+# Matrix Filtering
+Useful for inherent anisotropy. Use the graph of a filted operator A instead.
+Threshold for the off-diag. Modify the diag by something? (Why?). Overall,
+filtering meets the O1 requirement: Support of coarse basis functions follow
+strong coupling because two DoFs are strongly coupled if abs(a_{ij}) is
+relatively large compared to sqrt(abs(a_{ii}*a_{jj})). Neighboring nodes are
+strongly coupled in the direction of anisotropy. (similar to normal AMG, find
+some sources to describe, maybe make an example with GMG and AMG. Could have
+intro to anisotropy in prev sections and then later mention exact matrix
+filtering later which SAAMG uses.).
 
-Aggregation algorithm:
-Node agglomerates form a disjoint covering of the set of all nodes on current level. Tentative -> Enlarge -> Leftovers.
+# Aggregation algorithm:
+Node agglomerates form a disjoint covering of the set of all nodes on current
+level. Tentative -> Enlarge -> Leftovers.
 TODO... describe more
-
 
 
 # Good References to use from this paper
@@ -57,7 +91,117 @@ TODO... describe more
 [197] Algebraic multigrid on unstructured meshes
 [124] Energy optimization of algebraic multigrid bases
 
+--------------------------------------------------------------------------------
 
+@InProceedings{Rajamanickam2012,
+  Title   = {ShyLU: A Hybrid-Hybrid Solver for Multicore Platforms},
+  Author  = {S. {Rajamanickam} and E. G. {Boman} and M. A. {Heroux}},
+  Url     = {https://ieeexplore.ieee.org/document/6267865}
+}
+
+# Introduction
+
+"Hybrid-Hybrid": combination of direct and iterative, and MPI + threads/X
+Previously: one subdomain per core, not sustainable. But one subdomain per
+node feasible because parellelism on nodes increasing. Hybrid programming:
+good scalability. Hybrid algorithm: robustness of solver.
+
+Sparse direct: (+) robust and good performance with BLAS. (-) High mem req,
+poor scalability in distributed mem sys.
+
+Iterative (incl. incomplete factorization): (+) highly scalable, customizable
+params. (-) not as robust
+
+Internode parallelism (MPI), two levels of parallelism on the node (MPI + X).
+Parallelism on node rapidly increasing.
+
+Direct solvers will cause fill-in. Incomplete factorizations can allevaite
+this.
+
+Hybrid will partially factor using direct methods and then use iterative on
+the remaining Schur complements.
+
+# Schur Complement Framework
+
+A := [ D C ]
+     [ R G ]
+
+Premute A to get block diagonal D, which is easy to factor. R is rows, C is
+columns. Schur Complement S := G - R*inv(D)*C used in solving system. S is
+dense -> expensive compute and storage. Better to compute a sparse
+approximation of S. With sparse approx, solve S then for A. Some options for
+exact methods.
+
+ShyLU design: inexact solver which may be used as a preconditioner for A. A is
+a subdomain problem. Don't need to solve D exactly, or form S exactly. Solve S
+using iterative. Preconditioner can be used with Krylov.
+
+# Preconditioner Design
+Wide/Narrow Seperator: Path from V1 to V2, at least two vertices in P: wide
+separator. Else narrow. Using wide, more R and C blocks are 0 -> Less
+expensive because no communication when computing S blocks. Fully parallel
+with wide separator. But larger Schur complement system to be solved. Faster
+setup, but increased solve time. Also option to use narrow.
+
+# Implementation
+Parallelism opportunities in Schur framework:
+Reordering exposes one level of data parallelism (TODO: what?). MPI tasks
+solve for D_i blocks.
+Within blocks Di -> threaded direct solver to factor each block
+    - these solves can scale well with UMA (each core uniformly fast access to
+      shared memory region)
+Between UMA regions: MPI to run across nodes if desired. Also mitigates data
+placement and NUMA.
+Uses Epetra for A -> MPI. With multithreaded solver, is a hybrid.
+
+Setup:
+
+Partitioning:
+Graph/Hypergraph partitioning. D needs block structure for parallelism.
+Partition A into parts depending on cores/sockets/UMA regions. Use hypergraph
+(what's the difference?) -> minimize border size directly (why?), and works
+for nonsym. Zoltan/PHG is the library.
+Result is wide and narrow separators.
+
+Diagonal block solver:
+D_i small. Either exact or inexact factorization. ShyLU uses sparse direct,
+e.g. Paradiso through Trilinos' Amesos package.
+
+Approx to Schur Complement:
+S is dense and memory-expensive. Either S implicitly as an operator or
+form/store sparse approx to S. Schur complement itself has block structure.
+Offdiag elems are more sparse though. With wide separator, sparsity pattern is
+the same as G.
+
+Techniques for forming Schur approx:
+Overall want to form sparser S while preserving main properties.
+Dropping:
+Keep largest magnitude elements when forming S. Relative thresholding.
+Form few columns -> sparsify.
+"Compute cols of S in chunks and use parallelism available from using multiple
+rhs in sparse triangular solve" (what?)
+
+Probing:
+dropping can be expensive (when?)
+Given sparsity pattern for S, probe the complement operator effciently by:
+    - Coloring spasity pattern (number of colors = number of probing vectors)
+        - computes orthogonal columns in S
+    - computing set of probing vectors
+    - apply S = G-R*inv(D)*C as an operator (what?) to get SV, which then
+      gives the approx of S in a packed format.
+    - unpack to compute S.
+Refer to [25]
+
+... TODO: more details
+
+Solving for Schur Complement
+Formed ~S.
+
+
+
+[25] The interface probing technique in domain decomposition
+
+TODO: find where our problems are on the ShyLU results graphs.
 
 ################################################################################
 
@@ -68,3 +212,20 @@ Useful definitions (for referencing while writing)
 ################################################################################
 
 Insights, decisions and problems (for discussion in thesis and personal notes)
+
+
+
+################################################################################
+
+Docs/Examples:
+~/wdir/lib/Trilinos/packages/<package>/docs
+~/wdir/lib/Trilinos/packages/<package>/example
+
+Running:
+in tartaros_build
+mpirun -np <n_procs> tartaros-release <input_file> <output_file>
+
+Post processing:
+./post_drt_ensight --files=<outfiles>
+open <outfiles>.case in Paraview
+
