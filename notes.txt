@@ -1,17 +1,96 @@
++ stand-alone example with direct serial/parallel solver:
+    - feed it the MTU matrix
+        - still either singular or segfaults
+
++ Compare some select few entries (cout a few entries per processor in the code strtimint_impl as well as in solver)
+    - seem to be correct for non-zeroes at least
+
++ Check for zero entries
+    - `grep -E '0\.0+E\+00$' MTU_A.mtx | head` and see what it loads in as? Does it need to specifically be zero?
+    - it doesn't ignore the zero-entries
+
+- Check symmetry of non-zero pattern: For every non-zero, check if the transpose entry exists. If not put 0.0
+    - Brute force just once to check
+
+- Ask TUM for extension
+    - try calling?
+
+
+Do only one non-linear step... ignore the results though. Substitute in the
+MTU matrix and rhs, and look at linear solve time.
+
+Using test/shylu_belos_driver.cpp with blade_klaus:
+calculating SBar with threshold takes a long time...
+then the resulting solve for S does not converge because of numerical
+breakdown.
+
+Blade_klaus should work in general. They've tested it on their end
+
+af_shell3 and FEM_3D_thermal2.mtx are working fine with the belos_driver test
+after turning up the belos max iterations. Should maybe try to read in the
+matrix just after the solver part of the tartaros code starts, and see if the
+current belos+shylu works for the same two matrices.
+
+the graph of the beam problem is not symmetric.
+this is due to drt_structure/strtimint_impl.cpp:1743 where the rows with dirichlet conditios are zeroed but not the columns
+    LINALG::ApplyDirichlettoSystem(stiff_, disi_, fres_, GetLocSysTrafo(), zeros_, *(dbcmaps_->CondMap()));
+    linalg/linalg_sparsematrix.H
+        
+
 TODO:
 Code:
-- Learn about ShyLU params
+- maybe GMRES isn't initialized correctly?
+
+- try some trilinos tests for ShyLU
+    - Structural matrices work for tests/shylu_belos_driver, similar results
+      to paper.
+
+- does tartaros need to redo the balancing for hypergraph partitioning?
+    - can either add the code in shylu_preconditioner?
+    - or use belos_driver with same/adjusable settings to really try to see
+        - how is the initial guess determined though?
+
+- try using the function to read in the MTU matrix
+    - EpetraExt::MatrixMarketFileToCrsMatrix
+    - EpetraExt::MatrixMarketFileToMultiVector
+    - read docs
+    - add the correct header to files
+        - make program to list the max row col and num entries in header
+        - %%MatrixMarket matrix coordinate real general
+          % 
+          % beam_ratio_10_ele_10000
+          61746 61746 3271356
+
+- get the rhs, lhs as files and try them in the shylu tests belos_driver
+    - EpetraExt::MultiVectorToMatlabFile("X.mat", X); 
+    - go to shylu tests and rename their matrix files to .bak and replace with
+      own. Then try tweaking settings and test with processors. This should
+      show the intended behavior?
+    - also take a look at first guess for x? is it normal compared to shylu
+      tests?
+
+- Mess with initialization method stuff in .head file?
 
 General:
 - Get the papers already looked at into bibtex using jabref
 - Take notes on the papers
+- ShyLU understanding on exactly what is occuring. Will have to implement and
+  write about.
+
+- Try Ifpack_ShyLU on the same problem with different amounts of processors.
+  See if GMRES takes the same amount of iterations
+    - it doesn't, but the 
+- Compare thin vs cube elements.
+    - cube is better
 
 Questions:
 - Why is the diag modified in the matrix filtering? (3.2.2 of Wiesner)
-- ShyLU is described by them as being a solver on single-node multicore, as well
-as being a *subdomain solver* on HPC system. Are we creating subdomains for
-making a preconditioner? ShyLU does this or tartaros?
--
+- ShyLU is described by them as being a solver on single-node multicore, as
+well as being a *subdomain solver* on HPC system. Are we creating subdomains
+for making a preconditioner? ShyLU does this or tartaros?
+- Reordering exposes one level of data parallelism. MPI tasks solve for D_i
+blocks. What does this mean?
+- Hypergraph partitioning? Why is it hyper?
 
 ################################################################################
 
@@ -129,8 +208,8 @@ A := [ D C ]
 Premute A to get block diagonal D, which is easy to factor. R is rows, C is
 columns. Schur Complement S := G - R*inv(D)*C used in solving system. S is
 dense -> expensive compute and storage. Better to compute a sparse
-approximation of S. With sparse approx, solve S then for A. Some options for
-exact methods.
+approximation of S. With sparse approx ~S, solve S then for A. Some options
+for exact methods.
 
 ShyLU design: inexact solver which may be used as a preconditioner for A. A is
 a subdomain problem. Don't need to solve D exactly, or form S exactly. Solve S
@@ -205,14 +284,25 @@ TODO: find where our problems are on the ShyLU results graphs.
 
 ################################################################################
 
-Useful definitions (for referencing while writing)
+Issues:
 
+ShyLU is printing that it is probing when explicitly passed "Threshold" for
+Schur Approximation Method. Maybe irrelevant?
+
+ShyLU seems to be failing to precondition properly when using Aztec as well as
+Amesos, which is a sparse direct solver. This maybe means that the calculation
+of Sbar (in is not correct for the problem. The test matrices however are working
+fine. Maybe they can be read in to tartaros as the CrsMatrix A and it can be
+tested with the current setup of Aztec+ShyLU? I will have to 
+
+################################################################################
+
+Useful definitions (for referencing while writing)
 
 
 ################################################################################
 
 Insights, decisions and problems (for discussion in thesis and personal notes)
-
 
 
 ################################################################################
@@ -223,7 +313,7 @@ Docs/Examples:
 
 Running:
 in tartaros_build
-mpirun -np <n_procs> tartaros-release <input_file> <output_file>
+mpirun -np <n_procs> tartaros-release <dat_file> <output_files_prefix>
 
 Post processing:
 ./post_drt_ensight --files=<outfiles>
