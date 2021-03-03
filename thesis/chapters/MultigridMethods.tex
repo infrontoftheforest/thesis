@@ -1,0 +1,122 @@
+% !TEX root = ../main.tex
+
+\chapter{Multigrid Methods}
+\label{chapter:MultigridMethods}
+
+\section{Smoothers}
+
+Error modes
+
+\section{Geometric Multigrid}
+
+\subsection{Prolongation and Restriction}
+
+\section{Algebraic Multigrid}
+
+% Talk a bit more and mention primary sources as a general citation
+
+On an unstructured grid, the geometric approach cannot be applied as the formulation is dependent on the locations of the nodes of the grid. For a grid where the locations of the grid nodes are unknown, where they are unstructured, or where an arbitrary system of equations does not refer to a physical grid, an algebraic multrigrid (AMG) method can be used instead. Instead of relying on information about the geometry of the discretization, only information from the matrix $A$ is used to determine the prolongation and restriction operators.
+
+%TODO More on unstructured grid? Adjacency graphs
+
+\subsection{Algebraically Smooth Error}
+
+For algebraic multigrid, the general idea starts the same with choosing a subset of unknowns for coarsening. Similar to selecting a coarse grid in multigrid, the smooth error modes should be transfered to a coarse grid which accurately represents them, but ~~~this coarse grid must be defined algebraically.~~~ % TODO: IDK where i'm going with this -- reword it...
+
+In the geometric case, the dominant error components after relaxation have low frequencies and are considered to be smooth. This concept of smoothness can be generalized to the algebraic case by considering the algebraically smooth error to be any error which is slowly reduced by the relaxation method, which then must be corrected on the coarser levels, i.e. an error for which $ \|(I - Q^{-1}A)e^{k}\|_A \approx \| e^{k+1}\|_A $.
+
+For relaxation schemes such as Jacobi, Gauss-Seidel, as well as their weighted variants, the smooth error is characterized by $ Ae \approx 0 $. Additionally, error components considered to be "smooth" can be more precisely defined as having a small residual comparable to the error. These smooth errors are the eigenvectors with the smallest eigenvalues and are in the near null space of $A$. These modes are damped the least by the relaxation scheme, so the coarse level correction should be effective for this error.
+%TODO cite cise-2006 amg - "near null space important" pg 4 as well as ruge1987
+
+It is shown in Stüben for algebraically smooth error of symmetric M-matrices, the following holds:
+
+\begin{equation}
+	\sum_{i \neq j}{\frac{|a_{ij}|}{a_{ii}}\frac{(e_i - e_j)^2}{e_i^2}} \ll 1, 1 \leq i \leq n.
+	\label{eq:strong_connection}
+\end{equation}
+
+This can be interpreted as such: if the first term is large, implying that the off-diagonal element is comparable to the diagonal element, then $e_i - e_j$ must be small, or in other words, the smooth error must vary slowly from $e_i$ to $e_j$. For two unknowns, a relatively large coefficient $a_{ij}$ means that $u_j$ has an important influence in determining $u_i$, meaning that the point $u_i$ has a strong dependence on $u_j$. Conversely $u_j$ is said to have a strong influence on $u_i$. 
+
+% TODO reword. i.e. full sentences
+Strength of Connection: Give a threshold $0 < \theta \leq 1$, we say that the variable $u_i$ \emph{strongly depends} on variable $u_j$ if
+
+\begin{equation}
+-a_{ij} \geq \theta \max_{k \neq i}{\{-a_{ik}\}}.
+\label{eq:strong_connection}
+\end{equation}
+
+% re-word: it's directly from cise_2006
+
+\subsection{Interpolation Operator} %TODO: rename
+
+For the coarse grid, a subset of points need to be chosen such that the grid is coarsened in the direction on strong connections. Strong connections indicate slowly varying smooth error, as above, which make such strongly connected points good candiates to accurately interpolate from a coarse to fine grid. This idea will be used to construct an interpolation operator $I_{2h}^h$ for a coarse grid, the selection of which will be explained in the following section. The indices can be partitioned into two sets, $C$ and $F$. The set $C$ is defined as the points corresponding coarse-grid points, also present on the fine grid. The set $F$ is correspoints to points that are only present on the fine grid. To interpolate error $e_i, i \in C$ to the fine grid $C \cup F$, the points not present in C are a weighted average:
+
+% TODO definition of "neighborhood" of i
+
+\begin{equation}
+	(I_{2h}^h\mathbb{e})_i = 
+		\begin{cases}
+			e_i & \text{if $i \in C$,} \\
+			\displaystyle \sum_{j \in C_i}{w_{ij}e_j} & \text{if $i \in F$,}
+		\end{cases}
+	\label{eq:interpolation_operator}
+\end{equation}
+
+For determining the weights $w_{ij}$, the smooth error is characterized by its small residual $r = Ae \approx 0$, with one component of the residual being $r_i = \sum_{j}{a_{ij}e_j} = 0$. The only points to be concerned with are points in the \emph{neighborhood of i} $N_i$, which are the points that even have connection to point $i$, i.e. $a_{ij} \neq 0$. Defining $S_i$ as the set of all strong connections to point $i$, the residual can be reformulated by considering three types of neighboring points to $i$:
+\begin{enumerate}
+	\item The set $C_i$ of C-points which strongly influence $i$, $C_i = C \cap S_i$, also called the \emph{coarse interpolatory set}
+	\item The set $D_i^s$ of F-points which strongly influence $i$, with $D_i = N_i - C_i$, and $D_i^s = D_i \cap S_i$, called strong noninterpolatory connections
+	\item The set $D_i^w$ of F-points which do not strongly influence $i$, $D_i^w = D_i - S_i$, called weak noninterpolatory connections
+\end{enumerate}
+
+The sum can then be regrouped in terms of point $i$ and the three sets $C_i$, $D_i^s$, and $D_i^w$:
+
+\begin{equation}
+	a_{ii}e_i \approx -\sum_{j \in C_i}{a_{ij}e_j} - \sum_{j \in D_i^s}{a_{ij}e_j} - \sum_{j \in D_i^w}{a_{ij}e_j}
+\end{equation}
+
+% TODO: elaborate why these approx can be made
+For points $j \in D_i^w$, $e_j$ can be grouped with $e_i$ and points in $D_i^s$ can be approximated by 
+
+\begin{equation}
+	e_j \approx \frac{\displaystyle \sum_{k \in C_i}{a_{jk}e_k}}{\displaystyle \sum_{k \in C_i}{a_{jk}}}.
+	\label{ej_approx}
+\end{equation}
+
+Then the weights can be represented by
+
+\begin{equation}
+	w_{ij} = - \frac{a_{ij} + \displaystyle \sum_{m \in D_i^s}{\left(\frac{a_{im}a_{mj}}{\displaystyle \sum_{k \in C_i}{a_{mk}}}\right)}}{a_{ii} + \displaystyle \sum_{n \in D_i^w}{a_{in}}}
+\end{equation}
+
+\subsection{Coarse Grid} %TODO: rename
+
+Now that the interpolation operator has been defined, it is now necessary to determine which points will be in the coarse interpolatory set for each point on the fine grid. These points will make up the coarse grid. The approximation made in Equation~\ref{ej_approx} is more accurate the more strongly connected $j$ is to $i$, so this can be used as a heuristic criterion for choosing the coarse grid points. Another criterion is necessary to also limit the size of the coarse set. These two criteria are given by Stüben as:
+% TODO: reference Ruge/Stüben's defn of heuristics
+
+\begin{itemize}
+	\item (C1) For each $i \in F$, each point $j \in S_i$ should either be in $c$, or should be strongly connected to at least one point in $C_i$.
+	\item (C2) $C$ should be a maximal subset of all points with the property that no two C-points are strongly connected to each other.
+\end{itemize}
+
+% explanation on why C2 is needed: it strikes a balance on the size of the coarse grid, whihc should be a small fraction of the total points to reduce the work per cycle.
+The criterion (C2) is motivated by limiting the amount of numerical work done on the coarse grid, since no two C-points being directly connected will lead to a lesser amount of coarse grid points. In some situations both of these criteria cannot be fulfilled, so (C1) is considered to be necessary, while (C2) is used as a guideline to achieve (C1).
+
+The coarsening process which adheres to the two criteria is a two-pass algorithm. The first pass is a quick preliminary partition of the grid into $C$- and $F$-points, while ensuring (C2) as well as possible. The second part consists of computing the weights for the interpolation operator while changing any intial $F$-points to $C$-points in order to sastisfy (C1).
+
+% in discussion about the heuristics, talks about cise_2006 page 6 about bad performance and \theta param as perhaps a way to lead into aggregation, or not idk
+
+% TODO: cite Falgout CiSE_2006_amg
+The entire algorithm presented is highly dependent on a proper choice of $\theta$ in Equation~\ref{eq:strong_connection}. Falgout noted that an improper choice could lead to slower performance due to too many points being considered strong connections and resulting in too large of a coarse grid.
+
+% maybe developments in c-AMG since ruge-stueben? More research... glaze over it and cite a bunch of papers and their contributions? Then 
+
+% aggregation
+
+\section{Smoothed Aggregation Multigrid}
+
+% Eventually... Parallelization
+
+% new file for Schur and domain decomp
+
+%
