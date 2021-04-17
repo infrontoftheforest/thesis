@@ -5,9 +5,93 @@
 
 \section{Smoothers}
 
+% TODO: source Saad 2003
+
+% TODO: define the linear problem Ax = b
+
+% Quick comparison to direct
+% TODO: fix the LU- QR- dash formatting if necessary. ALSO THIS SHOULD BE BEFORE THE SECTION ABOUT GMRES. (or maybe introduce multigrid first, then as preconditioner later?)
+For the solution of a sparse linear systems, two distinct types of methods, iterative and direct methods, can be applied. For general purposes, direct methods usually utilize various decomposition or factorization techniques such as LU, QR, Cholesky in order to achieve a solution to machine precision in a known finite amount of steps. The number of steps necessary for methods such as LU decomposition is $O(n^3)$, which increasingly disadvantageous for ever larger linear systems that are arising form the applicaiton of finite element methods.
+
+% Advantages of relaxations: easy to implement, more general linear systems mgtut[23,24,26]
+% (cf. Axelsson [6], Hackbusch [86], Varga [200])
+Several variants of iterative methods exist, but for introducing and demonstrating the advantages multigrid methods, the focus will be on relaxation methods, such as Jacobi or Gauss-Seidel. These methods involve decomposion the operator $A = D - E - F$ where $D$ is the diagonal of $A$, $-E$ is the strictly lower triangular part, and $-F$ is the strictly upper triangular part. The goal is then to use this decomposition to improve the starting guess $\mathbf{x}_{0}$, of the vector of unknowns $\mathbf{x}$ iteratively.
+
+In the Jacobi scheme, rearranging after the decomposition of $A$ gives the iteration scheme
+
+\begin{equation}
+	\mathbf{x}^{(k+1)} = D^{-1}(L + U)\mathbf{x}^{(k)} + D^{-1}b
+\end{equation}
+
+where matrix $R_J = D^{-1}(L + U)$ is defined as the Jacobi iteration matrix.
+
+Component-wise, the updated $i$-th vector component can be obtained from the previous iteration's approximation of all other unknowns as:
+
+\begin{equation}
+	x_{i}^{(k+1)} = \frac{1}{a_{ii}}\left(b_i- \sum_{j \neq i}{a_{ij}x_{j}^{(k)}} \right).
+\end{equation}
+
+If the Jacobi method is initally used to compute an itermediate approximation, this can be weighted with a factor $\omega$ against the previous approximation, given in matrix form as
+
+\begin{equation}
+	\mathbf{x}^{(k+1)} = \left[ (1-\omega) I + \omega R_J \right] \mathbf{x}^{(k)} + \omega D^{-1}\mathbf{b}.
+\end{equation}
+
+Different values of $\omega$ determines a factor known as the relaxtion rate which will be important to the idea of multigrid methods.
+
+Similarly to the Jacobi method, the Gauss-Seidel method can be defined in the same manner, but with all already-updated individual vector components $1, 2, \ldots, j - 1$  being used in the approximation of the $j$-th component. This can be represented in matrix form as
+
+\begin{equation}
+	\mathbf{x}^{(k+1)} = (D-L)^{-1}U\mathbf{x}^{(k)} + (D-L)^{-1}\mathbf{b}.
+\end{equation}
+
+With $R_G = (D-L)^{-1}U$ defined as the Gauss-Seidel iteration matrix, the weighted version of the same method, known as Successive Over-Relaxation (SOR) is given as
+
+\begin{equation}
+	\mathbf{x}^{(k+1)} = (D - \omega L)^{-1} \left[(1-\omega)D + \omega U \right]\mathbf{x}^{(k)} + \omega (D - \omega L)^{-1} \mathbf{b}.
+\end{equation}
+
+% residual equation
+
+% general form
+The general form of these methods which rely on splitting of $A = M - N$ can be written as
+\begin{equation}
+	\mathbf{x}^{(k+1)} = M^{-1}N\mathbf{x}^{(k)} + M^{-1}\mathbf{b}
+\end{equation}
+
+and convergence of the iteration to the exact solution $\mathbf{x}^*$ can be obtained by examining the iteration in the form of:
+
+\begin{equation}
+	\mathbf{x^{(k+1)}} - \mathbf{x}^* = M^{-1}N\left(\mathbf{x}^{(k)} - \mathbf{x}^* \right) = \ldots = (M^{-1}N)^{k+1}\left(\mathbf{x}^{(0)} - \mathbf{x}^* \right).
+\end{equation}
+
+The sequence can be shown to converge if and only if $\rho\left( M^{-1}N \right)) < 1$. Without computing the spectral radius, which can be expensive, any matrix norm $|| M^{-1}N || < 1$ can be used as a sufficient convergence condition. For the Jacobi and Gauss-Seidel methods, it is also sufficient that $A$ is strictly or irreducibly diagonally dominant to converge for any $\mathbf{x}^{(0)}$, as is often the case with matrices obtained from the application of finite element methods. Additionally a strictly diagonally dominant matrix which is symmetric with positive diagonal entries is positive definite, and it is possible to show that for such SPD matrices Gauss-Seidel and SOR with $\omega \in (0, 2)$ will converge. %TODO cite Saad
+
+% Disadvantages - Read Ch2
+
+% Outline:
+% + Direct vs Iterative
+% 	+ operations
+%  	- LU factorization fill-in
+% + Different forms of Richardson, Jacobi, SOR.
+% residual, error relationship
+% general form of iteration/relaxation
+% + damping
+% + GS
+% + convergence
+% smooth, fourier modes, wavenumbers (for certain matrices)
+% spectral radius/convergence rate of different error modes, smoothing property
+% 
+
 Error modes
 
+Smoothing Property
+
 \section{Geometric Multigrid}
+
+% change to more oscillitory on a coarser grid
+% correction scheme, relax on residual equation on a coarser grid
+% 
 
 \subsection{Prolongation and Restriction}
 
@@ -42,7 +126,7 @@ Strength of Connection: Give a threshold $0 < \theta \leq 1$, we say that the va
 
 \begin{equation}
 -a_{ij} \geq \theta \max_{k \neq i}{\{-a_{ik}\}}.
-\label{eq:strong_connection}
+\label{eq:strong_connection2}
 \end{equation}
 
 % re-word: it's directly from cise_2006
@@ -107,7 +191,7 @@ The coarsening process which adheres to the two criteria is a two-pass algorithm
 % in discussion about the heuristics, talks about cise_2006 page 6 about bad performance and \theta param as perhaps a way to lead into aggregation, or not idk
 
 % TODO: cite Falgout CiSE_2006_amg
-The entire algorithm presented is highly dependent on a proper choice of $\theta$ in Equation~\ref{eq:strong_connection}. Falgout noted that an improper choice could lead to slower performance due to too many points being considered strong connections and resulting in too large of a coarse grid.
+The entire algorithm presented is highly dependent on a proper choice of $\theta$ in Equation~\ref{eq:strong_connection2}. Falgout noted that an improper choice could lead to slower performance due to too many points being considered strong connections and resulting in too large of a coarse grid.
 
 % maybe developments in c-AMG since ruge-stueben? More research... glaze over it and cite a bunch of papers and their contributions? Then 
 
@@ -116,7 +200,3 @@ The entire algorithm presented is highly dependent on a proper choice of $\theta
 \section{Smoothed Aggregation Multigrid}
 
 % Eventually... Parallelization
-
-% new file for Schur and domain decomp
-
-%
