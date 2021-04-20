@@ -11,16 +11,19 @@
 
 % Quick comparison to direct
 % TODO: fix the LU- QR- dash formatting if necessary. ALSO THIS SHOULD BE BEFORE THE SECTION ABOUT GMRES. (or maybe introduce multigrid first, then as preconditioner later?)
-For the solution of a sparse linear systems, two distinct types of methods, iterative and direct methods, can be applied. For general purposes, direct methods usually utilize various decomposition or factorization techniques such as LU, QR, Cholesky in order to achieve a solution to machine precision in a known finite amount of steps. The number of steps necessary for methods such as LU decomposition is $O(n^3)$, which increasingly disadvantageous for ever larger linear systems that are arising form the applicaiton of finite element methods.
+For the solution of sparse linear systems, two distinct types of methods, iterative and direct methods, can be applied. For general purposes, direct methods usually utilize various decomposition or factorization techniques such as LU, QR, or Cholesky in order to achieve a solution to machine precision in a known finite amount of steps. The number of steps necessary for methods such as LU decomposition is $O(n^3)$, which is increasingly disadvantageous for ever larger linear systems that are arising form the applicaiton of finite element methods.
 
 % Advantages of relaxations: easy to implement, more general linear systems mgtut[23,24,26]
 % (cf. Axelsson [6], Hackbusch [86], Varga [200])
-Several variants of iterative methods exist, but for introducing and demonstrating the advantages multigrid methods, the focus will be on relaxation methods, such as Jacobi or Gauss-Seidel. These methods involve decomposion the operator $A = D - E - F$ where $D$ is the diagonal of $A$, $-E$ is the strictly lower triangular part, and $-F$ is the strictly upper triangular part. The goal is then to use this decomposition to improve the starting guess $\mathbf{x}_{0}$, of the vector of unknowns $\mathbf{x}$ iteratively.
+Several variants of iterative methods exist, but for introducing and demonstrating the advantages multigrid methods, the focus will be on relaxation methods, such as Jacobi or Gauss-Seidel. These methods involve decomposition of the operator $A = D - L - U$ where $D$ is the diagonal of $A$, $-L$ is the strictly lower triangular part, and $-U$ is the strictly upper triangular part. The goal is then to use this decomposition to improve the starting guess $\mathbf{x}_{0}$, of the vector of unknowns $\mathbf{x}$ iteratively.
 
 In the Jacobi scheme, rearranging after the decomposition of $A$ gives the iteration scheme
 
 \begin{equation}
-	\mathbf{x}^{(k+1)} = D^{-1}(L + U)\mathbf{x}^{(k)} + D^{-1}b
+	\begin{aligned}
+	\mathbf{x}^{(k+1)} &= D^{-1}(L + U)\mathbf{x}^{(k)} + D^{-1}\mathbf{b} \\ 
+	                   &= R_J\mathbf{x}^{(k)} + D^{-1} \mathbf{b}
+	\end{aligned}
 \end{equation}
 
 where matrix $R_J = D^{-1}(L + U)$ is defined as the Jacobi iteration matrix.
@@ -34,7 +37,10 @@ Component-wise, the updated $i$-th vector component can be obtained from the pre
 If the Jacobi method is initally used to compute an itermediate approximation, this can be weighted with a factor $\omega$ against the previous approximation, given in matrix form as
 
 \begin{equation}
-	\mathbf{x}^{(k+1)} = \left[ (1-\omega) I + \omega R_J \right] \mathbf{x}^{(k)} + \omega D^{-1}\mathbf{b}.
+	\begin{aligned}
+	\mathbf{x}^{(k+1)} &= \left[ (1-\omega) I + \omega R_J \right] \mathbf{x}^{(k)} + \omega D^{-1}\mathbf{b} \\
+	&= R_{\omega}\mathbf{x}^{(k)} + \omega D^{-1} \mathbf{b}.
+	\end{aligned}
 \end{equation}
 
 Different values of $\omega$ determines a factor known as the relaxtion rate which will be important to the idea of multigrid methods.
@@ -42,7 +48,10 @@ Different values of $\omega$ determines a factor known as the relaxtion rate whi
 Similarly to the Jacobi method, the Gauss-Seidel method can be defined in the same manner, but with all already-updated individual vector components $1, 2, \ldots, j - 1$  being used in the approximation of the $j$-th component. This can be represented in matrix form as
 
 \begin{equation}
-	\mathbf{x}^{(k+1)} = (D-L)^{-1}U\mathbf{x}^{(k)} + (D-L)^{-1}\mathbf{b}.
+	\begin{aligned}
+	\mathbf{x}^{(k+1)} &= (D-L)^{-1}U\mathbf{x}^{(k)} + (D-L)^{-1}\mathbf{b} \\
+                       &= R_G\mathbf{x}^{(k)} + (D-L)^{-1}\mathbf{b}
+	\end{aligned}
 \end{equation}
 
 With $R_G = (D-L)^{-1}U$ defined as the Gauss-Seidel iteration matrix, the weighted version of the same method, known as Successive Over-Relaxation (SOR) is given as
@@ -59,13 +68,17 @@ The general form of these methods which rely on splitting of $A = M - N$ can be 
 	\mathbf{x}^{(k+1)} = M^{-1}N\mathbf{x}^{(k)} + M^{-1}\mathbf{b}
 \end{equation}
 
-and convergence of the iteration to the exact solution $\mathbf{x}^*$ can be obtained by examining the iteration in the form of:
+and convergence of the iteration to the exact solution $\mathbf{x}^*$ can be obtained by examining the iteration in the form of and using the substitution $R = M^{-1}N $ :
 
 \begin{equation}
-	\mathbf{x^{(k+1)}} - \mathbf{x}^* = M^{-1}N\left(\mathbf{x}^{(k)} - \mathbf{x}^* \right) = \ldots = (M^{-1}N)^{k+1}\left(\mathbf{x}^{(0)} - \mathbf{x}^* \right).
+	\mathbf{x^{(k+1)}} - \mathbf{x}^* = R\left(\mathbf{x}^{(k)} - \mathbf{x}^* \right) = \ldots = R^{k+1}\left(\mathbf{x}^{(0)} - \mathbf{x}^* \right).
 \end{equation}
 
-The sequence can be shown to converge if and only if $\rho\left( M^{-1}N \right)) < 1$. Without computing the spectral radius, which can be expensive, any matrix norm $|| M^{-1}N || < 1$ can be used as a sufficient convergence condition. For the Jacobi and Gauss-Seidel methods, it is also sufficient that $A$ is strictly or irreducibly diagonally dominant to converge for any $\mathbf{x}^{(0)}$, as is often the case with matrices obtained from the application of finite element methods. Additionally a strictly diagonally dominant matrix which is symmetric with positive diagonal entries is positive definite, and it is possible to show that for such SPD matrices Gauss-Seidel and SOR with $\omega \in (0, 2)$ will converge. %TODO cite Saad
+% \begin{equation}
+% 	\mathbf{x^{(k+1)}} - \mathbf{x}^* = M^{-1}N\left(\mathbf{x}^{(k)} - \mathbf{x}^* \right) = \ldots = (M^{-1}N)^{k+1}\left(\mathbf{x}^{(0)} - \mathbf{x}^* \right).
+% \end{equation}
+
+The sequence can be shown to converge if and only if $\rho\left( R \right) < 1$. Without computing the spectral radius, which can be expensive, any matrix norm $|| R || < 1$ can be used as a sufficient convergence condition. For the Jacobi and Gauss-Seidel methods, it is also sufficient that $A$ is strictly or irreducibly diagonally dominant to converge for any $\mathbf{x}^{(0)}$, as is often the case with matrices obtained from the application of finite element methods. Additionally a strictly diagonally dominant matrix which is symmetric with positive diagonal entries is positive definite, and it is possible to show that for such SPD matrices Gauss-Seidel and SOR with $\omega \in (0, 2)$ will converge. %TODO cite Saad
 
 % Disadvantages - Read Ch2
 
@@ -78,22 +91,154 @@ The sequence can be shown to converge if and only if $\rho\left( M^{-1}N \right)
 % general form of iteration/relaxation
 % + damping
 % + GS
-% + convergence
-% smooth, fourier modes, wavenumbers (for certain matrices)
-% spectral radius/convergence rate of different error modes, smoothing property
+% + convergence, spectral radius
+% + smooth, fourier modes, wavenumbers (for certain matrices)
+% + convergence rate of different error modes, smoothing property
 % 
 
-Error modes
+\subsection{Smoothing Effect}
 
-Smoothing Property
+An examination of the effects of relaxation methods on the different error components is necessary to understand the motivation of multigrid methods. 
+% TODO: cite Trottenberg?
+To show the effects of the relaxation methods on different error modes, as a concrete example, the weigted Jacobi method with $\omega = 2/3$ is used on the 1D Laplace equation with homogeneous Dirchlet boundary conditions is used as a model problem:
+
+\begin{equation}
+\begin{aligned}
+	-\Delta_h u_h(x) &= 0, \quad x \in \Omega_h \\
+	u_h(x) &= 0, \quad x \in \Omega_h.
+\end{aligned}
+\label{eq:model_problem}
+\end{equation}
+
+Where the problem is discretized on $\Omega = (0, 1) \subset \mathbb{R}$ with a grid spacing of $h = 1/n, n \in \mathbb{N}$ using a centered difference approximation stencil of $A = \frac{1}{h^2} \begin{pmatrix} -1 & 2 &-1 \end{pmatrix}$.
+
+The eigenvectors $\mathbf{w}$ of $A$, equal to those of $R_{\omega}$ can be used in a linear combination to represent the error of the initial guess of the relaxation method $\mathbf{e}^{(0)}$
+
+\begin{equation}
+	\mathbf{e}^{(0)} = \sum_{k=1}^{n-1}{c_{k}\mathbf{w}_{k}}
+\end{equation}
+
+For the model problem, the $j$-th component of each of these eigenvectors is given by 
+\begin{equation}
+	w_{k,j} = sin\left(\frac{jk\pi}{n}\right),\ 1 \leq k \leq n-1,\ 0 \leq j \leq n
+\end{equation}
+
+These are also the Fourier modes, and are sine waves that increase in frequency with the wavenumber $k$. Repeated iteration of the relaxation scheme results in an eigenvector expansion for the error as
+
+\begin{equation}
+	\mathbf{e}^{(m)} = R_{\omega}^m \mathbf{e}^{(0)} = \sum_{k=1}^{n-1}{c_k\lambda_k^m\left( R_{\omega}\right)\mathbf{w}_k}.
+\end{equation}
+
+From this it can be seen that the error corresponding to the Fourier modes is reduced more for those error modes with a small corresponding eigenvalue $\lambda_k$. For this particular example, it can be shown that the eigenvalues are
+
+\begin{equation}
+	\lambda_k(R_{\omega}) = 1 - 2\omega sin^2\left(\frac{k\pi}{2n}\right),\ 1 \leq k \leq n-1,
+\end{equation}
+
+which is a monotonically decreasing function in $k$ with a maximum of 1 if $k = 0$ were allowed. From this it can be inferred that although all error frequency components are reduced since $\lambda_k^m(R_{\omega}) < 1$ for all $k$, those with a low wavenumber $\left(k < \frac{n}{2}\right)$ and low frequency are reduced much more slowly due to the higher eigenvalue and these components will make up most of the error present after many iterations, while high-frequency $\left(k > \frac{n}{2}\right)$ error components will be much more effectively reduced. The error remaining will then be a combination of the low-frequency, or smooth, error modes, leading to this phenomenon being known as the \emph{smoothing effect}. For Gauss-Seidel iterations, although the eigenvectors of $R_G$ are not the same as $A$, Saad shows this same smoothing effect after a more difficult analysis. The smoothing effect is not the end of the usefulness of the relaxation-based methods, and the multigrid method focuses on introducing corrections to these slowly converging smooth error components.
+
+%TODO mention intuition for high-frequency error and stencil spatial relationship for the discretization
 
 \section{Geometric Multigrid}
+% TODO: Move the residual equation later, talking about multiple grids, \emph{correction scheme}
 
-% change to more oscillitory on a coarser grid
-% correction scheme, relax on residual equation on a coarser grid
+% - Coarse Grid Correction
+% - interpolation, restriction
+% - Two-grid scheme
+% - V-Cycle, other cycles, FMG
 % 
 
 \subsection{Prolongation and Restriction}
+
+The key idea for overcoming the smoothing effect of relaxation schemes is to transfer the error to a coarser grid in which the low-frequency errors will appear to be more oscillatory, and relaxation methods would be more effective. The error for the approximate solution $\mathbf{x}^{(k)}$ is given by
+
+\begin{equation}
+	\mathbf{e} = \mathbf{x}^* - \mathbf{x}^{(k)}.
+\end{equation}
+
+This error after several smoothing iterations is not known, but it is still useful to substitue into the equation for the residual for the given approximation $\mathbf{x}^{(k)}$, to obtain the \emph{residual equation}:
+
+\begin{equation}
+	\begin{aligned}
+	\mathbf{r} &= \mathbf{b} - A\mathbf{x}^{(k)} \\
+	\mathbf{r} &= \mathbf{b} - A\left( \mathbf{x}^* - \mathbf{e} \right) \\
+	\mathbf{r} &= A\mathbf{e}.
+	\end{aligned}
+\end{equation}
+
+% TODO: talk a bit more about the P and R operators
+
+Solving the residual equation for the error and correcting the approximation is another approach to solving the original problem, and this can be done after transferring the smooth error from a fine grid with $n_h$ points to a coarser grid with $n_H$ points by means of some linear operator, forming the basis of what is known as a two-grid correction scheme. For mapping the error from the fine grid $\Omega_h$ to the coarse grid $\Omega_H$, the restriction operator $R : \mathbb{R}^{n_h} \rightarrow \mathbb{R}^{n_H}$ is defined such that $\mathbf{e}_H = R_h \mathbf{e}_h$. The corresponding prolongation operator $P : \mathbb{R}^{n_H} \rightarrow \mathbb{R}^{n_h}$ is used to map from coarse to fine. This is often chosen to be $P = R^\top$, known as Galerkin coarsening. The error on the fine level can be approximated as 
+
+\begin{equation}
+	\mathbf{e}_h \approx P_H \mathbf{e}_H,
+\end{equation}
+
+leading to
+
+\begin{equation}
+	\begin{aligned}
+	\mathbf{r}_h & = A_h \mathbf{e}_h \approx A_h P_H \mathbf{e}_H \\
+	\mathbf{r}_H & \approx R_h \mathbf{r}_h \approx R_h A_h P_H \mathbf{e}_H
+	\end{aligned}
+\end{equation}
+
+where the product known as the Galerkin projection 
+
+\begin{equation}
+	A_H := R_h A_h P_H
+\end{equation}
+
+can be used to represent the system matrix on the coarse grid. The Galerkin projection has the advantages of not needing to re-discretize the system on the coarser grid, turning this into an automatic process for black-box solvers, as well as avoiding unreliable sampling of system coefficients when the grid is too coarse.
+%TODO ^ cite Wesseling p 82
+
+As a simple example for a one-dimensional coarse grid with $n_H = \frac{n_h}{2} - 1$, linear interpolation would result in a prolongation operator with the form
+
+\begin{equation}
+	P_H = \frac{1}{2}\begin{bmatrix}
+		1 &   &   \\
+		2 &   &   \\
+		1 & 1 &   \\
+		  & 2 &   \\
+		  & 1 & 1 \\
+		  &   & 2 \\
+		  &   & 1
+	\end{bmatrix}.
+\end{equation}
+
+The transpose of the linear interpolation $R_h = P_H^\top$ is known as full weighting. Due to aliasing effects after restriction, the high-frequency modes cannot be distinguished from lower-frequency modes, so the restriction should be used for an already-smoothed error.
+
+\subsection{Two-Grid Correction Scheme}
+
+This leads to the formation of the two-grid correction scheme shown in Algorithm~\ref{alg:two_grid}. With an inital starting guess $\mathbf{x}_h$, relaxation can be done a total of $\nu_1$ times until the error is sufficiently smooth and improvements in the approxmation would be slow. The residual is then restricted to the coarse grid $\Omega_H$, in order to represent smooth error components as more oscillatory, and the residual equation is solved for the error $\mathbf{e}_H$ on the coarse grid. Solving for the error can be done with any number of methods, such as exactly with a direct solver. An approximate solution is also possible, for example, with another grid correction scheme, which will be discussed in the following section. The error can be prolongated back to the fine grid $\Omega_h$ and used to correct the fine-grid approximation. The prolongated error is not necessarily as smooth as on the coarse grid, so $\nu_2$ post-smoothing steps are performed.
+
+%TODO: ref An Introduction to Multigrid Methods by Pieter Wesseling pg. 12
+One of the most important properties of this two grid scheme is that the convergence rate can be shown to be independent of the grid spacing $h$. This is not the case for the smoothers which they are based on, whose convergence behaves as $1 - O(h^2)$. Decreasing the grid spacing for the previously discussed smoothers increases the eigenvalues of the error modes with the lowest wavenumbers, resulting in even slower convergence for the corresponding smooth components of the error.
+
+\begin{algorithm}
+	\caption{Two-Grid Correction Scheme}\label{alg:two_grid}
+	\begin{algorithmic}[1]
+		\Require{Fine-level system $A_h$ and $\mathbf{b}_h$}
+		\Require{Initial guess $\mathbf{x}_h$}
+		\Require{Number of pre- and post-smoothing steps $\nu_1$ and $\nu_2$}
+        \Procedure{Two-Grid-Correction}{$A_h, \mathbf{x}_h, \mathbf{b}_h$}
+		\For{$k \gets 1, \nu_1$}
+			\State $\mathbf{x}_h \gets \Call{smoother}{A_h, \mathbf{x}_h, \mathbf{b}_h}$ \Comment{Apply $\nu_1$ pre-smoothing steps}
+		\EndFor
+		\State $\mathbf{r}_h \gets \mathbf{b}_h - A_h \mathbf{x}_h$ \Comment{Compute residual on fine grid}
+		\State $\mathbf{r}_H \gets R \mathbf{r}_h$ \Comment{Restrict residual to coarse grid}
+		\State Solve $A_H \mathbf{e}_H = \mathbf{r}_H$ \Comment{Solve residual equation on coarse grid $\Omega_H$}
+		\State $\mathbf{e}_h \gets P \mathbf{e}_H$ \Comment{Prolongate coarse-grid error to fine grid}
+		\State $\mathbf{x}_h \gets \mathbf{x}_h + \mathbf{e}_h$ \Comment{Correct fine grid approximation $\mathbf{x}_h$}
+		\For{$k \gets 1, \nu_2$}
+			\State $\mathbf{x}_h \gets \Call{smoother}{A_h, \mathbf{x}_h, \mathbf{b}_h}$ \Comment{Apply $\nu_2$ post-smoothing steps}
+		\EndFor
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+\subsection{Multiple Grids}
+
 
 \section{Algebraic Multigrid}
 
@@ -107,7 +252,7 @@ On an unstructured grid, the geometric approach cannot be applied as the formula
 
 For algebraic multigrid, the general idea starts the same with choosing a subset of unknowns for coarsening. Similar to selecting a coarse grid in multigrid, the smooth error modes should be transfered to a coarse grid which accurately represents them, but ~~~this coarse grid must be defined algebraically.~~~ % TODO: IDK where i'm going with this -- reword it...
 
-In the geometric case, the dominant error components after relaxation have low frequencies and are considered to be smooth. This concept of smoothness can be generalized to the algebraic case by considering the algebraically smooth error to be any error which is slowly reduced by the relaxation method, which then must be corrected on the coarser levels, i.e. an error for which $ \|(I - Q^{-1}A)e^{k}\|_A \approx \| e^{k+1}\|_A $.
+In the geometric case, the dominant error components after relaxation have low frequencies and are considered to be smooth. This concept of smoothness can be generalized to the algebraic case by considering the algebraically smooth error to be any error which is slowly reduced by the relaxation method, which then must be corrected on the coarser levels, i.e. an error for which $ \|(I - R^{-1}A)e^{k}\|_A \approx \| e^{k+1}\|_A $.
 
 For relaxation schemes such as Jacobi, Gauss-Seidel, as well as their weighted variants, the smooth error is characterized by $ Ae \approx 0 $. Additionally, error components considered to be "smooth" can be more precisely defined as having a small residual comparable to the error. These smooth errors are the eigenvectors with the smallest eigenvalues and are in the near null space of $A$. These modes are damped the least by the relaxation scheme, so the coarse level correction should be effective for this error.
 %TODO cite cise-2006 amg - "near null space important" pg 4 as well as ruge1987
@@ -115,7 +260,7 @@ For relaxation schemes such as Jacobi, Gauss-Seidel, as well as their weighted v
 It is shown in Stüben for algebraically smooth error of symmetric M-matrices, the following holds:
 
 \begin{equation}
-	\sum_{i \neq j}{\frac{|a_{ij}|}{a_{ii}}\frac{(e_i - e_j)^2}{e_i^2}} \ll 1, 1 \leq i \leq n.
+	\sum_{i \neq j}{\frac{|a_{ij}|}{a_{ii}}\frac{(e_i - e_j)^2}{e_i^2}} \ll 1,\ 1 \leq i \leq n.
 	\label{eq:strong_connection}
 \end{equation}
 
