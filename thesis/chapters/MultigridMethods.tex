@@ -10,7 +10,7 @@
 % TODO: define the linear problem Ax = b
 
 % Quick comparison to direct
-% TODO: fix the LU- QR- dash formatting if necessary. ALSO THIS SHOULD BE BEFORE THE SECTION ABOUT GMRES. (or maybe introduce multigrid first, then as preconditioner later?)
+% TODO: fix the LU- QR- dash formatting if necessary.
 For the solution of sparse linear systems, two distinct types of methods, iterative and direct methods, can be applied. For general purposes, direct methods usually utilize various decomposition or factorization techniques such as LU, QR, or Cholesky in order to achieve a solution to machine precision in a known finite amount of steps. The number of steps necessary for methods such as LU decomposition is $O(n^3)$, which is increasingly disadvantageous for ever larger linear systems that are arising form the applicaiton of finite element methods.
 
 % Advantages of relaxations: easy to implement, more general linear systems mgtut[23,24,26]
@@ -381,28 +381,28 @@ The entire algorithm presented is highly dependent on a proper choice of $\theta
 
 \section{Smoothed Aggregation Algebraic Multigrid}
 % TODO: cite Vanek
-Smoothed aggregation algebraic multigrid (SA-AMG) is a type of algebraic multigrid method which groups nodes together into aggregates to form the coarse-level problem, as opposed to including individual nodes in the fine- and coarse-grid sets. Similarly to AMG, forming these aggregates uses only algebraic information present in $A$, and the problem does not necessarily need to be represented on a geometric grid. Aggregation-based multigrid methods are introduced in Van\u{e}k, where tentative prolongation operators are chosen by an aggregation method which results in the operators meeting to certain requirements. These tentative operators are then finally smoothed in order to decrease the energy of the coarse level basis functions. The requirements that the prolongation operators should satisfy are:
+Smoothed aggregation algebraic multigrid (SA-AMG) is a type of algebraic multigrid method which groups nodes together into aggregates to form the coarse-level problem, as opposed to including individual nodes in the fine- and coarse-grid sets. Similarly to AMG, forming these aggregates uses only algebraic information present in $A$, and the problem does not necessarily need to be represented on a geometric grid. Aggregation-based multigrid methods have a different set of requirements for forming the prolongation operators introduced in Van\u{e}k. The tentative prolongation operators are chosen by an aggregation method which results in operators that meet these requirements. These tentative operators are then finally smoothed in order to decrease the energy of the coarse level basis functions. The requirements that the prolongation operators should satisfy are:
 
 \begin{itemize}
-	\item (C1) Supports of coarse basis functions follow strong couplings.
-	\item (C2) Bounded intersection.
-	\item (C3) Decomposition of unity.
-	\item (C4) Small Energy
-	\item (C5) Uniform $L^2$ equivalence
+	\item (AMG1) \textbf{Supports of coarse basis functions follow strong couplings.} Two nodes $i$ and $j$ are strongly coupled if the matrix coefficient $|a_{ij}|$ is large relative to $\sqrt{|a_{ii}a_{jj}|}$. This requirement is motivated for anisotropic problems so that semi-coarsening is achieved in the direction of anisotropy, meaning that coarse basis functions should be supported by strongly coupled nodes.
+	\item (AMG2) \textbf{Bounded intersection.} On a given level the support of each coarse basis function should intersect only a bounded number of supports of other basis functions. For a given bound on the number of intersecting supports $K$, the number of nonzeroes in $A_\ell$ is bounded by $K+1$, thus guaranteeing that the coarse level matrices remain sufficiently sparse to reduce computational costs.
+	\item (AMG3) \textbf{Coarse space contains zero energy modes.} This involves preserving the kernel or null space on the coarse levels, which for elasticity is the rigid body translations and rotations. Similar to AMG, the motivation for this is to replace the notion of geometrically smooth error for aggregation methods, where the smooth error components are characterized by a small residual, i.e $A_\ell\mathbf{e} \approx 0$, and should be transfered to the coarse grid, so the prolongator should accurately interpolate these modes.
+	\item (AMG4) \textbf{Small Energy.} The energy of each coarse basis function should be minimal so that condition number of the resulting operators is small, and to avoid transfering oscillator error components to the coarse level. %cite mandel1999
+	\item (AMG5) \textbf{Uniform $L^2$ equivalence.} The discrete $l^2$ and continuous $L^2$ norms should be equivalent on all coarse spaces.
 \end{itemize}
 
 \subsection{Aggregation}
-%     Startup aggregation
 The aggregation algorithm can be broken up into three parts, a first-pass aggregation, expansion of existing aggregate sets, and clean-up any remnants that may exist. A basic general form of aggregation is described in this section, but other aggregation algorithms exist for more specialized purposes. The idea of strong connections from AMG are combined with the neighborhood to define the strongly-coupled neighborhood for node $i$ on level $\ell$,
 
 \begin{equation}
+	\label{eq:strong_neighborhood}
 	N_i^\ell = \{ { j : |a_{ij} \geq \varepsilon \sqrt{|a_{ii} a_{jj} |}} \} \cup \{ i \},
 \end{equation}
 
 where $\varepsilon > 0$ is chosen to adjust the strength of couplings included in the set. Especially for anisotropic problems, the coarse basis functions should follow the direction of strong couplings. Algorithm~\ref{alg:aggregation} outlines the aggregation procedure introduced by Van\u{e}k in TODO:REF to group the nodes into aggregate sets which form a disjoint covering $\{C_i^\ell\}_{i=1}^{n_\ell + 1}$ of the set of nodes.
 % TODO ^ cite amg_unstructured_meshes
 
-Step 1 of the aggregation process attempts to cover as much of the nodes as possible with strongly copuled neighborhoods. However, an unaggregated node after this step could still contain part or all of its strongly-coupled neighborhood in other aggregates, and thus would be ignored as a part of a disjoint covering. Different coverings are possible depending on the order in which the neighborhoods are considered. Some more specialized algorithms will introduce minimum and maximum sizes for aggregates. One advantage of specifying this is to make the aggregate sizes more uniform. Additionally, the optimal size of aggregates in each dimension is 3, such that that the system matrix on the next level which are constructed from these aggregates are not too dense due to the overlapping of the coarse basis functions. Another consideration is that for many systems, such as elastisity problems, each node has multiple degrees of freedom. The aggregation algorithm should take into account that multiple degrees of freedom in the system matrix $A$ should be considered to be a part of one node, even if the nodes are Not on a geometric grid.
+Step 1 of the aggregation process attempts to cover as much of the nodes as possible with strongly copuled neighborhoods. However, an unaggregated node after this step could still contain part or all of its strongly-coupled neighborhood in other aggregates, and thus would be ignored as a part of a disjoint covering. Different coverings are possible depending on the order in which the neighborhoods are considered. Some more specialized algorithms introduce minimum and maximum sizes for aggregates. One advantage of specifying this is to make the aggregate sizes more uniform. Additionally, the optimal size of aggregates in each dimension is 3, such that that the system matrix on the next level which are constructed from these aggregates are not too dense due to the overlapping of the coarse basis functions. Step 2 of the aggregation checks if each remaining unaggregated node is strongly coupled to another aggregate, and then expands that aggregate to include the node. It is usually the case that these unaggregated nodes exist, because they are not directly in neighborhood as defined by a node $i$ in equation~\ref{eq:strong_neighborhood}, but still share nodes that are strongly coupled to both. In step 3 any still unaggregated nodes are grouped into a new aggregate with any nodes in their neighborhood which are also unaggregated. This can happen if the node is too isolated such that there is no strongly coupled connection to existing aggregates step 2. Overall, one consideration is that for many systems, such as elasticity problems, each node has multiple degrees of freedom. The aggregation algorithm should take into account that multiple degrees of freedom in the system matrix $A$ should be considered to be a part of one node, even when the nodes are not defined on a geometric grid.
 
 \begin{algorithm}
 	\caption{Aggregation}\label{alg:aggregation}
@@ -425,7 +425,7 @@ Step 1 of the aggregation process attempts to cover as much of the nodes as poss
 				\State $\tilde{C}_k^\ell \gets C_k^\ell$
 			\EndFor
 			\ForAll{$i \in R$} \Comment{For all unaggregated nodes in first pass}
-				\If{$\exists k \ni N_i^\ell \cap \tilde{C}_k^\ell \neq \emptyset$} \Comment{Exists aggregate to which it is strongly connected?}
+				\If{$\exists k \ni N_i^\ell \cap \tilde{C}_k^\ell \neq \emptyset$} \Comment{Exists aggregate to which it is strongly coupled?}
 					\State $C_k^\ell \gets C_k^\ell \cup \{ i \}$ \Comment{Enlarge the existing aggregate}
 					\State $R \gets R \setminus \{ i \} $
 				\EndIf
@@ -443,7 +443,8 @@ Step 1 of the aggregation process attempts to cover as much of the nodes as poss
 
 \subsection{Prolongation Operators}
 
-Once the degrees of freedom on a level have been aggregated, one choice for a tentative prolongation operator $\tilde{P}_\ell$ is to simply use
+Once the degrees of freedom on a level have been aggregated, if the problem is scalar, one choice for a tentative prolongation operator $\tilde{P}_\ell$ is to simply use
+
 \begin{equation}
 	\left(\tilde P_\ell \right)_{ij} =
 	\begin{cases}
@@ -452,18 +453,49 @@ Once the degrees of freedom on a level have been aggregated, one choice for a te
 	\end{cases}
 \end{equation}
 
-To 
-
+For systems of equations, such as elasticity problems, this tentative prolongator has to be formed by minimizing the energy in order to sastisy constraint (AMG3). This needs to be done by using the aggregates to define the sparsity pattern of $\tilde{P}_\ell$ while ensuring that near null space modes are transfered to the coarse level to be eliminated. For elasticity, on the finest level the null space dimension $n_{ns}$ is 3 in two dimensions, and 6 in three dimensions, consisting of the rigid body translations and rotations. The near null space $B_\ell \in \mathbb{R}^{n_\ell \times n_{ns}}$ satisfies $\tilde{A}_\ell B_\ell = 0$, where $\tilde{A}$ is the stiffness matrix without Dirichlet boundary conditions. Starting from the finest level, both the tentative prolongators as well the coarse near null space vectors can then be constructed at each level $\ell = 1, \ldots, L - 1$ by satisfying
+% TODO: cite gee2009
 % slow converging smooth error modes need to be minimized. Mandel 1999
-% Energy and QR stuff
 
-% Generate tentative prolongation operators
+\begin{equation}
+	\label{eq:prolongator_req}
+	\begin{aligned}
+	& B_\ell = \tilde{P}_\ell B_{\ell+1} \\
+	& \tilde{P}_\ell^\top \tilde{P}_\ell = I
+	\end{aligned}
+\end{equation}
+
+This can be done first by partitioning $B_\ell$ into $m$ sets of rows $B_\ell^k,\ k = 1, \ldots, m$ so that each set of rows corresponds to an aggregate. Because of the requirement from equation~\ref{eq:prolongator_req} that $P_\ell$ is orthogonal, a QR-decomposition is performed on each set $B_\ell^{k} = Q_\ell^k R_\ell^k$, where $Q_\ell^k \in \mathbb{R}^{n_k \times n_{ns}}$ is orthogonal and $R_\ell^k \in \mathbb{R}^{n_{ns} \times n_{ns}}$ is an upper triangular square matrix. Afterwards the individual $R_\ell^k$ matrices can be combined back as blocks to form $B_{\ell+1}$
+\begin{equation}
+	B_{k+1} =
+	\begin{pmatrix}
+		R_\ell^1 \\
+		R_\ell^2 \\
+		\vdots \\ 
+		R_\ell^m
+	\end{pmatrix}.
+\end{equation}
+The resulting $Q_\ell^k$ matrices are used to form the prologator of the next level by
+\begin{equation}
+	\tilde{P}_\ell = \text{diag}\left(Q_\ell^1, \ldots, Q_\ell^m\right) =
+	\begin{pmatrix}
+		Q_\ell^1 &          &        & \\
+		         & Q_\ell^2 &        & \\
+				 &          & \ddots & \\
+				 &          &        & Q_\ell^m
+	\end{pmatrix}.
+\end{equation}
+Because of the way that $B_\ell$ is initially partitioned into sets corresponding to aggregates, the sparsity pattern of $\tilde{P}_\ell$ is determined by the aggregates. It has a block diagonal structure, so the aggregates being a disjoint covering of the nodes helps to ensure the requirement (AMG2). A consideration for 3D elasticity problems in Van\u{e}k is that the finest level should have 3 degrees of freedom per node, but with 6 rigid body modes, the coarser levels have 6 degrees of freedom per node. Then if an aggregate does not contain two or more nodes, some of the tentative basis functions can be linearly dependent.
+%TODO: cite Vanek
+
 \subsection{Smoothing Prolongators}
+
+% After prolongation smoothing (C2) is useful to prevent more computational complexity resulting from smoothing
 %$$
 %     reduce energy of coarse basis functions [Vanek 193, 194]
 % Considerations for non-symm
 % Proofs of convergence found in parallel_smoothed_aggregation_multigrid's [13]
-% Mention filtered matrix for anisootropic (vanek - second and fourth ordered)
+% Mention filtered matrix for anisotropic (vanek - second and fourth ordered)
 \subsection{Convergence}
 
 \subsection{Implementation in Trilinos}
