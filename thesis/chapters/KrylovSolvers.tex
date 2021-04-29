@@ -1,4 +1,209 @@
-\chapter{Krylov Solvers}
+\chapter{Krylov Subspace Methods}
 \label{chapter:KrylovSolvers}
+\section{General Form of Krylov Subspace Methods}
+A Krylov subspace method is a projection method in which an solution $x_k$ is iteratively found from an affine subspace of dimension $m$ after starting from an initial guess $x_0$
+\begin{equation}
+    x_m \in x_0 + \mathcal{K}_m(A, r_0),
+\end{equation}
 
-\section{Krylov Solvers}
+where $\mathcal{K}_m(A, r_0)$ is the Krylov subspace
+
+\begin{equation}
+    \mathcal{K}_m(A, r_0) = \text{span}\left\{r_0, Ar_0, A^2r_0, \ldots, A^{m-1}r_0 \right\},
+\end{equation}
+
+and $r_0 = b - Ax_0$ is the residual.
+
+In projection methods, the residual vector for the improved guess $x_m$ is constrained to be orthogonal to the constraint subspace $\mathcal{L}$, that is
+
+\begin{equation}
+    \label{eq:constraint_space}
+    b - Ax_m \perp \mathcal{L}.
+\end{equation}
+
+Various choices of $\mathcal{L}$ for constraining the residual lead to methods discussed in this section, such as conjugate gradients (CG) where $\mathcal{L} = \mathcal{K}_m$, and generalized minimal residual (GMRES) where $\mathcal{L} = A\mathcal{K}_m$.
+
+\section{Arnoldi Iteration}
+An orthonormal basis for the Krylov subspace is helpful for the derivation of the various methods. One way to construct an orthonormal basis is through a modified Gram-Schmidt procedure known as Arnoldi's method. The idea is build up the basis one vector at a time from $v_1$. At each step, the vector $w_j = Av_j$ is orthonormalized with respect to all previous vectors $v_1, \ldots, v_{j-1}$. A numerically stable algorithm shown in algorithm~\ref{alg:arnoldi} is given in Saad~TODO:REF.
+
+\begin{algorithm}
+	\caption{Arnoldi's Method}\label{alg:arnoldi}
+	\begin{algorithmic}[1]
+		\Require{$|v_1| = 1$}
+        \Procedure{Arnoldi}{$v_1$}
+            \For{$j \gets 1, m$}
+                \State $w_j = A v_j$
+                \For{$i \gets 1, j$}
+                    \State $h_{ij} = \left(v_j, v_i\right)$
+                    \State $w_j \gets w_j - h_{ij}v_i$
+                \EndFor
+                \State $h_{j+1, j} = ||w_j||_2$
+                \If{$h_{j+1, j} = 0$}
+                    \State \textbf{stop.}
+                \EndIf
+                \State $v_{j+1} = w_j/h_{j+1, j}$
+            \EndFor
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+When the $m$ orthogonal basis vectors are arranged as the columns in a matrix $V_m \in \mathbb{R}^{n \times m}$, and $\bar{H}_m \in \mathbb{R}^{(m+1) \times m}$ is defined as the Hessenberg matrix which contains the entries $h_{ij}$ determined in algorithm~\ref{alg:arnoldi}, the following important relation can be shown:
+
+\begin{equation}
+    \label{eq:arnoldi_relation}
+    A V_m = V_{m+1}\bar{H}_m.
+\end{equation}
+
+Or equivalently, when $H_m$ is defined as $\bar{H}_m$ without the last row
+\begin{equation}
+    \label{eq:arnoldi_relation2}
+    V^\top_m A V_m = H_m.
+\end{equation}
+
+\section{GMRES}
+The GMRES method aims to minimize $||b - Ax||_2$ over all $x \in x_0 + \mathcal{K}_m $ with the Krylov subspace $\mathcal{K}_m$ generated with an orthonormalization process such as the Arnoldi method, with $v_1 = r_0/||r_0||_2$. However, the minimization problem is computationally expensive for large systems of equations, so changing the form of the minimization problem to be solved is essential. Given the matrix $V_m$ with columns consisting of the orthonormal basis vectors of $\mathcal{K}_m$, the columns of $V_m$ can be used in a linear combination to rewrite the minimization problem as
+
+\begin{equation}
+    \norm{b - Ax}_2  = \norm{b - A(x_0 + V_m y)}_2,
+\end{equation}
+
+where $y \in \mathbb{R}^m$.
+
+Since $r_0 = b-A x_0$ and the basis of $\mathcal{K}_m$ was formed with $r_0 = \beta v_1$, and $\norm{V_m}_2 = 1$, together with the relation from equation~\ref{eq:arnoldi_relation}, the following can be derived:
+
+\begin{equation}
+    \begin{aligned}
+        \norm{b - A(x_0 + V_m y)}_2 & = \norm{r_0 - A V_m y}_2 \\
+                                 & = \norm{\beta v_1 - A V_m y}_2 \\
+                                 & = \norm{\beta v_1 - V_{m+1}\bar{H}_m y}_2 \\
+                                 & = \norm{V_{m+1}\left(\beta e_1 - \bar{H}_m y \right)}_2 \\
+                                 & = \norm{\beta e_1 - \bar{H}_m y )}_2.
+    \end{aligned}
+\end{equation}
+
+Because $y \in \real^m$ where $m \leq n$, and $m$ can be chosen to be small, the minimization problem 
+
+\begin{equation}
+    y_m  = \operatorname*{argmin}_{y \in \real^m} \norm{\beta e_1 - \bar{H}_m y}_2
+\end{equation}
+
+is more feasible to solve than the original. This allows then the solution to be calculated by
+
+\begin{equation}
+    x_m = x_0 + V_m y_m.
+\end{equation}
+
+The full algorithm as described is shown in algorithm~\ref{alg:gmres}. There are multiple changes which can be made for robustness and efficiency. One is that the construction of an orthonormal basis can be done with a Householder transformation, which can perform better numerically in the presence of roundoff errors, but can be more expensive. The Householder transformation then results in the least-squares problem being a QR-decomposition. Other potential improvements can be made such as changing the minimization problem from upper Hessenberg to upper triangular form through the use of Givens rotations. Memory usage as well as computational requirements can increase if $m$ is chosen to be large. To alleviate this, the GMRES can be restarted multiple times, with the result $x_m$ from one pass being the initial guess $x_0$ for the next. Another variation is that the orthogonalization process can be incomplete so that the vectors $v_j$ are nearly orthogonal, and an approximate minimization can be performed, thereby saving memory and computation.
+
+\begin{algorithm}
+	\caption{GMRES}\label{alg:gmres}
+	\begin{algorithmic}[1]
+        \Procedure{GMRES}{$A, x_0, b$}
+            \State $r_0 \gets b-Ax_0$
+            \State $\beta \gets \norm{r_0}_2$
+            \State $v_1 \gets r0/\beta$
+            \For{$j \gets 1, m$} \Comment{Arnoldi's method with $v_1$ as normalized $r_0$}
+                \State $w_j \gets A v_j$
+                \For{$i \gets 1, j$}
+                    \State $h_{ij} \gets \left(w_j, v_i\right)$
+                    \State $w_j \gets w_j - h_{ij}v_i$
+                \EndFor
+                \State $h_{j+1, j} \gets \norm{w_j}_2$
+                \If{$h_{j+1, j} = 0$}
+                    \State $m \gets j$
+                    \State \textbf{break.}
+                \EndIf
+                \State $v_{j+1} \gets w_j/h_{j+1, j}$
+            \EndFor
+            \State $\bar{H}_m \gets \left\{h_{ij}\right\}_{1 \leq i \leq m+1, 1\leq j \leq m}$ \Comment{$\bar{H}_m \in \real^{m+1 \times m}$ is upper Hessenberg}
+            \State $y_m  \gets \operatorname*{argmin}_{y \in \real^m} \norm{\beta e_1 - \bar{H}_m y}_2$ \Comment{Reform the minimizaiton problem}
+            \State $V_m \gets \begin{pmatrix}
+                v_1, & \ldots, & v_m
+            \end{pmatrix}$ \Comment{$V_m$ is a matrix whose columns are the basis vectors}
+            \State $x_m \gets x_0 + V_m y_m$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+\section{Conjugate Gradients}
+% is also possible to derive the method using Arnoldi for symmetric systems (Lancoz)
+If $A$ is symmetric, a specialized version of Arnoldi's method known as the symmetric Lanczos algorithm can be used. The modification to Arnoldi's method comes from the fact that $H_m$ is a symmetric tridiagonal matrix when $A$ is symmetric. The left side of the relation from equation~\ref{eq:arnoldi_relation2} $V^\top_m A V_m$ is symmetric if $A$ is also symmetric. This makes $H_m$ tridiagonal, since it has only one lower diagonal. This means during the Arnoldi method, the basis vector $v_{j+1}$ relies only on $v_j$ and $v_{j-1}$, but it is still orthogonal to all previous vectors in exact arithmetic.
+
+For a symmetric tridiagonal $H_m$, a new notation is created by defining $a_j := h_{jj}$ and $\beta_j := h_{j-1, j}$, giving the recurrance
+
+\begin{equation}
+    v_{j+1} = \left(A v_j - \alpha_j v_j - \beta_j v_{j-1}\right)/\beta_{j+1}.
+\end{equation}
+
+Referring to the constraint for the residual for projection methods in equation~\ref{eq:constraint_space}, the constraint subspace for CG is $\mathcal{L} = \mathcal{K}_m$. This means that at a given update step $j$, $r_j$ should be orthogonal to all vectors in $\mathcal{K}_j$ but due to recurrance should be in $\mathcal{K}_{j+1}$, making it a multiple of $v_{j+1}$. This means that residuals should be orthogonal to all previously obtained residuals:
+
+\begin{equation}
+    r_i^\top r_j\ \text{for $i < j$}.
+\end{equation}
+
+If the residual is constrained as mentioned and the update is represented as a scaled update in a direction $p_j$ as $x_{j+1} = x_{j} + \alpha_j p_j$, then for any given update the corresponding update directions can be shown to be $A$-orthogonal. Given that 
+
+\begin{equation}
+	\alpha_{j-1}p_{j-1} = x_{j} - x_{j-1} \in \mathcal{K}_j,
+\end{equation} 
+
+and 
+
+\begin{equation}
+r_i - r_{i-1} \in \mathcal{K}_{i+1} \perp \mathcal{K}_j \text{for $j < i$}, 
+\end{equation}
+
+the following holds for all $j < i$:
+
+\begin{equation}
+    \label{eq:A_orth}
+    \begin{aligned}
+    \left(\alpha_{j-1}p_{j-1}\right)^\top& \left(r_i - r_{i-1}\right) = 0 \\
+    \left(\alpha_{j-1}p_{j-1}\right)^\top &\left(A \left(x_i - x_{i-1}\right)\right) = 0 \\
+    \left(p_{j-1}\right)^\top& A \left(p_{i-1}\right) = 0.
+    \end{aligned}
+\end{equation}
+
+The residual following the recurrance relation of
+\begin{equation}
+    r_{j+1} = r_j - \alpha_j A p_j
+\end{equation}
+
+and the orthogonality constraint for the residuals $\left( r_j - \alpha_j A p_j,\ r_j \right) = 0$  allows $\alpha_j$ to be calculated as
+
+\begin{equation}
+    \alpha_j = \frac{\left(r_j, r_j\right)}{\left(Ap_j, r_j\right)}.
+\end{equation}
+
+To determine the next search direction $p_{j+1}$, the residuals can be used in the Gram-Schmidt orthogonalization to give the recurrance
+
+\begin{equation}
+    p_{j+1} = r_{j+1} + \beta_j p_j.
+\end{equation}
+
+where $\beta_j$ can be calculated as such knowing that search directions are $A$-orthogonal from equation~\ref{eq:A_orth}:
+\begin{equation}
+    \beta_j = - \frac{\left(r_{j+1},\ Ap_j\right)}{\left(p_j,\ Ap_j\right)}.
+\end{equation}
+
+The full CG method is shown in ... TODO
+
+% A symmetric positive definite problem can be rewritten as a minimization of the energy in the quadratic form as
+
+% \begin{equation}
+%     f(x) = \frac{1}{2}x^\top A x - b^\top x \rightarrow min.
+% \end{equation}
+
+% If the method of steepest descent were used along the gradient of $\nabla f(x) = Ax-b$ would give an improvement of the approximation along a search direction of $p_0 = -r_0$, and the updated solution would be $x_1 = x_0 + \alpha_0 p_0$. However, a further improvement can be made to avoid searching in the same direction twice by requiring that all search directions are $A$-orthogonal to each other. This means that the residual vectors should satisfy the recurrance for the residual of
+% \begin{equation}
+%     \begin{aligned}
+%     r_{j+1} & = b - A x_{j+1}= b - A (x_j + \alpha_j p_j) \\
+%     & =  r_j - \alpha_j A p_j
+%     \end{aligned}
+% \end{equation}
+
+\section{Preconditioning}
+% changes the 
+% cannot be preconditioned by another Krylov method. Multigrid has shown to be very effective
+
+%\section{Trilinos}

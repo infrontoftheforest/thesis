@@ -21,7 +21,7 @@ In the Jacobi scheme, rearranging after the decomposition of $A$ gives the itera
 
 \begin{equation}
 	\begin{aligned}
-	\mathbf{x}^{(k+1)} &= D^{-1}(L + U)\mathbf{x}^{(k)} + D^{-1}\mathbf{b} \\ 
+	\mathbf{x}^{(k+1)} &= D^{-1}(L + U)\mathbf{x}^{(k)} + D^{-1}\mathbf{b} \\
 	                   &= R_J\mathbf{x}^{(k)} + D^{-1} \mathbf{b}
 	\end{aligned}
 \end{equation}
@@ -94,11 +94,11 @@ The sequence can be shown to converge if and only if $\rho\left( R \right) < 1$.
 % + convergence, spectral radius
 % + smooth, fourier modes, wavenumbers (for certain matrices)
 % + convergence rate of different error modes, smoothing property
-% 
+%
 
 \subsection{Smoothing Effect}
 
-An examination of the effects of relaxation methods on the different error components is necessary to understand the motivation of multigrid methods. 
+An examination of the effects of relaxation methods on the different error components is necessary to understand the motivation of multigrid methods.
 % TODO: cite Trottenberg?
 To show the effects of the relaxation methods on different error modes, as a concrete example, the weigted Jacobi method with $\omega = 2/3$ is used on the 1D Laplace equation with homogeneous Dirchlet boundary conditions is used as a model problem:
 
@@ -118,7 +118,7 @@ The eigenvectors $\mathbf{w}$ of $A$, equal to those of $R_{\omega}$ can be used
 	\mathbf{e}^{(0)} = \sum_{k=1}^{n-1}{c_{k}\mathbf{w}_{k}}
 \end{equation}
 
-For the model problem, the $j$-th component of each of these eigenvectors is given by 
+For the model problem, the $j$-th component of each of these eigenvectors is given by
 \begin{equation}
 	w_{k,j} = sin\left(\frac{jk\pi}{n}\right),\ 1 \leq k \leq n-1,\ 0 \leq j \leq n
 \end{equation}
@@ -146,7 +146,7 @@ which is a monotonically decreasing function in $k$ with a maximum of 1 if $k = 
 % - interpolation, restriction
 % - Two-grid scheme
 % - V-Cycle, other cycles, FMG
-% 
+%
 
 \subsection{Prolongation and Restriction}
 
@@ -168,7 +168,7 @@ This error after several smoothing iterations is not known, but it is still usef
 
 % TODO: talk a bit more about the P and R operators
 
-Solving the residual equation for the error and correcting the approximation is another approach to solving the original problem, and this can be done after transferring the smooth error from a fine grid with $n_h$ points to a coarser grid with $n_H$ points by means of some linear operator, forming the basis of what is known as a two-grid correction scheme. For mapping the error from the fine grid $\Omega_h$ to the coarse grid $\Omega_H$, the restriction operator $R : \mathbb{R}^{n_h} \rightarrow \mathbb{R}^{n_H}$ is defined such that $\mathbf{e}_H = R_h \mathbf{e}_h$. The corresponding prolongation operator $P : \mathbb{R}^{n_H} \rightarrow \mathbb{R}^{n_h}$ is used to map from coarse to fine. This is often chosen to be $P = R^\top$, known as Galerkin coarsening. The error on the fine level can be approximated as 
+Solving the residual equation for the error and correcting the approximation is another approach to solving the original problem, and this can be done after transferring the smooth error from a fine grid with $n_h$ points to a coarser grid with $n_H$ points by means of some linear operator, forming the basis of what is known as a two-grid correction scheme. For mapping the error from the fine grid $\Omega_h$ to the coarse grid $\Omega_H$, the restriction operator $R : \mathbb{R}^{n_h} \rightarrow \mathbb{R}^{n_H}$ is defined such that $\mathbf{e}_H = R_h \mathbf{e}_h$. The corresponding prolongation operator $P : \mathbb{R}^{n_H} \rightarrow \mathbb{R}^{n_h}$ is used to map from coarse to fine. This is often chosen to be $P = R^\top$, known as Galerkin coarsening. The error on the fine level can be approximated as
 
 \begin{equation}
 	\mathbf{e}_h \approx P_H \mathbf{e}_H,
@@ -183,9 +183,11 @@ leading to
 	\end{aligned}
 \end{equation}
 
-where the product known as the Galerkin projection 
+where the product known as the Galerkin projection
 
+% TODO: should it be R_H?
 \begin{equation}
+	\label{eq:Galerkin}
 	A_H := R_h A_h P_H
 \end{equation}
 
@@ -241,6 +243,7 @@ One of the most important properties of this two grid scheme is that the converg
 
 A natural progression is to not require an exact solution to the coarse-grid problem in Algorithm~\ref{alg:two_grid} line \ref{alg:two_grid_solve}, but instead recursively use the two-grid scheme on an even coarser grid. When some coarsest grid is reached, the problem will be small enough to quickly solve.
 
+%TODO: should it be L-1 levels?
 Using $L + 1$ increasingly coarser grids, $\Omega_{h_0}, \ldots, \Omega_{h_{\ell}}, \ldots, \Omega_{h_{L-1}}, \Omega_{h_L}$, the restriction and prolongation operators an be defined in accordance with which levels they map between: $I_{\ell-1}^\ell$ for restriction and $I_\ell^{\ell-1}$ for prolongation. Starting from the finest grid, the two-grid cycle can be performed recursively to refine the error. The amount of times the recursion is called at a particular level can be chosen with a paramter $\gamma$. This will result in a particular pattern through which the algorithm tranfers between grids. With $\gamma = 1$ a V-cycle is obtained, and with $\gamma = 2$ a W-cycle is obtained. This is detailed in Algorithm~\ref{alg:multigrid}.
 
 % Define algorithm
@@ -303,7 +306,7 @@ It is shown in Stüben for algebraically smooth error of symmetric M-matrices, t
 	\label{eq:strong_connection}
 \end{equation}
 
-This can be interpreted as such: if the first term is large, implying that the off-diagonal element is comparable to the diagonal element, then $e_i - e_j$ must be small, or in other words, the smooth error must vary slowly from $e_i$ to $e_j$. For two unknowns, a relatively large coefficient $a_{ij}$ means that $u_j$ has an important influence in determining $u_i$, meaning that the point $u_i$ has a strong dependence on $u_j$. Conversely $u_j$ is said to have a strong influence on $u_i$. 
+This can be interpreted as such: if the first term is large, implying that the off-diagonal element is comparable to the diagonal element, then $e_i - e_j$ must be small, or in other words, the smooth error must vary slowly from $e_i$ to $e_j$. For two unknowns, a relatively large coefficient $a_{ij}$ means that $u_j$ has an important influence in determining $u_i$, meaning that the point $u_i$ has a strong dependence on $u_j$. Conversely $u_j$ is said to have a strong influence on $u_i$.
 
 % TODO reword. i.e. full sentences
 Strength of Connection: Given a threshold $0 < \theta \leq 1$, we say that the variable $u_i$ \emph{strongly depends} on variable $u_j$ if
@@ -322,7 +325,7 @@ For the coarse grid, a subset of points need to be chosen such that the grid is 
 % TODO definition of "neighborhood" of i
 % TODO: change all h & 2h's
 \begin{equation}
-	(I_{2h}^h\mathbf{e})_i = 
+	(I_{2h}^h\mathbf{e})_i =
 		\begin{cases}
 			e_i & \text{if $i \in C$,} \\
 			\displaystyle \sum_{j \in C_i}{w_{ij}e_j} & \text{if $i \in F$,}
@@ -344,7 +347,7 @@ The sum can then be regrouped in terms of point $i$ and the three sets $C_i$, $D
 \end{equation}
 
 % TODO: elaborate why these approx can be made
-For points $j \in D_i^w$, $e_j$ can be grouped with $e_i$ and points in $D_i^s$ can be approximated by 
+For points $j \in D_i^w$, $e_j$ can be grouped with $e_i$ and points in $D_i^s$ can be approximated by
 
 \begin{equation}
 	e_j \approx \frac{\displaystyle \sum_{k \in C_i}{a_{jk}e_k}}{\displaystyle \sum_{k \in C_i}{a_{jk}}}.
@@ -377,7 +380,7 @@ The coarsening process which adheres to the two criteria is a two-pass algorithm
 % TODO: cite Falgout CiSE_2006_amg
 The entire algorithm presented is highly dependent on a proper choice of $\theta$ in Equation~\ref{eq:strong_connection2}. Falgout noted that an improper choice could lead to slower performance due to too many points being considered strong connections and resulting in too large of a coarse grid.
 
-% maybe developments in c-AMG since ruge-stueben? More research... glaze over it and cite a bunch of papers and their contributions? Then 
+% maybe developments in c-AMG since ruge-stueben? More research... glaze over it and cite a bunch of papers and their contributions? Then
 
 \section{Smoothed Aggregation Algebraic Multigrid}
 % TODO: cite Vanek
@@ -387,7 +390,7 @@ Smoothed aggregation algebraic multigrid (SA-AMG) is a type of algebraic multigr
 	\item (AMG1) \textbf{Supports of coarse basis functions follow strong couplings.} Two nodes $i$ and $j$ are strongly coupled if the matrix coefficient $|a_{ij}|$ is large relative to $\sqrt{|a_{ii}a_{jj}|}$. This requirement is motivated for anisotropic problems so that semi-coarsening is achieved in the direction of anisotropy, meaning that coarse basis functions should be supported by strongly coupled nodes.
 	\item (AMG2) \textbf{Bounded intersection.} On a given level the support of each coarse basis function should intersect only a bounded number of supports of other basis functions. For a given bound on the number of intersecting supports $K$, the number of nonzeroes in $A_\ell$ is bounded by $K+1$, thus guaranteeing that the coarse level matrices remain sufficiently sparse to reduce computational costs.
 	\item (AMG3) \textbf{Coarse space contains zero energy modes.} This involves preserving the kernel or null space on the coarse levels, which for elasticity is the rigid body translations and rotations. Similar to AMG, the motivation for this is to replace the notion of geometrically smooth error for aggregation methods, where the smooth error components are characterized by a small residual, i.e $A_\ell\mathbf{e} \approx 0$, and should be transfered to the coarse grid, so the prolongator should accurately interpolate these modes.
-	\item (AMG4) \textbf{Small Energy.} The energy of each coarse basis function should be minimal so that condition number of the resulting operators is small, and to avoid transfering oscillator error components to the coarse level. %cite mandel1999
+	\item (AMG4) \textbf{Small Energy.} The energy of each coarse basis function should be minimal so that condition number of the resulting operators is small, and to avoid transfering oscillatory error components to the coarse level. %cite mandel1999
 	\item (AMG5) \textbf{Uniform $L^2$ equivalence.} The discrete $l^2$ and continuous $L^2$ norms should be equivalent on all coarse spaces.
 \end{itemize}
 
@@ -396,13 +399,19 @@ The aggregation algorithm can be broken up into three parts, a first-pass aggreg
 
 \begin{equation}
 	\label{eq:strong_neighborhood}
-	N_i^\ell = \{ { j : |a_{ij} \geq \varepsilon \sqrt{|a_{ii} a_{jj} |}} \} \cup \{ i \},
+	N_i^\ell = \left\{ j : |a_{ij}| \geq \varepsilon \sqrt{|a_{ii} a_{jj} |} \right\} \cup \left\{ i \right\},
 \end{equation}
 
-where $\varepsilon > 0$ is chosen to adjust the strength of couplings included in the set. Especially for anisotropic problems, the coarse basis functions should follow the direction of strong couplings. Algorithm~\ref{alg:aggregation} outlines the aggregation procedure introduced by Van\u{e}k in TODO:REF to group the nodes into aggregate sets which form a disjoint covering $\{C_i^\ell\}_{i=1}^{n_\ell + 1}$ of the set of nodes.
+where $\varepsilon > 0$ is chosen to adjust the strength of couplings included in the set. Especially for anisotropic problems, the coarse basis functions should follow the direction of strong couplings, so choosing aggregates consisting of a strongly-coupled neighborhood helps to satisfy requirement (AMG1). Algorithm~\ref{alg:aggregation} outlines the aggregation procedure introduced by Van\u{e}k in TODO:REF to group the nodes into aggregate sets which form a disjoint covering $\{C_i^\ell\}_{i=1}^{n_\ell + 1}$ of the set of nodes.
 % TODO ^ cite amg_unstructured_meshes
 
-Step 1 of the aggregation process attempts to cover as much of the nodes as possible with strongly copuled neighborhoods. However, an unaggregated node after this step could still contain part or all of its strongly-coupled neighborhood in other aggregates, and thus would be ignored as a part of a disjoint covering. Different coverings are possible depending on the order in which the neighborhoods are considered. Some more specialized algorithms introduce minimum and maximum sizes for aggregates. One advantage of specifying this is to make the aggregate sizes more uniform. Additionally, the optimal size of aggregates in each dimension is 3, such that that the system matrix on the next level which are constructed from these aggregates are not too dense due to the overlapping of the coarse basis functions. Step 2 of the aggregation checks if each remaining unaggregated node is strongly coupled to another aggregate, and then expands that aggregate to include the node. It is usually the case that these unaggregated nodes exist, because they are not directly in neighborhood as defined by a node $i$ in equation~\ref{eq:strong_neighborhood}, but still share nodes that are strongly coupled to both. In step 3 any still unaggregated nodes are grouped into a new aggregate with any nodes in their neighborhood which are also unaggregated. This can happen if the node is too isolated such that there is no strongly coupled connection to existing aggregates step 2. Overall, one consideration is that for many systems, such as elasticity problems, each node has multiple degrees of freedom. The aggregation algorithm should take into account that multiple degrees of freedom in the system matrix $A$ should be considered to be a part of one node, even when the nodes are not defined on a geometric grid.
+Step 1 of the aggregation process attempts to cover as much of the nodes as possible with strongly copuled neighborhoods. However, an unaggregated node after this step could still contain part or all of its strongly-coupled neighborhood in other aggregates, and thus would be ignored as a part of a disjoint covering. Different coverings are possible depending on the order in which the neighborhoods are considered. Some more specialized algorithms introduce minimum and maximum sizes for aggregates. One advantage of specifying this is to make the aggregate sizes more uniform. Additionally, the optimal size of aggregates in each dimension is 3, such that that the system matrix on the next level which are constructed from these aggregates are not too dense due to the overlapping of the coarse basis functions.
+
+Step 2 of the aggregation checks if each remaining unaggregated node is strongly coupled to another aggregate, and then expands that aggregate to include the node. It is usually the case that these unaggregated nodes exist, because they are not directly in neighborhood as defined by a node $i$ in equation~\ref{eq:strong_neighborhood}, but still share nodes that are strongly coupled to both.
+
+In step 3 any still unaggregated nodes are grouped into a new aggregate with any nodes in their neighborhood which are also unaggregated. This can happen if the node is too isolated such that there is no strongly coupled connection to existing aggregates step 2. Overall, one consideration is that for many systems, such as elasticity problems, each node has multiple degrees of freedom. The aggregation algorithm should take into account that multiple degrees of freedom in the system matrix $A$ should be considered to be a part of one node, even when the nodes are not defined on a geometric grid.
+
+An example of this aggregation process is shown in figure~\ref{fig:aggregation_example}. On this example, the order in which the nodes were iterated through determined the distribution of aggregates after step 1. It is also possible that for a larger grid, the aggregates could be more tightly packed after step 1 if the nodes were considered in a different order.
 
 \begin{algorithm}
 	\caption{Aggregation}\label{alg:aggregation}
@@ -425,7 +434,7 @@ Step 1 of the aggregation process attempts to cover as much of the nodes as poss
 				\State $\tilde{C}_k^\ell \gets C_k^\ell$
 			\EndFor
 			\ForAll{$i \in R$} \Comment{For all unaggregated nodes in first pass}
-				\If{$\exists k \ni N_i^\ell \cap \tilde{C}_k^\ell \neq \emptyset$} \Comment{Exists aggregate to which it is strongly coupled?}
+				\If{$\exists k \ni N_i^\ell \cap \tilde{C}_k^\ell \neq \emptyset$} \Comment{Exists aggregate sharing part of the neighborhood?}
 					\State $C_k^\ell \gets C_k^\ell \cup \{ i \}$ \Comment{Enlarge the existing aggregate}
 					\State $R \gets R \setminus \{ i \} $
 				\EndIf
@@ -441,6 +450,44 @@ Step 1 of the aggregation process attempts to cover as much of the nodes as poss
 	\end{algorithmic}
 \end{algorithm}
 
+\begin{figure}
+\centering
+\begin{tikzpicture}[darkstyle/.style={circle,draw,fill=gray!40,minimum size=10}]
+	\foreach \x in {0,...,5}
+	  \foreach \y in {0,...,5}
+		 {\pgfmathtruncatemacro{\label}{\x - 5 *  \y +21}
+		%  \node [darkstyle]  (\x\y) at (1.5*\x,1.5*\y) {};}
+		 \node [darkstyle]  (\x\y) at (\x,\y) {};}
+
+	\foreach \x in {0,...,5}
+	  \foreach \y [count=\yi] in {0,...,4}
+		\draw (\x\y)--(\x\yi) (\y\x)--(\yi\x) ;
+	\fill[gray,opacity=0.4,cm={cos(45) ,-sin(45) ,sin(45) ,cos(45) ,(1 cm,4 cm)}] (1,1) -- (1,-1) -- (-1,-1) -- (-1,1) -- (1,1);
+	\fill[gray,opacity=0.4,cm={cos(45) ,-sin(45) ,sin(45) ,cos(45) ,(4 cm,4 cm)}] (1,1) -- (1,-1) -- (-1,-1) -- (-1,1) -- (1,1);
+	\fill[gray,opacity=0.4,cm={cos(45) ,-sin(45) ,sin(45) ,cos(45) ,(1 cm,1 cm)}] (1,1) -- (1,-1) -- (-1,-1) -- (-1,1) -- (1,1);
+	\fill[gray,opacity=0.4,cm={cos(45) ,-sin(45) ,sin(45) ,cos(45) ,(4 cm,1 cm)}] (1,1) -- (1,-1) -- (-1,-1) -- (-1,1) -- (1,1);
+
+  \end{tikzpicture}\hspace{1cm}%
+  \begin{tikzpicture}[darkstyle/.style={circle,draw,fill=gray!40,minimum size=10}]
+	\foreach \x in {0,...,5}
+	  \foreach \y in {0,...,5}
+		 {\pgfmathtruncatemacro{\label}{\x - 5 *  \y +21}
+		%  \node [darkstyle]  (\x\y) at (1.5*\x,1.5*\y) {};}
+		 \node [darkstyle]  (\x\y) at (\x,\y) {};}
+
+	\foreach \x in {0,...,5}
+	  \foreach \y [count=\yi] in {0,...,4}
+		\draw (\x\y)--(\x\yi) (\y\x)--(\yi\x) ;
+		\fill[gray,opacity=0.4] (-0.25,-0.25) rectangle (2.25, 2.25);
+		\fill[gray,opacity=0.4] (5.25,-0.25) rectangle (2.75, 2.25);
+		\fill[gray,opacity=0.4] (5.25, 5.25) rectangle (2.75, 2.75);
+		\fill[gray,opacity=0.4] (-0.25, 5.25) rectangle (2.25, 2.75);
+
+  \end{tikzpicture}
+  \caption{An example of the aggregation process for a graph where the strongly coupled nodes are in the pattern of a 5-point stencil. On the left, the nodes which have been aggregated after step 1 of the aggregation are shaded. At this step, there are no more nodes with a completely unaggregated strongly coupled neighborhood. On the right, the existing aggregates are expanded according to step 2. After this there are no more unaggregated nodes, so step 3 of the aggregation process is unnecessary.}
+  \label{fig:aggregation_example}
+\end{figure}
+
 \subsection{Prolongation Operators}
 
 Once the degrees of freedom on a level have been aggregated, if the problem is scalar, one choice for a tentative prolongation operator $\tilde{P}_\ell$ is to simply use
@@ -453,7 +500,7 @@ Once the degrees of freedom on a level have been aggregated, if the problem is s
 	\end{cases}
 \end{equation}
 
-For systems of equations, such as elasticity problems, this tentative prolongator has to be formed by minimizing the energy in order to sastisy constraint (AMG3). This needs to be done by using the aggregates to define the sparsity pattern of $\tilde{P}_\ell$ while ensuring that near null space modes are transfered to the coarse level to be eliminated. For elasticity, on the finest level the null space dimension $n_{ns}$ is 3 in two dimensions, and 6 in three dimensions, consisting of the rigid body translations and rotations. The near null space $B_\ell \in \mathbb{R}^{n_\ell \times n_{ns}}$ satisfies $\tilde{A}_\ell B_\ell = 0$, where $\tilde{A}$ is the stiffness matrix without Dirichlet boundary conditions. Starting from the finest level, both the tentative prolongators as well the coarse near null space vectors can then be constructed at each level $\ell = 1, \ldots, L - 1$ by satisfying
+This is insufficient for systems of equations, such as elasticity problems, where this tentative prolongator has to be formed by minimizing the energy in order to sastisy constraint (AMG3). This needs to be done by using the aggregates to define the sparsity pattern of $\tilde{P}_\ell$ while ensuring that near null space modes are transfered to the coarse level to be eliminated. For elasticity, on the finest level the null space dimension $n_{ns}$ is 3 in two dimensions, and 6 in three dimensions, consisting of the rigid body translations and rotations. The near null space $B_\ell \in \mathbb{R}^{n_\ell \times n_{ns}}$ satisfies $\tilde{A}_\ell B_\ell = 0$, where $\tilde{A}$ is the stiffness matrix without Dirichlet boundary conditions. Starting from the finest level, both the tentative prolongators as well the coarse near null space vectors can then be constructed at each level $\ell = 1, \ldots, L - 1$ by satisfying
 % TODO: cite gee2009
 % slow converging smooth error modes need to be minimized. Mandel 1999
 
@@ -465,17 +512,17 @@ For systems of equations, such as elasticity problems, this tentative prolongato
 	\end{aligned}
 \end{equation}
 
-This can be done first by partitioning $B_\ell$ into $m$ sets of rows $B_\ell^k,\ k = 1, \ldots, m$ so that each set of rows corresponds to an aggregate. Because of the requirement from equation~\ref{eq:prolongator_req} that $P_\ell$ is orthogonal, a QR-decomposition is performed on each set $B_\ell^{k} = Q_\ell^k R_\ell^k$, where $Q_\ell^k \in \mathbb{R}^{n_k \times n_{ns}}$ is orthogonal and $R_\ell^k \in \mathbb{R}^{n_{ns} \times n_{ns}}$ is an upper triangular square matrix. Afterwards the individual $R_\ell^k$ matrices can be combined back as blocks to form $B_{\ell+1}$
+This can be done first by partitioning $B_\ell$ into $m$ sets of rows $B_\ell^k,\ k = 1, \ldots, m$ so that each set of rows corresponds to an aggregate. Because of the requirement that $P_\ell$ is orthogonal, a QR-decomposition is performed on each set $B_\ell^{k} = Q_\ell^k R_\ell^k$, where $Q_\ell^k \in \mathbb{R}^{n_k \times n_{ns}}$ is orthogonal and $R_\ell^k \in \mathbb{R}^{n_{ns} \times n_{ns}}$ is an upper triangular square matrix. Afterwards the individual $R_\ell^k$ matrices can be combined back as blocks to form $B_{\ell+1}$
 \begin{equation}
-	B_{k+1} =
+	B_{\ell+1} =
 	\begin{pmatrix}
 		R_\ell^1 \\
 		R_\ell^2 \\
-		\vdots \\ 
+		\vdots \\
 		R_\ell^m
 	\end{pmatrix}.
 \end{equation}
-The resulting $Q_\ell^k$ matrices are used to form the prologator of the next level by
+The resulting $Q_\ell^k$ matrices are combined in a block diagonal matrix to form the prologator of the current level:
 \begin{equation}
 	\tilde{P}_\ell = \text{diag}\left(Q_\ell^1, \ldots, Q_\ell^m\right) =
 	\begin{pmatrix}
@@ -485,10 +532,35 @@ The resulting $Q_\ell^k$ matrices are used to form the prologator of the next le
 				 &          &        & Q_\ell^m
 	\end{pmatrix}.
 \end{equation}
-Because of the way that $B_\ell$ is initially partitioned into sets corresponding to aggregates, the sparsity pattern of $\tilde{P}_\ell$ is determined by the aggregates. It has a block diagonal structure, so the aggregates being a disjoint covering of the nodes helps to ensure the requirement (AMG2). A consideration for 3D elasticity problems in Van\u{e}k is that the finest level should have 3 degrees of freedom per node, but with 6 rigid body modes, the coarser levels have 6 degrees of freedom per node. Then if an aggregate does not contain two or more nodes, some of the tentative basis functions can be linearly dependent.
-%TODO: cite Vanek
+Because of the way that $B_\ell$ is initially partitioned into sets corresponding to aggregates, the sparsity pattern of $\tilde{P}_\ell$ is determined by the aggregates. It has a block diagonal structure, so the aggregates being a disjoint covering of the nodes helps to ensure the requirement (AMG2). A consideration for 3D elasticity problems in Van\u{e}k is that the finest level has 3 degrees of freedom per node, but with 6 rigid body modes, the coarser levels have 6 degrees of freedom per node. Then if an aggregate does not contain two or more nodes, some of the tentative basis functions can be linearly dependent. This can be avoided in the aggregation process by disallowing single node aggregates.
+%TODO: ^cite Vanek 2nd/4th order elliptic
 
 \subsection{Smoothing Prolongators}
+
+After the tentative prolongators have been constructed for each level, the energy of the discrete coarse basis functions corresponding to the columns of $\tilde{P}_\ell$ can be further reduced by smoothing to obtain the final prolongator $P_\ell$. This further improves the condition number at coarser levels and prevents oscillatory error modes from being transfered. As a simple choice the weighted Jacobi smoother can be used resulting in
+
+\begin{equation}
+	\label{eq:P_smoothing}
+	P_\ell = (I - \omega D^{-1}A_\ell)\tilde{P}_\ell.
+\end{equation}
+
+The smoothing will worsen the requirement (AMG2) by causing some overlap in the basis functions, but will improve requirement (AMG4) by reducing the energy. For anisotropic problems, the matrix used in smoothing can be filtered first to decrease the number of non-zeros as well as to improve coarsening in the direction of strong couplings. The filtered matrix can be defined as $A_\ell^F = \left(a_{ij}^F\right)$ where
+\begin{equation}
+	\begin{aligned}
+	a_{ij}^F &=
+	\begin{cases}
+		a_{ij} & \text{if $j \in N_i^\ell$} \\
+		0 & \text{otherwise}
+	\end{cases}, \text{if $i \neq j$}, \\
+	a_{ii}^F & =  a_{ii} - \displaystyle \sum_{j=1, j\neq i}^{n_\ell}{\left(a_{ij} - a_{ij}^F\right)}.
+	\end{aligned}
+\end{equation}
+
+After smoothing is complete, the remaining part of the process is to define the coarse-level problem on the next level $A_{\ell+1}$, after which the process can repeat until a maximum number of levels is reached or a sufficiently small coarse level problem is achieved. Once again, the Galerkin projection defined in equation~\ref{eq:Galerkin} with $R = P^\top$ can be used to define
+
+\begin{equation}
+	A_{\ell+1} = R_{\ell+1} A_\ell P_{\ell+1} = P_{\ell+1}^\top A_\ell P_{\ell+1}.
+\end{equation}
 
 % After prolongation smoothing (C2) is useful to prevent more computational complexity resulting from smoothing
 %$$
@@ -496,8 +568,11 @@ Because of the way that $B_\ell$ is initially partitioned into sets correspondin
 % Considerations for non-symm
 % Proofs of convergence found in parallel_smoothed_aggregation_multigrid's [13]
 % Mention filtered matrix for anisotropic (vanek - second and fourth ordered)
-\subsection{Convergence}
+% \subsection{Convergence}
 
 \subsection{Implementation in Trilinos}
 SA-AMG is implemented in the ML and MueLu packages in the Trilinos library.
-% Eventually... Parallelization
+
+% Talk about factories, and parallelization in parallel_smoothed_aggregation_multigrid by Tuminario
+% Talk about the user guide, etc.
+% Design considerations for a flexible multigrid preconditioning library by Gaidamour
