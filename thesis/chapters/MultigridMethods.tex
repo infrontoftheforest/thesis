@@ -11,11 +11,11 @@
 
 % Quick comparison to direct
 % TODO: fix the LU- QR- dash formatting if necessary.
-For the solution of sparse linear systems, two distinct types of methods, iterative and direct methods, can be applied. For general purposes, direct methods usually utilize various decomposition or factorization techniques such as LU, QR, or Cholesky in order to achieve a solution to machine precision in a known finite amount of steps. The number of steps necessary for methods such as LU decomposition is $O(n^3)$, which is increasingly disadvantageous for ever larger linear systems that are arising form the applicaiton of finite element methods.
+For the solution of sparse linear systems, two distinct types of methods, iterative and direct methods, can be applied. For general purposes, direct methods usually utilize various decomposition or factorization techniques such as LU, QR, or Cholesky in order to achieve a solution to machine precision in a known finite amount of steps. The number of steps necessary for methods such as LU decomposition is shown by Saad~\cite{Saad2003} to be $O(n^3)$, which is increasingly disadvantageous for ever larger linear systems that are arising form the applicaiton of finite element methods.
 
 % Advantages of relaxations: easy to implement, more general linear systems mgtut[23,24,26]
 % (cf. Axelsson [6], Hackbusch [86], Varga [200])
-Several variants of iterative methods exist, but for introducing and demonstrating the advantages multigrid methods, the focus will be on relaxation methods, such as Jacobi or Gauss-Seidel. These methods involve decomposition of the operator $A = D - L - U$ where $D$ is the diagonal of $A$, $-L$ is the strictly lower triangular part, and $-U$ is the strictly upper triangular part. The goal is then to use this decomposition to improve the starting guess $\mathbf{x}_{0}$, of the vector of unknowns $\mathbf{x}$ iteratively.
+Several variants of iterative methods exist, but for introducing and demonstrating the advantages multigrid methods, the focus will be on relaxation methods, such as Jacobi or Gauss-Seidel. These methods involve decomposition of the operator $A = D - L - U$ where $D$ is the diagonal of $A$, $-L$ is the strictly lower triangular part, and $-U$ is the strictly upper triangular part (cf. Saad~\cite{Saad2003}, Briggs et al.~\cite{Briggs2000}). The goal is then to use this decomposition to improve the starting guess $\mathbf{x}_{0}$, of the vector of unknowns $\mathbf{x}$ iteratively.
 
 In the Jacobi scheme, rearranging after the decomposition of $A$ gives the iteration scheme
 
@@ -78,7 +78,7 @@ and convergence of the iteration to the exact solution $\mathbf{x}^*$ can be obt
 % 	\mathbf{x^{(k+1)}} - \mathbf{x}^* = M^{-1}N\left(\mathbf{x}^{(k)} - \mathbf{x}^* \right) = \ldots = (M^{-1}N)^{k+1}\left(\mathbf{x}^{(0)} - \mathbf{x}^* \right).
 % \end{equation}
 
-The sequence can be shown to converge if and only if $\rho\left( R \right) < 1$. Without computing the spectral radius, which can be expensive, any matrix norm $|| R || < 1$ can be used as a sufficient convergence condition. For the Jacobi and Gauss-Seidel methods, it is also sufficient that $A$ is strictly or irreducibly diagonally dominant to converge for any $\mathbf{x}^{(0)}$, as is often the case with matrices obtained from the application of finite element methods. Additionally a strictly diagonally dominant matrix which is symmetric with positive diagonal entries is positive definite, and it is possible to show that for such SPD matrices Gauss-Seidel and SOR with $\omega \in (0, 2)$ will converge. %TODO cite Saad
+The sequence can be shown to converge if and only if $\rho\left( R \right) < 1$. Without computing the spectral radius, which can be expensive, any matrix norm $|| R || < 1$ can be used as a sufficient convergence condition. For the Jacobi and Gauss-Seidel methods, it is also sufficient that $A$ is strictly or irreducibly diagonally dominant to converge for any $\mathbf{x}^{(0)}$, as is often the case with matrices obtained from the application of finite element methods. Additionally a strictly diagonally dominant matrix which is symmetric with positive diagonal entries is positive definite, and it is possible to show that for such SPD matrices Gauss-Seidel and SOR with $\omega \in (0, 2)$ will converge (cf. Saad~\cite{Saad2003}). %TODO cite Saad
 
 % Disadvantages - Read Ch2
 
@@ -98,9 +98,7 @@ The sequence can be shown to converge if and only if $\rho\left( R \right) < 1$.
 
 \subsection{Smoothing Effect}
 
-An examination of the effects of relaxation methods on the different error components is necessary to understand the motivation of multigrid methods.
-% TODO: cite Trottenberg?
-To show the effects of the relaxation methods on different error modes, as a concrete example, the weigted Jacobi method with $\omega = 2/3$ is used on the 1D Laplace equation with homogeneous Dirchlet boundary conditions is used as a model problem:
+An examination of the effects of relaxation methods on the different error components is necessary to understand the motivation of multigrid methods. To show the effects of the relaxation methods on different error modes, as a concrete example, the weigted Jacobi method with $\omega = 2/3$ is used on the 1D Laplace equation with homogeneous Dirchlet boundary conditions is used as a model problem (cf. Trottenberg~\cite{Trottenberg2001}):
 
 \begin{equation}
 \begin{aligned}
@@ -118,7 +116,7 @@ The eigenvectors $\mathbf{w}$ of $A$, equal to those of $R_{\omega}$ can be used
 	\mathbf{e}^{(0)} = \sum_{k=1}^{n-1}{c_{k}\mathbf{w}_{k}}
 \end{equation}
 
-For the model problem, the $j$-th component of each of these eigenvectors is given by
+For the model problem, as shown by Briggs et al.~\cite{Briggs2000} the $j$-th component of each of these eigenvectors is given by
 \begin{equation}
 	w_{k,j} = sin\left(\frac{jk\pi}{n}\right),\ 1 \leq k \leq n-1,\ 0 \leq j \leq n
 \end{equation}
@@ -135,28 +133,26 @@ From this it can be seen that the error corresponding to the Fourier modes is re
 	\lambda_k(R_{\omega}) = 1 - 2\omega sin^2\left(\frac{k\pi}{2n}\right),\ 1 \leq k \leq n-1,
 \end{equation}
 
-which is a monotonically decreasing function in $k$ with a maximum of 1 if $k = 0$ were allowed. From this it can be inferred that although all error frequency components are reduced since $\lambda_k^m(R_{\omega}) < 1$ for all $k$, those with a low wavenumber $\left(k < \frac{n}{2}\right)$ and low frequency are reduced much more slowly due to the higher eigenvalue and these components will make up most of the error present after many iterations, while high-frequency $\left(k > \frac{n}{2}\right)$ error components will be much more effectively reduced. The error remaining will then be a combination of the low-frequency, or smooth, error modes, leading to this phenomenon being known as the \emph{smoothing effect}. For Gauss-Seidel iterations, although the eigenvectors of $R_G$ are not the same as $A$, Saad shows this same smoothing effect after a more difficult analysis. The smoothing effect is not the end of the usefulness of the relaxation-based methods, and the multigrid method focuses on introducing corrections to these slowly converging smooth error components.
+which is a monotonically decreasing function in $k$ with a maximum of 1 if $k = 0$ were allowed \cite{Briggs2000}. From this it can be inferred that although all error frequency components are reduced since $\lambda_k^m(R_{\omega}) < 1$ for all $k$, those with a low wavenumber $\left(k < \frac{n}{2}\right)$ and low frequency are reduced much more slowly due to the higher eigenvalue and these components will make up most of the error present after many iterations, while high-frequency $\left(k > \frac{n}{2}\right)$ error components will be much more effectively reduced. The error remaining will then be a combination of the low-frequency, or smooth, error modes, leading to this phenomenon being known as the \emph{smoothing effect}. For Gauss-Seidel iterations, although the eigenvectors of $R_G$ are not the same as $A$, Saad~\cite{Saad2003} shows this same smoothing effect after a more difficult analysis. The smoothing effect is not the end of the usefulness of the relaxation-based methods, and the multigrid method focuses on introducing corrections to these slowly converging smooth error components.
 
 %TODO mention intuition for high-frequency error and stencil spatial relationship for the discretization
 
 \section{Geometric Multigrid}
-% TODO: Move the residual equation later, talking about multiple grids, \emph{correction scheme}
 
 % - Coarse Grid Correction
 % - interpolation, restriction
 % - Two-grid scheme
 % - V-Cycle, other cycles, FMG
-%
 
 \subsection{Prolongation and Restriction}
 
-The key idea for overcoming the smoothing effect of relaxation schemes is to transfer the error to a coarser grid in which the low-frequency errors will appear to be more oscillatory, and relaxation methods would be more effective. The error for the approximate solution $\mathbf{x}^{(k)}$ is given by
+The key idea for overcoming the smoothing effect of relaxation schemes is to transfer the error to a coarser grid in which the low-frequency errors will appear to be more oscillatory, and relaxation methods would be more effective (\cite{Briggs2000}, \cite{Ruge1987}, \cite{Saad2003}). The error for the approximate solution $\mathbf{x}^{(k)}$ is given by
 
 \begin{equation}
 	\mathbf{e} = \mathbf{x}^* - \mathbf{x}^{(k)}.
 \end{equation}
 
-This error after several smoothing iterations is not known, but it is still useful to substitue into the equation for the residual for the given approximation $\mathbf{x}^{(k)}$, to obtain the \emph{residual equation}:
+This error after several smoothing iterations is not known, but it is still useful to substitue into the equation for the residual for the given approximation $\mathbf{x}^{(k)}$, to obtain the \emph{residual equation} \cite{Briggs2000}:
 
 \begin{equation}
 	\begin{aligned}
@@ -185,14 +181,13 @@ leading to
 
 where the product known as the Galerkin projection
 
-% TODO: should it be R_H?
 \begin{equation}
 	\label{eq:Galerkin}
 	A_H := R_h A_h P_H
 \end{equation}
 
-can be used to represent the system matrix on the coarse grid. The Galerkin projection has the advantages of not needing to re-discretize the system on the coarser grid, turning this into an automatic process for black-box solvers, as well as avoiding unreliable sampling of system coefficients when the grid is too coarse.
-%TODO ^ cite Wesseling p 82
+can be used to represent the system matrix on the coarse grid. The Galerkin projection has the advantages of not needing to re-discretize the system on the coarser grid, turning this into an automatic process for black-box solvers, as well as avoiding unreliable sampling of system coefficients when the grid is too coarse~\cite{Wesseling2004}.
+%^ Wesseling p 82
 
 As a simple example for a one-dimensional coarse grid with $n_H = \frac{n_h}{2} - 1$, linear interpolation would result in a prolongation operator with the form
 
@@ -214,8 +209,8 @@ The transpose of the linear interpolation $R_h = P_H^\top$ is known as full weig
 
 This leads to the formation of the two-grid correction scheme shown in Algorithm~\ref{alg:two_grid}. With an inital starting guess $\mathbf{x}_h$, relaxation can be done a total of $\nu_1$ times until the error is sufficiently smooth and improvements in the approxmation would be slow. The residual is then restricted to the coarse grid $\Omega_H$, in order to represent smooth error components as more oscillatory, and the residual equation is solved for the error $\mathbf{e}_H$ on the coarse grid. Solving for the error can be done with any number of methods, such as exactly with a direct solver. An approximate solution is also possible, for example, with another grid correction scheme, which will be discussed in the following section. The error can be prolongated back to the fine grid $\Omega_h$ and used to correct the fine-grid approximation. The prolongated error is not necessarily as smooth as on the coarse grid, so $\nu_2$ post-smoothing steps are performed.
 
-%TODO: ref An Introduction to Multigrid Methods by Pieter Wesseling pg. 12
-One of the most important properties of this two grid scheme is that the convergence rate can be shown to be independent of the grid spacing $h$. This is not the case for the smoothers which they are based on, whose convergence behaves as $1 - O(h^2)$. This is because decreasing the grid spacing for the previously discussed smoothers increases the eigenvalues of the error modes with the lowest wavenumbers, resulting in even slower convergence for the corresponding smooth components of the error.
+%Wesseling pg. 12
+One of the most important properties of this two grid scheme is that the convergence rate can be shown to be independent of the grid spacing $h$. This is not the case for the smoothers which they are based on, whose convergence behaves as $1 - O(h^2)$~\cite{Wesseling2004}. This is because decreasing the grid spacing for the previously discussed smoothers increases the eigenvalues of the error modes with the lowest wavenumbers, resulting in even slower convergence for the corresponding smooth components of the error.
 
 \begin{algorithm}
 	\caption{Two-Grid Correction Scheme}\label{alg:two_grid}
@@ -286,37 +281,30 @@ Using $L + 1$ increasingly coarser grids, $\Omega_{h_0}, \ldots, \Omega_{h_{\ell
 
 % Talk a bit more and mention primary sources as a general citation
 
-On an unstructured grid, the geometric approach cannot be applied as the formulation is dependent on the locations of the nodes of the grid. For a grid where the locations of the grid nodes are unknown, where they are unstructured, or where an arbitrary system of equations does not refer to a physical grid, an algebraic multrigrid (AMG) method can be used instead. Instead of relying on information about the geometry of the discretization, only information from the matrix $A$ is used to determine the prolongation and restriction operators.
-
-%TODO More on unstructured grid? Adjacency graphs
+On an unstructured grid, the geometric approach cannot be applied as the formulation is dependent on the locations of the nodes of the grid. For a grid where the locations of the grid nodes are unknown, where they are unstructured, or where an arbitrary system of equations does not refer to a physical grid, an algebraic multrigrid (AMG) method can be used instead. Instead of relying on information about the geometry of the discretization, only information from the matrix $A$ is used to determine the prolongation and restriction operators. AMG methods are shown in depth by Ruge~\cite{Ruge1987}, Briggs et al.~\cite{Briggs2000}, Falgout~\cite{Falgout2006}, and Stüben~\cite{Stuben1999}.
 
 \subsection{Algebraically Smooth Error}
 
-For algebraic multigrid, the general idea starts the same with choosing a subset of unknowns for coarsening. Similar to selecting a coarse grid in multigrid, the smooth error modes should be transfered to a coarse grid which accurately represents them, but this coarse grid must be defined algebraically. % TODO: IDK where i'm going with this -- reword it...
+For algebraic multigrid, the general idea starts the same with choosing a subset of unknowns for coarsening. Similar to selecting a coarse grid in multigrid, the smooth error modes should be transfered to a coarse grid which accurately represents them, but this coarse grid must be defined algebraically.
 
 In the geometric case, the dominant error components after relaxation have low frequencies and are considered to be smooth. This concept of smoothness can be generalized to the algebraic case by considering the algebraically smooth error to be any error which is slowly reduced by the relaxation method, which then must be corrected on the coarser levels, i.e. an error for which $ \|(I - R^{-1}A)\mathbf{e}^{(k)}\|_A \approx \| \mathbf{e}^{(k+1)}\|_A $.
 
-For relaxation schemes such as Jacobi, Gauss-Seidel, as well as their weighted variants, the smooth error is characterized by $ A\mathbf{e} \approx 0 $. Additionally, error components considered to be "smooth" can be more precisely defined as having a small residual comparable to the error. These smooth errors are the eigenvectors with the smallest eigenvalues and are in the near null space of $A$. These modes are damped the least by the relaxation scheme, so the coarse level correction should be effective for this error.
-%TODO cite cise-2006 amg - "near null space important" pg 4 as well as ruge1987
+For relaxation schemes such as Jacobi, Gauss-Seidel, as well as their weighted variants, the smooth error is characterized by $ A\mathbf{e} \approx 0 $. Additionally, error components considered to be "smooth" can be more precisely defined as having a small residual comparable to the error. These smooth errors are the eigenvectors with the smallest eigenvalues and are in the near null space of $A$. These modes are damped the least by the relaxation scheme, so the coarse level correction should be effective for this error (\cite{Falgout2006}, \cite{Ruge1987}).
+%falgout-2006 amg - "near null space important" pg 4 as well as ruge1987
 
-It is shown in Stüben for algebraically smooth error of symmetric M-matrices, the following holds:
+It is shown in Stüben~\cite{Stuben1999} for algebraically smooth error of symmetric M-matrices, the following holds:
 
 \begin{equation}
 	\sum_{i \neq j}{\frac{|a_{ij}|}{a_{ii}}\frac{(e_i - e_j)^2}{e_i^2}} \ll 1,\ 1 \leq i \leq n.
 	\label{eq:strong_connection}
 \end{equation}
 
-This can be interpreted as such: if the first term is large, implying that the off-diagonal element is comparable to the diagonal element, then $e_i - e_j$ must be small, or in other words, the smooth error must vary slowly from $e_i$ to $e_j$. For two unknowns, a relatively large coefficient $a_{ij}$ means that $u_j$ has an important influence in determining $u_i$, meaning that the point $u_i$ has a strong dependence on $u_j$. Conversely $u_j$ is said to have a strong influence on $u_i$.
-
-% TODO reword. i.e. full sentences
-Strength of Connection: Given a threshold $0 < \theta \leq 1$, we say that the variable $u_i$ \emph{strongly depends} on variable $u_j$ if
+This can be interpreted as such: if the first term is large, implying that the off-diagonal element is comparable to the diagonal element, then $e_i - e_j$ must be small, or in other words, the smooth error must vary slowly from $e_i$ to $e_j$. For two unknowns, a relatively large coefficient $a_{ij}$ means that $u_j$ has an important influence in determining $u_i$, meaning that the point $u_i$ has a strong dependence on $u_j$. Conversely $u_j$ is said to have a strong influence on $u_i$. To be specific about a the strength of the influence, Falgout~\cite{Falgout2006} gives the definition of the \emph{strength of connection}: Given a threshold $0 < \theta \leq 1$, $u_i$ \emph{strongly depends} on variable $u_j$ if
 
 \begin{equation}
 -a_{ij} \geq \theta \max_{k \neq i}{\{-a_{ik}\}}.
 \label{eq:strong_connection2}
 \end{equation}
-
-% re-word: it's directly from cise_2006
 
 \subsection{Interpolation Operator} %TODO: rename
 
@@ -333,7 +321,7 @@ For the coarse grid, a subset of points need to be chosen such that the grid is 
 	\label{eq:interpolation_operator}
 \end{equation}
 
-For determining the weights $w_{ij}$, the smooth error is characterized by its small residual $r = A\mathbf{e} \approx 0$, with one component of the residual being $r_i = \sum_{j}{a_{ij}e_j} = 0$. The only points to be concerned with are points in the \emph{neighborhood of i} $N_i$, which are the points that even have connection to point $i$, i.e. $a_{ij} \neq 0$. Defining $S_i$ as the set of all strong connections to point $i$, the residual can be reformulated by considering three types of neighboring points to $i$:
+For determining the weights $w_{ij}$, the smooth error is characterized by its small residual $r = A\mathbf{e} \approx 0$, with one component of the residual being $r_i = \sum_{j}{a_{ij}e_j} = 0$. The only points to be concerned with are points in the \emph{neighborhood of i} $N_i$, which are the points that even have connection to point $i$, i.e. $a_{ij} \neq 0$. Defining $S_i$ as the set of all strong connections to point $i$, the residual can be reformulated by considering three types of neighboring points to $i$ (cf. \cite{Briggs2000}):
 \begin{enumerate}
 	\item The set $C_i$ of C-points which strongly influence $i$, $C_i = C \cap S_i$, also called the \emph{coarse interpolatory set}
 	\item The set $D_i^s$ of F-points which strongly influence $i$, with $D_i = N_i - C_i$, and $D_i^s = D_i \cap S_i$, called strong noninterpolatory connections
@@ -362,8 +350,7 @@ Then the weights can be represented by
 
 \subsection{Coarse Grid} %TODO: rename
 
-Now that the interpolation operator has been defined, it is now necessary to determine which points will be in the coarse interpolatory set for each point on the fine grid. These points will make up the coarse grid. The approximation made in Equation~\ref{ej_approx} is more accurate the more strongly connected $j$ is to $i$, so this can be used as a heuristic criterion for choosing the coarse grid points. Another criterion is necessary to also limit the size of the coarse set. These two criteria are given by Stüben as:
-% TODO: reference Ruge/Stüben's defn of heuristics
+Now that the interpolation operator has been defined, it is now necessary to determine which points will be in the coarse interpolatory set for each point on the fine grid. These points will make up the coarse grid. The approximation made in Equation~\ref{ej_approx} is more accurate the more strongly connected $j$ is to $i$, so this can be used as a heuristic criterion for choosing the coarse grid points. Another criterion is necessary to also limit the size of the coarse set. These two criteria are given by Ruge and Stüben~\cite{Ruge1987} as:
 
 \begin{itemize}
 	\item (C1) For each $i \in F$, each point $j \in S_i$ should either be in $c$, or should be strongly connected to at least one point in $C_i$.
@@ -375,22 +362,17 @@ The criterion (C2) is motivated by limiting the amount of numerical work done on
 
 The coarsening process which adheres to the two criteria is a two-pass algorithm. The first pass is a quick preliminary partition of the grid into $C$- and $F$-points, while ensuring (C2) as well as possible. The second part consists of computing the weights for the interpolation operator while changing any intial $F$-points to $C$-points in order to satisfy (C1).
 
-% in discussion about the heuristics, talks about cise_2006 page 6 about bad performance and \theta param as perhaps a way to lead into aggregation, or not idk
-
-% TODO: cite Falgout CiSE_2006_amg
-The entire algorithm presented is highly dependent on a proper choice of $\theta$ in Equation~\ref{eq:strong_connection2}. Falgout noted that an improper choice could lead to slower performance due to too many points being considered strong connections and resulting in too large of a coarse grid.
-
-% maybe developments in c-AMG since ruge-stueben? More research... glaze over it and cite a bunch of papers and their contributions? Then
+The entire algorithm presented is highly dependent on a proper choice of $\theta$ in Equation~\ref{eq:strong_connection2}. Falgout~\cite{Falgout2006} noted that an improper choice could lead to slower performance due to too many points being considered strong connections and resulting in too large of a coarse grid.
 
 \section{Smoothed Aggregation Algebraic Multigrid}
 % TODO: cite Vanek
-Smoothed aggregation algebraic multigrid (SA-AMG) is a type of algebraic multigrid method which groups nodes together into aggregates to form the coarse-level problem, as opposed to including individual nodes in the fine- and coarse-grid sets. Similarly to AMG, forming these aggregates uses only algebraic information present in $A$, and the problem does not necessarily need to be represented on a geometric grid. Aggregation-based multigrid methods have a different set of requirements for forming the prolongation operators introduced in Van\u{e}k. The tentative prolongation operators are chosen by an aggregation method which results in operators that meet these requirements. These tentative operators are then finally smoothed in order to decrease the energy of the coarse level basis functions. The requirements that the prolongation operators should satisfy are:
+Smoothed aggregation algebraic multigrid (SA-AMG) is a type of algebraic multigrid method which groups nodes together into aggregates to form the coarse-level problem, as opposed to including individual nodes in the fine- and coarse-grid sets. Similarly to AMG, forming these aggregates uses only algebraic information present in $A$, and the problem does not necessarily need to be represented on a geometric grid. Aggregation-based multigrid methods have a different set of requirements for forming the prolongation operators, which are discussed in Van\v{e}k~(\cite{Vanek1996},~\cite{Vanek1996_unstruc}) and Mandel~\cite{Mandel1999}. The tentative prolongation operators are chosen by an aggregation method which results in operators that meet these requirements. These tentative operators are then finally smoothed in order to decrease the energy of the coarse level basis functions. The requirements that the prolongation operators should satisfy are (cf. \cite{Vanek1996_unstruc}):
 
 \begin{itemize}
 	\item (AMG1) \textbf{Supports of coarse basis functions follow strong couplings.} Two nodes $i$ and $j$ are strongly coupled if the matrix coefficient $|a_{ij}|$ is large relative to $\sqrt{|a_{ii}a_{jj}|}$. This requirement is motivated for anisotropic problems so that semi-coarsening is achieved in the direction of anisotropy, meaning that coarse basis functions should be supported by strongly coupled nodes.
 	\item (AMG2) \textbf{Bounded intersection.} On a given level the support of each coarse basis function should intersect only a bounded number of supports of other basis functions. For a given bound on the number of intersecting supports $K$, the number of nonzeroes in $A_\ell$ is bounded by $K+1$, thus guaranteeing that the coarse level matrices remain sufficiently sparse to reduce computational costs.
 	\item (AMG3) \textbf{Coarse space contains zero energy modes.} This involves preserving the kernel or null space on the coarse levels, which for elasticity is the rigid body translations and rotations. Similar to AMG, the motivation for this is to replace the notion of geometrically smooth error for aggregation methods, where the smooth error components are characterized by a small residual, i.e $A_\ell\mathbf{e} \approx 0$, and should be transfered to the coarse grid, so the prolongator should accurately interpolate these modes.
-	\item (AMG4) \textbf{Small Energy.} The energy of each coarse basis function should be minimal so that condition number of the resulting operators is small, and to avoid transfering oscillatory error components to the coarse level. %cite mandel1999
+	\item (AMG4) \textbf{Small Energy.} The energy of each coarse basis function should be minimal so that condition number of the resulting operators is small, and to avoid transfering oscillatory error components to the coarse level \cite{Mandel1999}.
 	\item (AMG5) \textbf{Uniform $L^2$ equivalence.} The discrete $l^2$ and continuous $L^2$ norms should be equivalent on all coarse spaces.
 \end{itemize}
 
@@ -402,8 +384,7 @@ The aggregation algorithm can be broken up into three parts, a first-pass aggreg
 	N_i^\ell = \left\{ j : |a_{ij}| \geq \varepsilon \sqrt{|a_{ii} a_{jj} |} \right\} \cup \left\{ i \right\},
 \end{equation}
 
-where $\varepsilon > 0$ is chosen to adjust the strength of couplings included in the set. Especially for anisotropic problems, the coarse basis functions should follow the direction of strong couplings, so choosing aggregates consisting of a strongly-coupled neighborhood helps to satisfy requirement (AMG1). Algorithm~\ref{alg:aggregation} outlines the aggregation procedure introduced by Van\u{e}k in TODO:REF to group the nodes into aggregate sets which form a disjoint covering $\{C_i^\ell\}_{i=1}^{n_\ell + 1}$ of the set of nodes.
-% TODO ^ cite amg_unstructured_meshes
+where $\varepsilon > 0$ is chosen to adjust the strength of couplings included in the set. Especially for anisotropic problems, the coarse basis functions should follow the direction of strong couplings, so choosing aggregates consisting of a strongly-coupled neighborhood helps to satisfy requirement (AMG1). Algorithm~\ref{alg:aggregation} outlines the aggregation procedure introduced by Van\v{e}k~\cite{Vanek1996_unstruc} to group the nodes into aggregate sets which form a disjoint covering $\{C_i^\ell\}_{i=1}^{n_\ell + 1}$ of the set of nodes.
 
 Step 1 of the aggregation process attempts to cover as much of the nodes as possible with strongly copuled neighborhoods. However, an unaggregated node after this step could still contain part or all of its strongly-coupled neighborhood in other aggregates, and thus would be ignored as a part of a disjoint covering. Different coverings are possible depending on the order in which the neighborhoods are considered. Some more specialized algorithms introduce minimum and maximum sizes for aggregates. One advantage of specifying this is to make the aggregate sizes more uniform. Additionally, the optimal size of aggregates in each dimension is 3, such that that the system matrix on the next level which are constructed from these aggregates are not too dense due to the overlapping of the coarse basis functions.
 
@@ -500,8 +481,7 @@ Once the degrees of freedom on a level have been aggregated, if the problem is s
 	\end{cases}
 \end{equation}
 
-This is insufficient for systems of equations, such as elasticity problems, where this tentative prolongator has to be formed by minimizing the energy in order to sastisy constraint (AMG3). This needs to be done by using the aggregates to define the sparsity pattern of $\tilde{P}_\ell$ while ensuring that near null space modes are transfered to the coarse level to be eliminated. For elasticity, on the finest level the null space dimension $n_{ns}$ is 3 in two dimensions, and 6 in three dimensions, consisting of the rigid body translations and rotations. The near null space $B_\ell \in \mathbb{R}^{n_\ell \times n_{ns}}$ satisfies $\tilde{A}_\ell B_\ell = 0$, where $\tilde{A}$ is the stiffness matrix without Dirichlet boundary conditions. Starting from the finest level, both the tentative prolongators as well the coarse near null space vectors can then be constructed at each level $\ell = 1, \ldots, L - 1$ by satisfying
-% TODO: cite gee2009
+This is insufficient for systems of equations, such as elasticity problems, where this tentative prolongator has to be formed by minimizing the energy in order to sastisy constraint (AMG3). This needs to be done by using the aggregates to define the sparsity pattern of $\tilde{P}_\ell$ while ensuring that near null space modes are transfered to the coarse level to be eliminated. For elasticity, on the finest level the null space dimension $n_{ns}$ is 3 in two dimensions, and 6 in three dimensions, consisting of the rigid body translations and rotations \cite{Gee2009}. The near null space $B_\ell \in \mathbb{R}^{n_\ell \times n_{ns}}$ satisfies $\tilde{A}_\ell B_\ell = 0$, where $\tilde{A}$ is the stiffness matrix without Dirichlet boundary conditions. Starting from the finest level, both the tentative prolongators as well the coarse near null space vectors can then be constructed at each level $\ell = 1, \ldots, L - 1$ by satisfying
 % slow converging smooth error modes need to be minimized. Mandel 1999
 
 \begin{equation}
@@ -512,7 +492,7 @@ This is insufficient for systems of equations, such as elasticity problems, wher
 	\end{aligned}
 \end{equation}
 
-This can be done first by partitioning $B_\ell$ into $m$ sets of rows $B_\ell^k,\ k = 1, \ldots, m$ so that each set of rows corresponds to an aggregate. Because of the requirement that $P_\ell$ is orthogonal, a QR-decomposition is performed on each set $B_\ell^{k} = Q_\ell^k R_\ell^k$, where $Q_\ell^k \in \mathbb{R}^{n_k \times n_{ns}}$ is orthogonal and $R_\ell^k \in \mathbb{R}^{n_{ns} \times n_{ns}}$ is an upper triangular square matrix. Afterwards the individual $R_\ell^k$ matrices can be combined back as blocks to form $B_{\ell+1}$
+This can be done through the process shown by Mandel et al.~\cite{Mandel1999} starting with partitioning $B_\ell$ into $m$ sets of rows $B_\ell^k,\ k = 1, \ldots, m$ so that each set of rows corresponds to an aggregate. Because of the requirement that $P_\ell$ is orthogonal, a QR-decomposition is performed on each set $B_\ell^{k} = Q_\ell^k R_\ell^k$, where $Q_\ell^k \in \mathbb{R}^{n_k \times n_{ns}}$ is orthogonal and $R_\ell^k \in \mathbb{R}^{n_{ns} \times n_{ns}}$ is an upper triangular square matrix. Afterwards the individual $R_\ell^k$ matrices can be combined back as blocks to form $B_{\ell+1}$
 \begin{equation}
 	B_{\ell+1} =
 	\begin{pmatrix}
@@ -532,8 +512,7 @@ The resulting $Q_\ell^k$ matrices are combined in a block diagonal matrix to for
 				 &          &        & Q_\ell^m
 	\end{pmatrix}.
 \end{equation}
-Because of the way that $B_\ell$ is initially partitioned into sets corresponding to aggregates, the sparsity pattern of $\tilde{P}_\ell$ is determined by the aggregates. It has a block diagonal structure, so the aggregates being a disjoint covering of the nodes helps to ensure the requirement (AMG2). A consideration for 3D elasticity problems in Van\u{e}k is that the finest level has 3 degrees of freedom per node, but with 6 rigid body modes, the coarser levels have 6 degrees of freedom per node. Then if an aggregate does not contain two or more nodes, some of the tentative basis functions can be linearly dependent. This can be avoided in the aggregation process by disallowing single node aggregates.
-%TODO: ^cite Vanek 2nd/4th order elliptic
+Because of the way that $B_\ell$ is initially partitioned into sets corresponding to aggregates, the sparsity pattern of $\tilde{P}_\ell$ is determined by the aggregates. It has a block diagonal structure, so the aggregates being a disjoint covering of the nodes helps to ensure the requirement (AMG2). A consideration for 3D elasticity problems in Van\v{e}k~\cite{Vanek1996} is that the finest level has 3 degrees of freedom per node, but with 6 rigid body modes, the coarser levels have 6 degrees of freedom per node. Then if an aggregate does not contain two or more nodes, some of the tentative basis functions can be linearly dependent. This can be avoided in the aggregation process by disallowing single node aggregates.
 
 \subsection{Smoothing Prolongators}
 
@@ -544,7 +523,7 @@ After the tentative prolongators have been constructed for each level, the energ
 	P_\ell = (I - \omega D^{-1}A_\ell)\tilde{P}_\ell.
 \end{equation}
 
-The smoothing will worsen the requirement (AMG2) by causing some overlap in the basis functions, but will improve requirement (AMG4) by reducing the energy. For anisotropic problems, the matrix used in smoothing can be filtered first to decrease the number of non-zeros as well as to improve coarsening in the direction of strong couplings. The filtered matrix can be defined as $A_\ell^F = \left(a_{ij}^F\right)$ where
+The smoothing will worsen the requirement (AMG2) by causing some overlap in the basis functions, but will improve requirement (AMG4) by reducing the energy. For anisotropic problems, the matrix used in smoothing can be filtered first to decrease the number of non-zeros as well as to improve coarsening in the direction of strong couplings (\cite{Gee2009}, \cite{Vanek1996}). The filtered matrix can be defined as $A_\ell^F = \left(a_{ij}^F\right)$ where
 \begin{equation}
 	\begin{aligned}
 	a_{ij}^F &=

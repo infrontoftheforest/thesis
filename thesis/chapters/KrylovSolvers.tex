@@ -24,7 +24,7 @@ In projection methods, the residual vector for the improved guess $x_m$ is const
 Various choices of $\mathcal{L}$ for constraining the residual lead to methods discussed in this section, such as conjugate gradients (CG) where $\mathcal{L} = \mathcal{K}_m$, and generalized minimal residual (GMRES) where $\mathcal{L} = A\mathcal{K}_m$.
 
 \section{Arnoldi Iteration}
-An orthonormal basis for the Krylov subspace is helpful for the derivation of the various methods. One way to construct an orthonormal basis is through a modified Gram-Schmidt procedure known as Arnoldi's method. The idea is build up the basis one vector at a time from $v_1$. At each step, the vector $w_j = Av_j$ is orthonormalized with respect to all previous vectors $v_1, \ldots, v_{j-1}$. A numerically stable algorithm shown in algorithm~\ref{alg:arnoldi} is given in Saad~TODO:REF.
+An orthonormal basis for the Krylov subspace is helpful for the derivation of the various methods. One way to construct an orthonormal basis is through a modified Gram-Schmidt procedure known as Arnoldi's method. The idea is build up the basis one vector at a time from $v_1$. At each step, the vector $w_j = Av_j$ is orthonormalized with respect to all previous vectors $v_1, \ldots, v_{j-1}$. A numerically stable algorithm shown in algorithm~\ref{alg:arnoldi} is given in Saad~\cite{Saad2003}.
 
 \begin{algorithm}
 	\caption{Arnoldi's Method}\label{alg:arnoldi}
@@ -102,7 +102,7 @@ The full algorithm as described is shown in algorithm~\ref{alg:gmres}. There are
             \State $r_0 \gets b-Ax_0$
             \State $\beta \gets \norm{r_0}_2$
             \State $v_1 \gets r0/\beta$
-            \For{$j \gets 1, m$} \Comment{Arnoldi's method with $v_1$ as normalized $r_0$}
+            \For{$j \gets 1, m$} \Comment{Arnoldi's method with $v_1$ as normalized $r_0$} \label{alg:gmres_arnoldi}
                 \State $w_j \gets A v_j$
                 \For{$i \gets 1, j$}
                     \State $h_{ij} \gets \left(w_j, v_i\right)$
@@ -126,7 +126,6 @@ The full algorithm as described is shown in algorithm~\ref{alg:gmres}. There are
 \end{algorithm}
 
 \section{Conjugate Gradients}
-% is also possible to derive the method using Arnoldi for symmetric systems (Lancoz)
 If $A$ is symmetric, a specialized version of Arnoldi's method known as the symmetric Lanczos algorithm can be used. The modification to Arnoldi's method comes from the fact that $H_m$ is a symmetric tridiagonal matrix when $A$ is symmetric. The left side of the relation from equation~\ref{eq:arnoldi_relation2} $V^\top_m A V_m$ is symmetric if $A$ is also symmetric. This makes $H_m$ tridiagonal, since it has only one lower diagonal. This means during the Arnoldi method, the basis vector $v_{j+1}$ relies only on $v_j$ and $v_{j-1}$, but it is still orthogonal to all previous vectors in exact arithmetic.
 
 For a symmetric tridiagonal $H_m$, a new notation is created by defining $a_j := h_{jj}$ and $\beta_j := h_{j-1, j}$, giving the recurrance
@@ -186,7 +185,25 @@ where $\beta_j$ can be calculated as such knowing that search directions are $A$
     \beta_j = - \frac{\left(r_{j+1},\ Ap_j\right)}{\left(p_j,\ Ap_j\right)}.
 \end{equation}
 
-The full CG method is shown in ... TODO
+The full resulting CG method is shown in algorithm~\ref{alg:cg}.
+
+\begin{algorithm}
+	\caption{CG}\label{alg:cg}
+	\begin{algorithmic}[1]
+        \Require $A$ is real and SPD
+        \Procedure{CG}{$A, x_0, b$}
+            \State $r_0 \gets b - Ax_0$
+            \State $p_0 \gets r_0$
+            \For{$j \gets 0, 1, \ldots, \text{until $r_j < \text{tolerance}$}$}
+                \State $\alpha_j \gets \left(r_j, r_j\right)/\left(Ap_j, p_j\right)$
+                \State $x_{j+1} \gets x_j + \alpha_j p_j$
+                \State $r_{j+1} \gets r_j - \alpha_j A p_j$
+                \State $\beta_j \gets \left(r_{j+1}, r_{j+1}\right)/\left(r_j, r_j\right)$
+                \State $p_{j+1} \gets r_{j+1} + \beta_j p_j$
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
 
 % A symmetric positive definite problem can be rewritten as a minimization of the energy in the quadratic form as
 
@@ -203,6 +220,29 @@ The full CG method is shown in ... TODO
 % \end{equation}
 
 \section{Preconditioning}
+
+The convergence of Krylov methods depends on the distrubtion of eigenvalues of $A$ as well as the condition number. Preconditioning can be applied to improve the properties of the linear system, enabling iterative methods to arrive at a solution in fewer steps. In left-preconditioning, the system is multiplied from the left by some matrix $M^{-1}$
+
+\begin{equation}
+    M^{-1}Ax = M^{-1}b,
+\end{equation}
+
+and in right-preconditioning it an be applied to the right of $A$ as
+
+\begin{equation}
+    A M^{-1} u = b,\ u:= Mx,
+\end{equation}
+
+where $M$ should ideally be close to $A$ such that $M^{-1}A$ is close to identity and has a better better distribution of eigenvalues and thus convergence rate. In practical implementations, the inverse $M^{-1}$ is expensive to directly compute, so the Krylov methods are adjusted to utilize the preconditioner, where every step has a linear system with $M$ that must be solved. In this situation, it is not necessary to explicity form $M^{-1}$ or even compute $M$, but rather the result of operating on a vector with $M^{-1}$ is needed \cite{Shewchuk1994}. This can be obtained from an iterative solution to the system by some non-Krylov method. In this thesis, preconditioning with SA-AMG methods is the focus.
+
+The GMRES method is left-preconditioned by starting with $r_0 = M^{-1}(b-Ax_0)$, and in the Arnoldi method (algorithm~\ref{alg:gmres} line~\ref{alg:gmres_arnoldi}) $w_j \gets M^{-1}Av_j$ is computed instead. The Krylov subspace constructed is then
+
+\begin{equation}
+    \mathcal{K}_m = \text{span}\left\{r_0, M^{-1}Ar_0, \ldots, \left(M^{-1}A\right)^{m-1}r_0\right\}.
+\end{equation}
+
+Right-preconditioned GMRES
+
 % changes the 
 % cannot be preconditioned by another Krylov method. Multigrid has shown to be very effective
 
