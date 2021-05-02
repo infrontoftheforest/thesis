@@ -1,0 +1,353 @@
+
+****************************************
+*                                      *
+*           T A R T A R O S            *
+*                                      *
+*                                      *
+*            revision    -1            *
+*           parallel version           *
+*             fast version             *
+*                                      *
+*    Professur  fuer  Mechanik  auf    *
+*       Hoechstleistungsrechnern       *
+*                 MHPC                 *
+*   Technische Universitaet Muenchen   *
+*                                      *
+****************************************
+
+Tartaros SHA1: 5aaf084b3f0f157b4916bf973cf4954332c64ca5
+Trilinos SHA1: 
+Total number of processors: 30
+input is read from     beam_ratio_10_ele_300000.dat
+errors are reported to beam_ratio_10_ele_3000000.err
+Entering jumbo reading mode for structure discretization ...
+Read, create and partition elements      in....
+numele 297910 nblock 30 bsize 9930
+ele block 0 reading 8.28243e-02 secs / distrib time 2.65302e-03 secs
+ele block 1 reading 9.03331e-02 secs / distrib time 8.34812e-02 secs
+ele block 2 reading 9.14359e-02 secs / distrib time 8.69219e-02 secs
+ele block 3 reading 8.83564e-02 secs / distrib time 6.70691e-02 secs
+ele block 4 reading 8.97662e-02 secs / distrib time 9.01361e-02 secs
+ele block 5 reading 9.11118e-02 secs / distrib time 7.07837e-02 secs
+ele block 6 reading 9.22825e-02 secs / distrib time 8.55199e-02 secs
+ele block 7 reading 9.24034e-02 secs / distrib time 8.83112e-02 secs
+ele block 8 reading 9.38482e-02 secs / distrib time 8.88854e-02 secs
+ele block 9 reading 9.53520e-02 secs / distrib time 8.98565e-02 secs
+ele block 10 reading 9.63684e-02 secs / distrib time 9.69187e-02 secs
+ele block 11 reading 9.70164e-02 secs / distrib time 7.64372e-02 secs
+ele block 12 reading 9.76286e-02 secs / distrib time 7.72170e-02 secs
+ele block 13 reading 9.80769e-02 secs / distrib time 9.04088e-02 secs
+ele block 14 reading 9.70820e-02 secs / distrib time 9.30135e-02 secs
+ele block 15 reading 1.07728e-01 secs / distrib time 9.52646e-02 secs
+ele block 16 reading 9.80682e-02 secs / distrib time 9.48337e-02 secs
+ele block 17 reading 9.99758e-02 secs / distrib time 9.29204e-02 secs
+ele block 18 reading 9.88528e-02 secs / distrib time 9.49855e-02 secs
+ele block 19 reading 1.01237e-01 secs / distrib time 8.24657e-02 secs
+ele block 20 reading 1.01975e-01 secs / distrib time 9.47645e-02 secs
+ele block 21 reading 1.00266e-01 secs / distrib time 9.49933e-02 secs
+ele block 22 reading 1.00992e-01 secs / distrib time 8.02655e-02 secs
+ele block 23 reading 9.99977e-02 secs / distrib time 9.48669e-02 secs
+ele block 24 reading 1.00552e-01 secs / distrib time 8.27189e-02 secs
+ele block 25 reading 1.03429e-01 secs / distrib time 9.62596e-02 secs
+ele block 26 reading 1.00950e-01 secs / distrib time 9.54196e-02 secs
+ele block 27 reading 1.01164e-01 secs / distrib time 8.38792e-02 secs
+ele block 28 reading 1.03424e-01 secs / distrib time 1.00220e-01 secs
+ele block 29 reading 1.00826e-01 secs / distrib time 1.02495e-01 secs
+parmetis:
+parmetis max nodal bandwith 27
+ZOLTAN Load balancing method = 10 (HYPERGRAPH)
+Graph rebalancing:    3.21275e+00 secs
+............................................... 9.44653e+00 secs
+Read, create and partition nodes
+numnode 318464 nblock 30 bsize 10615
+block 0 reading 6.92154e-02 secs / distrib 7.20995e-03 secs
+block 1 reading 6.93861e-02 secs / distrib 1.74423e-02 secs
+block 2 reading 6.79789e-02 secs / distrib 1.83254e-02 secs
+block 3 reading 6.89463e-02 secs / distrib 1.78166e-02 secs
+block 4 reading 6.86951e-02 secs / distrib 1.97821e-02 secs
+block 5 reading 6.88865e-02 secs / distrib 1.91693e-02 secs
+block 6 reading 6.94514e-02 secs / distrib 1.95739e-02 secs
+block 7 reading 6.94992e-02 secs / distrib 1.91765e-02 secs
+block 8 reading 6.93231e-02 secs / distrib 2.15784e-02 secs
+block 9 reading 6.91429e-02 secs / distrib 2.07938e-02 secs
+block 10 reading 6.93758e-02 secs / distrib 2.24591e-02 secs
+block 11 reading 6.95015e-02 secs / distrib 2.13093e-02 secs
+block 12 reading 6.94510e-02 secs / distrib 2.20787e-02 secs
+block 13 reading 6.95447e-02 secs / distrib 1.76203e-02 secs
+block 14 reading 4.91217e-02 secs / distrib 1.84697e-02 secs
+block 15 reading 4.89063e-02 secs / distrib 1.76754e-02 secs
+block 16 reading 4.88493e-02 secs / distrib 1.95362e-02 secs
+block 17 reading 4.88226e-02 secs / distrib 1.73757e-02 secs
+block 18 reading 4.98145e-02 secs / distrib 1.90073e-02 secs
+block 19 reading 4.90351e-02 secs / distrib 1.91756e-02 secs
+block 20 reading 4.90612e-02 secs / distrib 1.83630e-02 secs
+block 21 reading 4.94739e-02 secs / distrib 1.91694e-02 secs
+block 22 reading 4.93221e-02 secs / distrib 1.82728e-02 secs
+block 23 reading 4.94015e-02 secs / distrib 2.00320e-02 secs
+block 24 reading 4.95207e-02 secs / distrib 1.88117e-02 secs
+block 25 reading 4.93823e-02 secs / distrib 1.98182e-02 secs
+block 26 reading 4.92580e-02 secs / distrib 1.65527e-02 secs
+block 27 reading 5.04470e-02 secs / distrib 2.16551e-02 secs
+block 28 reading 4.96459e-02 secs / distrib 1.93572e-02 secs
+block 29 reading 4.99094e-02 secs / distrib 2.19519e-02 secs
+in............................................. 2.40509e+00 secs
+Complete discretization structure        in....+--------------------------------------------------+
+| FillComplete() on discretization structure       |
++--------------------------------------------------+
+0.0528859 secs
+
+   Discretization: structure
+   +-----+---------------+--------------+-----------------+----------------+
+   | PID |  n_rownodes   | n_ghostnodes |  n_rowelements  |   n_ghostele   |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   0 |         11303 |         2030 |           10194 |           1112 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   1 |          7810 |         1639 |            7623 |            299 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   2 |         11303 |         2291 |           10611 |            968 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   3 |         11303 |         2478 |           10198 |           1460 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   4 |         11244 |         2569 |           11086 |            706 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   5 |         11245 |         2768 |           10646 |           1133 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   6 |         11349 |         2256 |           10109 |           1631 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   7 |         11349 |         2315 |           10559 |           1188 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   8 |         11325 |         2341 |           10887 |            885 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   9 |         11324 |         2674 |           10997 |            785 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  10 |         11418 |         2204 |           10526 |           1127 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  11 |         11418 |         2504 |           10230 |           1816 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  12 |         11326 |         2187 |           10445 |           1202 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  13 |         11326 |         2254 |           11203 |            474 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  14 |         10841 |         2210 |           10722 |            479 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  15 |         11406 |         2344 |           10180 |           1639 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  16 |         11114 |         2452 |           10435 |           1150 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  17 |         10861 |         2286 |           10345 |            853 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  18 |         11366 |         2460 |           10108 |           1781 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  19 |         10370 |         1987 |            9759 |            936 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  20 |          8840 |         1801 |            8674 |            442 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  21 |         10797 |         2159 |            9516 |           1659 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  22 |          8414 |         1792 |            8331 |            392 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  23 |          7437 |         1849 |            7347 |            423 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  24 |         10638 |         2175 |            9687 |           1340 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  25 |         10481 |         2143 |            9719 |           1069 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  26 |         10459 |         2323 |           10177 |            801 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  27 |         10877 |         2224 |            9901 |           1373 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  28 |          8226 |         1379 |            7755 |            364 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  29 |         11294 |         1924 |            9940 |           1459 |
+   +-----+---------------+--------------+-----------------+----------------+
+
+Read/generate conditions                          in....0.642868 secs
+
+Total CPU Time for INPUT:       2.018e+01  sec 
+
++--------------------------------------------------+
+| FillComplete() on discretization structure       |
+| AssignDegreesOfFreedom() ...                     |
+| InitializeElements() ...                         |
+| BoundaryConditionsGeometry() ...                 |
++--------------------------------------------------+
+default parameters in list 'DAT FILE->STRUCTURAL DYNAMIC':
+    PRESTRESS                       none
+    PRESTRESSTIME                   0.000e+00
+    RESEVRYERGY                     0
+    RESTARTATEND                    No
+    TIMEINIT                        0.000e+00
+    DYNAMIC_RELAXATION              No
+    DYNRELAX_MIN_STEP               0
+    DAMPK_FUNCT                     -1
+    DAMPM_FUNCT                     -1
+    DAMPS_FUNCT                     -1
+    TIME_FUNCT                      -1
+    ENERGY_STOP                     -1.000e+00
+    TOLPRE                          1.000e-08
+    NORM_PRES                       Abs
+    TOLINCO                         1.000e-08
+    NORM_INCO                       Abs
+    NORMCOMBI_DISPPRES              And
+    NORMCOMBI_RESFINCO              And
+    STC_SCALING                     no
+    STC_LAYER                       1
+    PTCDT                           1.000e-01
+    PTCDTDT                         1.000e+00
+    TOLCONSTRINCR                   1.000e-08
+    MINITER                         0
+    ITERNORM                        L2
+    DIVERCONT                       stop
+    MAXDIVCONREFINEMENTLEVEL        10
+    LSMAXITER                       30
+    ALPHA_LS                        5.000e-01
+    SIGMA_LS                        1.000e-04
+    MATERIALTANGENT                 analytical
+    CONTROLTYPE                     load
+    CONTROLNODE                     -1 -1 -1
+    LOADLIN                         No
+    MASSLIN                         No
+    NEGLECTINERTIA                  No
+    UZAWATOL                        1.000e-08
+    LUMPMASS                        No
+    MODIFIEDEXPLEULER               Yes
+    YOUNG_IS_TEMP_DEPENDENT         No
+    GEOMETRY                        full
+
+Welcome to Structural Time Integration 
+     __o__                          __o__
+__  /-----\__                  __  /-----\__
+\ \/       \ \    |       \    \ \/       \ \
+ \ |  tea  | |    |-------->    \ |  tea  | |
+  \|       |_/    |       /      \|       |_/
+    \_____/   ._                   \_____/   ._ _|_ /|
+              | |                            | | |   |
+
+with statics
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 3.174e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     3.83911e-04     1.10303e-01     7.70e+02  1.67e+01
+      2     8.56673e-09     2.36836e-06     7.63e+02  6.09e-01
+Finalised step 1 / 10 | time 1.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.55e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 3.174e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     3.83911e-04     1.10303e-01     7.58e+02  6.09e-01
+      2     8.52491e-09     2.36836e-06     7.63e+02  6.09e-01
+Finalised step 2 / 10 | time 2.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.52e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 3.174e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     3.83911e-04     1.10303e-01     7.58e+02  6.08e-01
+      2     8.52738e-09     2.36836e-06     7.58e+02  5.98e-01
+Finalised step 3 / 10 | time 3.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.52e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 3.174e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     3.83911e-04     1.10303e-01     7.60e+02  6.07e-01
+      2     8.53398e-09     2.36836e-06     7.59e+02  6.10e-01
+Finalised step 4 / 10 | time 4.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.52e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 3.174e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     3.83911e-04     1.10303e-01     7.58e+02  6.11e-01
+      2     8.55658e-09     2.36836e-06     7.60e+02  1.07e+00
+Finalised step 5 / 10 | time 5.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.52e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 3.174e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     3.83911e-04     1.10303e-01     7.58e+02  1.01e+00
+      2     8.53676e-09     2.36836e-06     7.63e+02  6.13e-01
+Finalised step 6 / 10 | time 6.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.52e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 3.174e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     3.83911e-04     1.10303e-01     7.60e+02  6.12e-01
+      2     8.58991e-09     2.36836e-06     7.58e+02  1.05e+00
+Finalised step 7 / 10 | time 7.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.52e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 3.174e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     3.83911e-04     1.10303e-01     7.58e+02  6.01e-01
+      2     8.55973e-09     2.36836e-06     7.60e+02  6.01e-01
+Finalised step 8 / 10 | time 8.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.52e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 3.174e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     3.83911e-04     1.10303e-01     7.62e+02  9.55e-01
+      2     8.51976e-09     2.36836e-06     7.63e+02  6.02e-01
+Finalised step 9 / 10 | time 9.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.53e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 3.174e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     3.83911e-04     1.10303e-01     7.58e+02  6.01e-01
+      2     8.52761e-09     2.36836e-06     7.60e+02  6.01e-01
+Finalised step 10 / 10 | time 1.000e+00 | dt 1.000e-01 | numiter 2 | wct 1.52e+03
+--------------------------------------------------------------------------------
+
+
+Checking results of 0 tests:
+
+OK (0)
+===================================================================================================================================================
+
+                                                      TimeMonitor results over 30 processors
+
+Timer Name                                               MinOverProcs          MeanOverProcs         MaxOverProcs         MeanOverCallCounts       
+---------------------------------------------------------------------------------------------------------------------------------------------------
+ADAPTER::StructureTimIntBaseAlgorithm::SetupStructure    0.3924 (1)            0.4528 (1)            0.4787 (1)           0.4528 (1)               
+DRT::Discretization::Evaluate                            27.04 (50)            38.2 (50)             53.11 (50)           0.7641 (50)              
+DRT::Discretization::Evaluate LocationVector             0.8186 (3.885e+05)    3.958 (5.481e+05)     10.02 (6.023e+05)    7.222e-06 (5.481e+05)    
+DRT::Discretization::Evaluate PreEvaluate                0.000282 (50)         0.01396 (50)          0.1477 (50)          0.0002792 (50)           
+DRT::Discretization::Evaluate Resize                     0.2751 (3.961e+05)    0.4304 (5.481e+05)    0.5125 (5.89e+05)    7.853e-07 (5.481e+05)    
+DRT::Discretization::Evaluate assemble                   2.599 (3.961e+05)     4.359 (5.481e+05)     6.764 (5.653e+05)    7.954e-06 (5.481e+05)    
+DRT::Discretization::Evaluate elements                   18.71 (3.961e+05)     28.26 (5.481e+05)     37.21 (5.886e+05)    5.156e-05 (5.481e+05)    
+DRT::Discretization::SetState                            1.767 (151)           3.147 (151)           4.791 (151)          0.02084 (151)            
+LINALG::Solver:  0)   TranslateSolverParameters          1.247e-05 (1)         2.23e-05 (1)          5.531e-05 (1)        2.23e-05 (1)             
+LINALG::Solver:  1)   Setup                              3.082 (20)            3.628 (20)            3.793 (20)           0.1814 (20)              
+---------------------------------------------------------------------------------------------------------------------------------------------------
+LINALG::Solver:  2)   Solve                              1.35e+04 (20)         1.498e+04 (20)        1.52e+04 (20)        748.8 (20)               
+LINALG::SparseMatrix::Complete                           0.282 (30)            0.7798 (30)           1.78 (30)            0.02599 (30)             
+===================================================================================================================================================
+
+Total CPU Time for CALCULATION: 1.740e+04  sec 
+
+processor 0 finished normally
+processor 5 finished normally
+processor 11 finished normally
+processor 1 finished normally
+processor 2 finished normally
+processor 3 finished normally
+processor 4 finished normally
+processor 6 finished normally
+processor 7 finished normally
+processor 8 finished normally
+processor 9 finished normally
+processor 10 finished normally
+processor 12 finished normally
+processor 13 finished normally
+processor 14 finished normally
+processor 15 finished normally
+processor 16 finished normally
+processor 17 finished normally
+processor 18 finished normally
+processor 19 finished normally
+processor 20 finished normally
+processor 21 finished normally
+processor 22 finished normally
+processor 23 finished normally
+processor 24 finished normally
+processor 25 finished normally
+processor 26 finished normally
+processor 27 finished normally
+processor 28 finished normally
+processor 29 finished normally

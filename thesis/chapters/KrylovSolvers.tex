@@ -1,7 +1,7 @@
 \chapter{Krylov Subspace Methods}
 \label{chapter:KrylovSolvers}
 \section{General Form of Krylov Subspace Methods}
-A Krylov subspace method is a projection method in which an solution $x_k$ is iteratively found from an affine subspace of dimension $m$ after starting from an initial guess $x_0$
+A Krylov subspace method is a projection method in which a solution $x_k$ is iteratively found from an affine subspace of dimension $m$ after starting from an initial guess $x_0$
 \begin{equation}
     x_m \in x_0 + \mathcal{K}_m(A, r_0),
 \end{equation}
@@ -24,7 +24,7 @@ In projection methods, the residual vector for the improved guess $x_m$ is const
 Various choices of $\mathcal{L}$ for constraining the residual lead to methods discussed in this section, such as conjugate gradients (CG) where $\mathcal{L} = \mathcal{K}_m$, and generalized minimal residual (GMRES) where $\mathcal{L} = A\mathcal{K}_m$.
 
 \section{Arnoldi Iteration}
-An orthonormal basis for the Krylov subspace is helpful for the derivation of the various methods. One way to construct an orthonormal basis is through a modified Gram-Schmidt procedure known as Arnoldi's method. The idea is build up the basis one vector at a time from $v_1$. At each step, the vector $w_j = Av_j$ is orthonormalized with respect to all previous vectors $v_1, \ldots, v_{j-1}$. A numerically stable algorithm shown in algorithm~\ref{alg:arnoldi} is given in Saad~\cite{Saad2003}.
+An orthonormal basis for the Krylov subspace is helpful for the derivation of the various methods. One way to construct an orthonormal basis is through a modified Gram-Schmidt procedure known as Arnoldi's method. The idea is build up the basis one vector at a time from $v_1$. At each step, the vector $w_j = Av_j$ is orthonormalized with respect to all previous vectors $v_1, \ldots, v_{j-1}$. A numerically stable algorithm shown in Algorithm~\ref{alg:arnoldi} is given in Saad~\cite{Saad2003}.
 
 \begin{algorithm}
 	\caption{Arnoldi's Method}\label{alg:arnoldi}
@@ -47,7 +47,7 @@ An orthonormal basis for the Krylov subspace is helpful for the derivation of th
 	\end{algorithmic}
 \end{algorithm}
 
-When the $m$ orthogonal basis vectors are arranged as the columns in a matrix $V_m \in \mathbb{R}^{n \times m}$, and $\bar{H}_m \in \mathbb{R}^{(m+1) \times m}$ is defined as the Hessenberg matrix which contains the entries $h_{ij}$ determined in algorithm~\ref{alg:arnoldi}, the following important relation can be shown:
+When the $m$ orthogonal basis vectors are arranged as the columns in a matrix $V_m \in \mathbb{R}^{n \times m}$, and $\bar{H}_m \in \mathbb{R}^{(m+1) \times m}$ is defined as the Hessenberg matrix which contains the entries $h_{ij}$ determined in Algorithm~\ref{alg:arnoldi}, the following important relation can be shown:
 
 \begin{equation}
     \label{eq:arnoldi_relation}
@@ -69,7 +69,7 @@ The GMRES method aims to minimize $||b - Ax||_2$ over all $x \in x_0 + \mathcal{
 
 where $y \in \mathbb{R}^m$.
 
-Since $r_0 = b-A x_0$ and the basis of $\mathcal{K}_m$ was formed with $r_0 = \beta v_1$, and $\norm{V_m}_2 = 1$, together with the relation from equation~\ref{eq:arnoldi_relation}, the following can be derived:
+Since $r_0 = b-A x_0$ and the basis of $\mathcal{K}_m$ was formed with $r_0 = \beta v_1$, and $\norm{V_m}_2 = 1$, together with the relation from Equation~\ref{eq:arnoldi_relation}, the following can be derived:
 
 \begin{equation}
     \begin{aligned}
@@ -93,7 +93,7 @@ is more feasible to solve than the original. This allows then the solution to be
     x_m = x_0 + V_m y_m.
 \end{equation}
 
-The full algorithm as described is shown in algorithm~\ref{alg:gmres}. There are multiple changes which can be made for robustness and efficiency. One is that the construction of an orthonormal basis can be done with a Householder transformation, which can perform better numerically in the presence of roundoff errors, but can be more expensive. The Householder transformation then results in the least-squares problem being a QR-decomposition. Other potential improvements can be made such as changing the minimization problem from upper Hessenberg to upper triangular form through the use of Givens rotations. Memory usage as well as computational requirements can increase if $m$ is chosen to be large. To alleviate this, the GMRES can be restarted multiple times, with the result $x_m$ from one pass being the initial guess $x_0$ for the next. Another variation is that the orthogonalization process can be incomplete so that the vectors $v_j$ are nearly orthogonal, and an approximate minimization can be performed, thereby saving memory and computation.
+The full algorithm as described is shown in Algorithm~\ref{alg:gmres}. There are multiple changes which can be made for robustness and efficiency. One is that the construction of an orthonormal basis can be done with a Householder transformation, which can perform better numerically in the presence of roundoff errors, but can be more expensive. The Householder transformation then results in the least-squares problem being a QR-decomposition. Other potential improvements can be made such as changing the minimization problem from upper Hessenberg to upper triangular form through the use of Givens rotations. Memory usage as well as computational requirements can increase if $m$ is chosen to be large. To alleviate this, the GMRES can be restarted multiple times, with the result $x_m$ from one pass being the initial guess $x_0$ for the next. Another variation is that the orthogonalization process can be incomplete so that the vectors $v_j$ are nearly orthogonal, and an approximate minimization can be performed, thereby saving memory and computation.
 
 \begin{algorithm}
 	\caption{GMRES}\label{alg:gmres}
@@ -116,7 +116,7 @@ The full algorithm as described is shown in algorithm~\ref{alg:gmres}. There are
                 \State $v_{j+1} \gets w_j/h_{j+1, j}$
             \EndFor
             \State $\bar{H}_m \gets \left\{h_{ij}\right\}_{1 \leq i \leq m+1, 1\leq j \leq m}$ \Comment{$\bar{H}_m \in \real^{m+1 \times m}$ is upper Hessenberg}
-            \State $y_m  \gets \operatorname*{argmin}_{y \in \real^m} \norm{\beta e_1 - \bar{H}_m y}_2$ \Comment{Reform the minimizaiton problem}
+            \State $y_m  \gets \operatorname*{argmin}_{y \in \real^m} \norm{\beta e_1 - \bar{H}_m y}_2$ \Comment{Reform the minimization problem}
             \State $V_m \gets \begin{pmatrix}
                 v_1, & \ldots, & v_m
             \end{pmatrix}$ \Comment{$V_m$ is a matrix whose columns are the basis vectors}
@@ -126,15 +126,15 @@ The full algorithm as described is shown in algorithm~\ref{alg:gmres}. There are
 \end{algorithm}
 
 \section{Conjugate Gradients}
-If $A$ is symmetric, a specialized version of Arnoldi's method known as the symmetric Lanczos algorithm can be used. The modification to Arnoldi's method comes from the fact that $H_m$ is a symmetric tridiagonal matrix when $A$ is symmetric. The left side of the relation from equation~\ref{eq:arnoldi_relation2} $V^\top_m A V_m$ is symmetric if $A$ is also symmetric. This makes $H_m$ tridiagonal, since it has only one lower diagonal. This means during the Arnoldi method, the basis vector $v_{j+1}$ relies only on $v_j$ and $v_{j-1}$, but it is still orthogonal to all previous vectors in exact arithmetic.
+If $A$ is symmetric, a specialized version of Arnoldi's method known as the symmetric Lanczos algorithm can be used. The modification to Arnoldi's method comes from the fact that $H_m$ is a symmetric tridiagonal matrix when $A$ is symmetric. The left side of the relation from Equation~\ref{eq:arnoldi_relation2} $V^\top_m A V_m$ is symmetric if $A$ is also symmetric. This makes $H_m$ tridiagonal, since it has only one lower diagonal. This means during the Arnoldi method, the basis vector $v_{j+1}$ relies only on $v_j$ and $v_{j-1}$, but it is still orthogonal to all previous vectors in exact arithmetic.
 
-For a symmetric tridiagonal $H_m$, a new notation is created by defining $a_j := h_{jj}$ and $\beta_j := h_{j-1, j}$, giving the recurrance
+For a symmetric tridiagonal $H_m$, a new notation is created by defining $a_j := h_{jj}$ and $\beta_j := h_{j-1, j}$, giving the recurrence
 
 \begin{equation}
     v_{j+1} = \left(A v_j - \alpha_j v_j - \beta_j v_{j-1}\right)/\beta_{j+1}.
 \end{equation}
 
-Referring to the constraint for the residual for projection methods in equation~\ref{eq:constraint_space}, the constraint subspace for CG is $\mathcal{L} = \mathcal{K}_m$. This means that at a given update step $j$, $r_j$ should be orthogonal to all vectors in $\mathcal{K}_j$ but due to recurrance should be in $\mathcal{K}_{j+1}$, making it a multiple of $v_{j+1}$. This means that residuals should be orthogonal to all previously obtained residuals:
+Referring to the constraint for the residual for projection methods in Equation~\ref{eq:constraint_space}, the constraint subspace for CG is $\mathcal{L} = \mathcal{K}_m$. This means that at a given update step $j$, $r_j$ should be orthogonal to all vectors in $\mathcal{K}_j$ but due to recurrence should be in $\mathcal{K}_{j+1}$, making it a multiple of $v_{j+1}$. This means that residuals should be orthogonal to all previously obtained residuals:
 
 \begin{equation}
     r_i^\top r_j\ \text{for $i < j$}.
@@ -163,7 +163,7 @@ the following holds for all $j < i$:
     \end{aligned}
 \end{equation}
 
-The residual following the recurrance relation of
+The residual following the recurrence relation of
 \begin{equation}
     r_{j+1} = r_j - \alpha_j A p_j
 \end{equation}
@@ -174,18 +174,18 @@ and the orthogonality constraint for the residuals $\left( r_j - \alpha_j A p_j,
     \alpha_j = \frac{\left(r_j, r_j\right)}{\left(Ap_j, r_j\right)}.
 \end{equation}
 
-To determine the next search direction $p_{j+1}$, the residuals can be used in the Gram-Schmidt orthogonalization to give the recurrance
+To determine the next search direction $p_{j+1}$, the residuals can be used in the Gram-Schmidt orthogonalization to give the recurrence
 
 \begin{equation}
     p_{j+1} = r_{j+1} + \beta_j p_j.
 \end{equation}
 
-where $\beta_j$ can be calculated as such knowing that search directions are $A$-orthogonal from equation~\ref{eq:A_orth}:
+where $\beta_j$ can be calculated as such knowing that search directions are $A$-orthogonal from Equation~\ref{eq:A_orth}:
 \begin{equation}
     \beta_j = - \frac{\left(r_{j+1},\ Ap_j\right)}{\left(p_j,\ Ap_j\right)}.
 \end{equation}
 
-The full resulting CG method is shown in algorithm~\ref{alg:cg}.
+The full resulting CG method is shown in Algorithm~\ref{alg:cg}.
 
 \begin{algorithm}
 	\caption{CG}\label{alg:cg}
@@ -211,7 +211,7 @@ The full resulting CG method is shown in algorithm~\ref{alg:cg}.
 %     f(x) = \frac{1}{2}x^\top A x - b^\top x \rightarrow min.
 % \end{equation}
 
-% If the method of steepest descent were used along the gradient of $\nabla f(x) = Ax-b$ would give an improvement of the approximation along a search direction of $p_0 = -r_0$, and the updated solution would be $x_1 = x_0 + \alpha_0 p_0$. However, a further improvement can be made to avoid searching in the same direction twice by requiring that all search directions are $A$-orthogonal to each other. This means that the residual vectors should satisfy the recurrance for the residual of
+% If the method of steepest descent were used along the gradient of $\nabla f(x) = Ax-b$ would give an improvement of the approximation along a search direction of $p_0 = -r_0$, and the updated solution would be $x_1 = x_0 + \alpha_0 p_0$. However, a further improvement can be made to avoid searching in the same direction twice by requiring that all search directions are $A$-orthogonal to each other. This means that the residual vectors should satisfy the recurrence for the residual of
 % \begin{equation}
 %     \begin{aligned}
 %     r_{j+1} & = b - A x_{j+1}= b - A (x_j + \alpha_j p_j) \\
@@ -221,29 +221,32 @@ The full resulting CG method is shown in algorithm~\ref{alg:cg}.
 
 \section{Preconditioning}
 
-The convergence of Krylov methods depends on the distrubtion of eigenvalues of $A$ as well as the condition number. Preconditioning can be applied to improve the properties of the linear system, enabling iterative methods to arrive at a solution in fewer steps. In left-preconditioning, the system is multiplied from the left by some matrix $M^{-1}$
+The convergence of Krylov methods depends on the distribution of eigenvalues of $A$ as well as the condition number. Preconditioning can be applied to improve the properties of the linear system, enabling iterative methods to arrive at a solution in fewer steps. In left-preconditioning, the system is multiplied from the left by some matrix $M^{-1}$
 
 \begin{equation}
     M^{-1}Ax = M^{-1}b,
 \end{equation}
 
-and in right-preconditioning it an be applied to the right of $A$ as
+and in right-preconditioning it can be applied to the right of $A$ as
 
 \begin{equation}
     A M^{-1} u = b,\ u:= Mx,
 \end{equation}
 
-where $M$ should ideally be close to $A$ such that $M^{-1}A$ is close to identity and has a better better distribution of eigenvalues and thus convergence rate. In practical implementations, the inverse $M^{-1}$ is expensive to directly compute, so the Krylov methods are adjusted to utilize the preconditioner, where every step has a linear system with $M$ that must be solved. In this situation, it is not necessary to explicity form $M^{-1}$ or even compute $M$, but rather the result of operating on a vector with $M^{-1}$ is needed \cite{Shewchuk1994}. This can be obtained from an iterative solution to the system by some non-Krylov method. In this thesis, preconditioning with SA-AMG methods is the focus.
+where $M$ should ideally be close to $A$ such that $M^{-1}A$ is close to identity and has a better distribution of eigenvalues and thus convergence rate. In practical implementations, the inverse $M^{-1}$ is expensive to directly compute, so the Krylov methods are adjusted to utilize the preconditioner, where every step has a linear system with $M$ that must be solved. In this situation, it is not necessary to explicitly form $M^{-1}$ or even compute $M$, but rather the result of operating on a vector with $M^{-1}$ is needed \cite{Shewchuk1994}. This can be obtained from an iterative solution to the system by some non-Krylov method. In this thesis, preconditioning with SA-AMG methods is the focus.
 
-The GMRES method is left-preconditioned by starting with $r_0 = M^{-1}(b-Ax_0)$, and in the Arnoldi method (algorithm~\ref{alg:gmres} line~\ref{alg:gmres_arnoldi}) $w_j \gets M^{-1}Av_j$ is computed instead. The Krylov subspace constructed is then
+The GMRES method is left-preconditioned by starting with $r_0 = M^{-1}(b-Ax_0)$, and in the Arnoldi method (Algorithm~\ref{alg:gmres} line~\ref{alg:gmres_arnoldi}) $w_j \gets M^{-1}Av_j$ is computed instead. The Krylov subspace constructed is then
 
 \begin{equation}
     \mathcal{K}_m = \text{span}\left\{r_0, M^{-1}Ar_0, \ldots, \left(M^{-1}A\right)^{m-1}r_0\right\}.
 \end{equation}
 
-Right-preconditioned GMRES
+In contrast, the right-preconditioned GMRES algorithm starts with the original $r_0 = b - Ax_0$ and preconditions the Arnoldi method from the right $w_j \gets AM^{-1}v_j$, thereby constructing a different Krylov subspace
 
-% changes the 
-% cannot be preconditioned by another Krylov method. Multigrid has shown to be very effective
+\begin{equation}
+    \mathcal{K}_m = \text{span}\left\{r_0, AM^{-1}r_0, \ldots, \left(AM^{-1}\right)^{m-1}r_0\right\}.
+\end{equation}
+
+Right-preconditioning makes use of the residual norm of the system before preconditioning. However, it requires another preconditioning operation at the end with $x_m \gets x_0 M^{-1}V_m y_m$.
 
 %\section{Trilinos}

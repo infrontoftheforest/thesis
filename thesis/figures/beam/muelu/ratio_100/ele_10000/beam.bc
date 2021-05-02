@@ -1,0 +1,36 @@
+
+------------------------------------------------BCSPECS
+
+*eb1="ELEMENT"
+sectionname="STRUCTURE"
+description="MAT 1 KINEM nonlinear EAS none"
+elementname="SOLIDH8"
+
+*ns1="CONDITION"
+sectionname="DESIGN SURF DIRICH CONDITIONS"
+description="NUMDOF 3 ONOFF 0 0 0 VAL 0.0 0.0 0.0 FUNCT 0 0 0"
+
+*ns2="CONDITION"
+sectionname="DESIGN SURF DIRICH CONDITIONS"
+description="NUMDOF 3 ONOFF 0 0 0 VAL 0.0 0.0 0.0 FUNCT 0 0 0"
+
+*ns3="CONDITION"
+sectionname="DESIGN SURF DIRICH CONDITIONS"
+description="NUMDOF 3 ONOFF 0 0 0 VAL 0.0 0.0 0.0 FUNCT 0 0 0"
+
+*ns4="CONDITION"
+sectionname="DESIGN SURF DIRICH CONDITIONS"
+description="NUMDOF 3 ONOFF 1 1 1 VAL 0.0 0.0 0.0 FUNCT 0 0 0"
+
+*ns5="CONDITION"
+sectionname="DESIGN SURF DIRICH CONDITIONS"
+description="NUMDOF 3 ONOFF 0 0 0 VAL 0.0 0.0 0.0 FUNCT 0 0 0"
+
+*ns6="CONDITION"
+sectionname="DESIGN SURF NEUMANN CONDITIONS"
+description="NUMDOF 3 ONOFF 0 1 0 VAL 0.0 -0.001 0.0 FUNCT 0 1 0"
+
+*ns10="CONDITION"
+sectionname="DESIGN VOL DIRICH CONDITIONS"
+description="NUMDOF 3 ONOFF 0 0 0 VAL 0.0 0.0 0.0 FUNCT 0 0 0"
+

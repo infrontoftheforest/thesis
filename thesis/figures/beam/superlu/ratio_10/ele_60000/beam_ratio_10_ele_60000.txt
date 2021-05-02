@@ -1,0 +1,233 @@
+
+****************************************
+*                                      *
+*           T A R T A R O S            *
+*                                      *
+*                                      *
+*            revision    -1            *
+*           parallel version           *
+*             fast version             *
+*                                      *
+*    Professur  fuer  Mechanik  auf    *
+*       Hoechstleistungsrechnern       *
+*                 MHPC                 *
+*   Technische Universitaet Muenchen   *
+*                                      *
+****************************************
+
+Tartaros SHA1: 5aaf084b3f0f157b4916bf973cf4954332c64ca5
+Trilinos SHA1: 
+Total number of processors: 6
+input is read from     beam_ratio_10_ele_60000.dat
+errors are reported to beam_ratio_10_ele_600000.err
+Entering jumbo reading mode for structure discretization ...
+Read, create and partition elements      in....
+numele 61560 nblock 6 bsize 10260
+ele block 0 reading 1.18588e-01 secs / distrib time 5.33004e-03 secs
+ele block 1 reading 1.24273e-01 secs / distrib time 1.22261e-01 secs
+ele block 2 reading 1.11192e-01 secs / distrib time 1.22833e-01 secs
+ele block 3 reading 1.13629e-01 secs / distrib time 1.14402e-01 secs
+ele block 4 reading 1.14284e-01 secs / distrib time 1.20852e-01 secs
+ele block 5 reading 1.15594e-01 secs / distrib time 1.19072e-01 secs
+parmetis:
+parmetis max nodal bandwith 27
+ZOLTAN Load balancing method = 10 (HYPERGRAPH)
+Graph rebalancing:    1.34575e+00 secs
+............................................... 2.82696e+00 secs
+Read, create and partition nodes
+numnode 68951 nblock 6 bsize 11491
+block 0 reading 9.44058e-02 secs / distrib 4.81358e-03 secs
+block 1 reading 9.49567e-02 secs / distrib 2.58001e-02 secs
+block 2 reading 9.25695e-02 secs / distrib 2.77069e-02 secs
+block 3 reading 9.21853e-02 secs / distrib 2.83360e-02 secs
+block 4 reading 9.27379e-02 secs / distrib 2.88793e-02 secs
+block 5 reading 9.36988e-02 secs / distrib 2.84415e-02 secs
+in............................................. 7.21064e-01 secs
+Complete discretization structure        in....+--------------------------------------------------+
+| FillComplete() on discretization structure       |
++--------------------------------------------------+
+0.0545489 secs
+
+   Discretization: structure
+   +-----+---------------+--------------+-----------------+----------------+
+   | PID |  n_rownodes   | n_ghostnodes |  n_rowelements  |   n_ghostele   |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   0 |         12066 |          453 |           10788 |             83 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   1 |         12456 |          895 |           10921 |            655 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   2 |         10076 |          837 |            9323 |            105 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   3 |         11451 |          841 |           10258 |            397 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   4 |         12046 |          863 |           10560 |            648 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   5 |         10856 |          433 |            9710 |             63 |
+   +-----+---------------+--------------+-----------------+----------------+
+
+Read/generate conditions                          in....0.161495 secs
+
+Total CPU Time for INPUT:       3.139e+00  sec 
+
++--------------------------------------------------+
+| FillComplete() on discretization structure       |
+| AssignDegreesOfFreedom() ...                     |
+| InitializeElements() ...                         |
+| BoundaryConditionsGeometry() ...                 |
++--------------------------------------------------+
+default parameters in list 'DAT FILE->STRUCTURAL DYNAMIC':
+    PRESTRESS                       none
+    PRESTRESSTIME                   0.000e+00
+    RESEVRYERGY                     0
+    RESTARTATEND                    No
+    TIMEINIT                        0.000e+00
+    DYNAMIC_RELAXATION              No
+    DYNRELAX_MIN_STEP               0
+    DAMPK_FUNCT                     -1
+    DAMPM_FUNCT                     -1
+    DAMPS_FUNCT                     -1
+    TIME_FUNCT                      -1
+    ENERGY_STOP                     -1.000e+00
+    TOLPRE                          1.000e-08
+    NORM_PRES                       Abs
+    TOLINCO                         1.000e-08
+    NORM_INCO                       Abs
+    NORMCOMBI_DISPPRES              And
+    NORMCOMBI_RESFINCO              And
+    STC_SCALING                     no
+    STC_LAYER                       1
+    PTCDT                           1.000e-01
+    PTCDTDT                         1.000e+00
+    TOLCONSTRINCR                   1.000e-08
+    MINITER                         0
+    ITERNORM                        L2
+    DIVERCONT                       stop
+    MAXDIVCONREFINEMENTLEVEL        10
+    LSMAXITER                       30
+    ALPHA_LS                        5.000e-01
+    SIGMA_LS                        1.000e-04
+    MATERIALTANGENT                 analytical
+    CONTROLTYPE                     load
+    CONTROLNODE                     -1 -1 -1
+    LOADLIN                         No
+    MASSLIN                         No
+    NEGLECTINERTIA                  No
+    UZAWATOL                        1.000e-08
+    LUMPMASS                        No
+    MODIFIEDEXPLEULER               Yes
+    YOUNG_IS_TEMP_DEPENDENT         No
+    GEOMETRY                        full
+
+Welcome to Structural Time Integration 
+     __o__                          __o__
+__  /-----\__                  __  /-----\__
+\ \/       \ \    |       \    \ \/       \ \
+ \ |  tea  | |    |-------->    \ |  tea  | |
+  \|       |_/    |       /      \|       |_/
+    \_____/   ._                   \_____/   ._ _|_ /|
+              | |                            | | |   |
+
+with statics
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 5.401e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     6.41109e-04     5.14637e-02     8.69e+01  9.82e-01
+      2     6.78784e-09     1.10597e-06     8.61e+01  9.84e-01
+Finalised step 1 / 10 | time 1.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.76e+02
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 5.401e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     6.41109e-04     5.14637e-02     8.57e+01  9.77e-01
+      2     6.78647e-09     1.10597e-06     8.57e+01  9.78e-01
+Finalised step 2 / 10 | time 2.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.74e+02
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 5.401e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     6.41109e-04     5.14637e-02     8.58e+01  9.85e-01
+      2     6.87733e-09     1.10597e-06     8.60e+01  9.85e-01
+Finalised step 3 / 10 | time 3.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.75e+02
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 5.401e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     6.41109e-04     5.14637e-02     8.60e+01  9.83e-01
+      2     6.88602e-09     1.10597e-06     8.59e+01  1.04e+00
+Finalised step 4 / 10 | time 4.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.75e+02
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 5.401e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     6.41109e-04     5.14637e-02     8.59e+01  9.85e-01
+      2     6.75943e-09     1.10597e-06     8.60e+01  9.79e-01
+Finalised step 5 / 10 | time 5.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.75e+02
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 5.401e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     6.41109e-04     5.14637e-02     8.58e+01  9.70e-01
+      2     6.79207e-09     1.10597e-06     8.55e+01  9.81e-01
+Finalised step 6 / 10 | time 6.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.74e+02
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 5.401e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     6.41109e-04     5.14637e-02     8.59e+01  9.70e-01
+      2     6.79321e-09     1.10597e-06     8.54e+01  9.80e-01
+Finalised step 7 / 10 | time 7.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.74e+02
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 5.401e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     6.41109e-04     5.14637e-02     8.58e+01  9.81e-01
+      2     6.78496e-09     1.10597e-06     8.58e+01  9.89e-01
+Finalised step 8 / 10 | time 8.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.74e+02
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 5.401e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     6.41109e-04     5.14637e-02     8.55e+01  9.94e-01
+      2     6.74763e-09     1.10597e-06     8.58e+01  9.92e-01
+Finalised step 9 / 10 | time 9.000e-01 | dt 1.000e-01 | numiter 2 | wct 1.74e+02
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 5.401e-03
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     6.41109e-04     5.14637e-02     8.55e+01  9.79e-01
+      2     6.77123e-09     1.10597e-06     8.53e+01  9.88e-01
+Finalised step 10 / 10 | time 1.000e+00 | dt 1.000e-01 | numiter 2 | wct 1.74e+02
+--------------------------------------------------------------------------------
+
+
+Checking results of 0 tests:
+
+OK (0)
+====================================================================================================================================================
+
+                                                       TimeMonitor results over 6 processors
+
+Timer Name                                               MinOverProcs          MeanOverProcs         MaxOverProcs          MeanOverCallCounts       
+----------------------------------------------------------------------------------------------------------------------------------------------------
+ADAPTER::StructureTimIntBaseAlgorithm::SetupStructure    0.1726 (1)            0.234 (1)             0.3562 (1)            0.234 (1)                
+DRT::Discretization::Evaluate                            16.68 (50)            24.23 (50)            38.67 (50)            0.4846 (50)              
+DRT::Discretization::Evaluate LocationVector             0.6055 (4.886e+05)    0.9164 (5.293e+05)    1.642 (5.436e+05)     1.732e-06 (5.293e+05)    
+DRT::Discretization::Evaluate PreEvaluate                0.0001745 (50)        0.00025 (50)          0.000395 (50)         4.999e-06 (50)           
+DRT::Discretization::Evaluate Resize                     0.2992 (4.886e+05)    0.4207 (5.293e+05)    0.6763 (5.436e+05)    7.95e-07 (5.293e+05)     
+DRT::Discretization::Evaluate assemble                   2.097 (4.886e+05)     2.958 (5.293e+05)     4.381 (5.436e+05)     5.589e-06 (5.293e+05)    
+DRT::Discretization::Evaluate elements                   12.79 (4.886e+05)     18.67 (5.293e+05)     29.96 (5.436e+05)     3.528e-05 (5.293e+05)    
+DRT::Discretization::SetState                            0.2831 (151)          0.726 (151)           1.82 (151)            0.004808 (151)           
+LINALG::Solver:  0)   TranslateSolverParameters          1.497e-05 (1)         1.99e-05 (1)          3.307e-05 (1)         1.99e-05 (1)             
+LINALG::Solver:  1)   Setup                              1.103 (20)            1.478 (20)            2.197 (20)            0.07389 (20)             
+----------------------------------------------------------------------------------------------------------------------------------------------------
+LINALG::Solver:  2)   Solve                              849.4 (20)            1138 (20)             1714 (20)             56.88 (20)               
+LINALG::SparseMatrix::Complete                           0.1235 (30)           0.3268 (30)           0.682 (30)            0.01089 (30)             
+====================================================================================================================================================
+
+Total CPU Time for CALCULATION: 1.034e+03  sec 
+
+processor 1 finished normally
+processor 2 finished normally
+processor 3 finished normally
+processor 5 finished normally
+processor 0 finished normally
+processor 4 finished normally

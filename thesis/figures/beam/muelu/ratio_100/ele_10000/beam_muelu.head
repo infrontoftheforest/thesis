@@ -1,0 +1,341 @@
+//
+-----------------------------------------------------DISCRETISATION
+NUMFLUIDDIS                     0
+NUMSTRUCDIS                     1
+NUMALEDIS                       0
+NUMTHERMDIS                     1
+--------------------------------------------------------PROBLEM TYP
+PROBLEMTYP                      Structure
+RESTART                         0
+-----------------------------------------------------------------IO
+OUTPUT_BIN                      Yes
+STRUCT_DISP                     Yes
+STRUCT_STRESS                   Cauchy
+STRUCT_STRAIN                   ea
+FLUID_SOL                       No
+FLUID_STRESS                    No
+FLUID_VIS                       No
+THERM_TEMPERATURE               No
+THERM_HEATFLUX                  No
+FILESTEPS                       1000
+-------------------------------------------------STRUCTURAL DYNAMIC
+INT_STRATEGY                    Old
+LINEAR_SOLVER                   1
+DYNAMICTYP                      Statics
+RESULTSEVRY                     1
+RESTARTEVRY                     20
+NLNSOL                          fullnewton
+TIMESTEP                        0.1
+NUMSTEP                         10
+MAXTIME                         1.0
+DAMPING                         No
+M_DAMP                          0.0
+K_DAMP                          0.0
+PREDICT                         ConstDisVelAcc // ConstDisVelAcc ConstDis
+NORM_DISP                       Abs
+NORM_RESF                       Abs
+NORMCOMBI_RESFDISP              And
+TOLDISP                         1.0E-05
+TOLRES                          1.0E-05
+TOLCONSTR                       1.0E-05
+MAXITER                         50
+UZAWAPARAM                      1.0
+UZAWAMAXITER                    20
+UZAWAALGO                       direct
+// Switch on adaptive control of linear solver tolerance for nonlinear solution
+//     Yes,No,yes,no,YES,NO
+ADAPTCONV                       no
+//
+// The linear solver shall be this much better than the current nonlinear residual in the nonlinear convergence limit
+ADAPTCONV_BETTER                0.01
+-------------------------------------------------STRUCTURAL DYNAMIC/GENALPHA
+GENAVG                          TrLike
+ALPHA_F                         0.459
+ALPHA_M                         0.378
+BETA                            0.291
+GAMMA                           0.581
+-----------------------------------------------------------SOLVER 1
+NAME                            Structure_Solver
+//
+// The solver to attack the system of linear equations arising of FE approach with.
+//     Amesos_KLU_sym
+//     Amesos_KLU_nonsym
+//     Superlu
+//     Aztec_MSR
+//     LAPACK_sym
+//     LAPACK_nonsym
+//     UMFPACK
+//     Belos
+//     Stratimikos_Amesos
+//     Stratimikos_Aztec
+//     Stratimikos_Belos
+//     undefined
+SOLVER                          Aztec_MSR // Aztec_MSR Superlu Belos
+//
+// Type of linear solver algorithm to use.
+//     CG,GMRES,GMRESR,CGS,TFQMR,BiCGSTAB,LU,FGMRES
+AZSOLVE                         GMRES // GMRES CG
+//
+// Type of internal preconditioner to use.
+// Note! this preconditioner will only be used if the input operator
+// supports the Epetra_RowMatrix interface and the client does not pass
+// in an external preconditioner!
+//     none
+//     ILU
+//     ILUT
+//     Jacobi
+//     SymmGaussSeidel
+//     Least_Squares
+//     Neumann
+//     ICC
+//     LU
+//     RILU
+//     ML
+//     MLFLUID
+//     MLFLUID2
+//     MLAPI
+//     GaussSeidel
+//     DownwindGaussSeidel
+//     BGS2x2
+//     BGSnxn
+//     TekoSIMPLE
+//     CheapSIMPLE
+//     MueLu_sym
+//     MueLu_nonsym
+//     MueLu_contact
+//     MueLu_contact2
+//     MueLu_contactSP
+//     MueLu_contactPenalty
+//     AMGnxn
+//     Chebyshev
+AZPREC                          MueLu_sym // ML MLFLUID2 MueLu_sym MueLu_nonsym
+//
+// The amount of overlap used for the ifpack "ilu" and "ilut" preconditioners.
+IFPACKOVERLAP                   0
+//
+// The amount of fill allowed for the internal "ilu" preconditioner.
+IFPACKGFILL                     0
+//
+// The amount of fill allowed for an internal "ilut" preconditioner.
+IFPACKFILL                      0
+//
+// Combine mode for Ifpack Additive Schwarz
+//     Add,Insert,Zero
+IFPACKCOMBINE                   Insert
+//
+// The tolerance below which an entry from the factors of an internal "ilut"
+// preconditioner will be dropped.
+AZDROP                          0
+//
+// The order for of the polynomials used for the "Polynomial" and
+// "Least-squares Polynomial" internal preconditioners.
+AZPOLY                          100
+//
+// The maximum size of the Krylov subspace used with "GMRES" before
+// a restart is performed.
+AZSUB                           100
+//
+// The convergence test to use for terminating the iterative solver.
+//     AZ_r0
+//     AZ_rhs
+//     AZ_Anorm
+//     AZ_noscaled
+//     AZ_sol
+//     AZ_weighted
+//     AZ_expected_values
+//     AZTECOO_conv_test
+//     AZ_inf_noscaled
+AZCONV                          AZ_r0
+//
+// The number of iterations between each output of the solver's progress.
+AZOUTPUT                        10
+//
+// how often to recompute some preconditioners
+AZREUSE                         0
+//
+// max iterations
+AZITER                          1000
+//
+// unused
+AZGRAPH                         0
+//
+AZBDIAG                         0
+//
+// tolerance in (un)scaled residual
+AZTOL                           1e-06
+//
+// damping for GaussSeidel and jacobi type methods
+AZOMEGA                         0
+//
+// threshold tau for downwinding
+DWINDTAU                        1.5
+//
+// scaling of the system
+//     none,sym,infnorm
+AZSCAL                          none // none infnorm sym
+//
+// ML print-out level (0-10)
+ML_PRINT                        1
+//
+// ML stop coarsening when coarse ndof smaller then this
+ML_MAXCOARSESIZE                20000
+//
+// ML max number of levels
+ML_MAXLEVEL                     7
+//
+// objective size of an aggregate with METIS/VBMETIS, 2D: 9, 3D: 27
+ML_AGG_SIZE                     27
+//
+// damping fine grid
+ML_DAMPFINE                     0.66 
+//
+// damping med grids
+ML_DAMPMED                      0.90
+//
+// damping coarse grid
+ML_DAMPCOARSE                   1.0
+//
+// damping factor for prolongator smoother (usually 1.33 or 0.0)
+ML_PROLONG_SMO                  1.33
+//
+// threshold for prolongator smoother/aggregation
+ML_PROLONG_THRES                0.0
+//
+// no. smoothing steps or polynomial order on each level (at least ML_MAXLEVEL numbers)
+ML_SMOTIMES                     12 6 6 6 6 6 1
+//
+//     UC,METIS,VBMETIS,MIS
+ML_COARSEN                      UC
+//
+//     SGS
+//     Jacobi
+//     Chebychev
+//     MLS
+//     ILU
+//     KLU
+//     Superlu
+//     GS
+//     DGS
+//     Umfpack
+//     BS
+//     SIMPLE
+//     SIMPLEC
+//     IBD
+//     Uzawa
+ML_SMOOTHERFINE                 Chebychev
+//
+//     SGS
+//     Jacobi
+//     Chebychev
+//     MLS
+//     ILU
+//     KLU
+//     Superlu
+//     GS
+//     DGS
+//     Umfpack
+//     BS
+//     SIMPLE
+//     SIMPLEC
+//     IBD
+//     Uzawa
+ML_SMOOTHERMED                  Chebychev
+//
+//     SGS
+//     Jacobi
+//     Chebychev
+//     MLS
+//     ILU
+//     KLU
+//     Superlu
+//     GS
+//     DGS
+//     Umfpack
+//     BS
+//     SIMPLE
+//     SIMPLEC
+//     IBD
+//     Uzawa
+ML_SMOOTHERCOARSE               Umfpack // Umfpack KLU
+//
+//     SGS,Jacobi,Chebychev,ILU,GS
+MueLu_INITSMOOTHER              Chebychev
+//
+// sub solver/smoother block number (SIMPLE/C: used for prediction of primary variable on all levels, BS: used for fine and intermedium BraessSarazin (BS) level smoother)
+SUB_SOLVER1                     -1
+//
+// sub solver/smoother block number (SIMPLE/C: used for SchurComplement eq. on all levels, BS: used for coarse BraessSarazin (BS) level smoother)
+SUB_SOLVER2                     -1
+//
+// number of sweeps for adaptive SA smoother (initialization phase). For Chebyshev it is used as polynomial degree
+MueLu_INITSMOO_SWEEPS           12
+//
+// damping parameter for adaptive SA smoother (initialization phase). For Chebyshev it is used as alpha parameter
+MueLu_INITSMOO_DAMPING          1
+//
+// Minimal objective size of an aggregate (to influence the coarsening rate)
+MueLu_MIN_AGG_SIZE              27
+//
+// activate rebalancing using Zoltan/Isorropia
+//     NO,No,no,YES,Yes,yes
+MueLu_REBALANCE                 Yes
+//
+// maximum allowed nonzero imbalance factor
+MueLu_REBALANCE_NONZEROIMBALANCE 1.2
+//
+// minimum numbers of rows per processor before rebalancing is necessary
+MueLu_REBALANCE_MINROWS         1000
+//
+// Reuse strategy in MueLu contact preconditioner 2.
+// The options are 'none', 'Ptent' and 'full'.
+// 'full' means: reuse the full multigrid hierarchy.
+// 'Ptent': reuse aggregates and nonsmoothed transfer operator.
+// The MueLu_Reuse parameter only makes sense together with AZREUSE.
+//     nothing,Ptent,full
+MueLu_REUSE                     nothing
+//
+// BGS2x2 flip order parameter
+//     block0_block1_order,block1_block0_order
+BGS2X2_FLIPORDER                block0_block1_order
+//
+// damping parameter for BGS2X2 preconditioner
+BGS2X2_GLOBAL_DAMPING           1
+//
+// damping parameter for BGS2X2 preconditioner block1
+BGS2X2_BLOCK1_DAMPING           1
+//
+// damping parameter for BGS2X2 preconditioner block2
+BGS2X2_BLOCK2_DAMPING           1
+//
+// allow linear solver to permute linear system to improve properties of linear system for iterative methods.
+//     none,Algebraic,algebraic,Local,local
+PERMUTE_SYSTEM                  none
+//
+// matrix rows with diagEntry/maxEntry<nonDiagDominanceRatio are marked to be significantly non-diagonal dominant (default: 1.0 = mark all non-diagonal dominant rows)
+NON_DIAGDOMINANCE_RATIO         1
+//
+// verbosity level (0=no output,... 10=extreme), for Belos only
+VERBOSITY                       0 // Belos only
+//
+// xml file for stratimikos parameters
+STRATIMIKOS_XMLFILE             none
+//
+// damping parameter for SIMPLE preconditioner
+SIMPLE_DAMPING                  1
+//
+// Name of the pre-built preconditioner to be used. If set to"XML" the preconditioner is defined using a xml file
+AMGNXN_TYPE                     AMG(BGS)
+//
+// xml file defining the AMGnxn preconditioner
+AMGNXN_XML_FILE                 none
+//
+----------------------------------------------------------MATERIALS
+//                              MAT_Struct_NeoHooke
+MAT 1 MAT_ElastHyper NUMMAT 1 MATIDS 2 DENS 0.001
+MAT 2 ELAST_CoupNeoHooke YOUNG 1000000.0 NUE 0.30
+-------------------------------------------------------------FUNCT1
+COMPONENT 0 FUNCTION t
+// COMPONENT 0 FUNCTION a
+// VARIABLE 0 NAME a TYPE linearinterpolation NUMPOINTS 4 TIMES 0 0.1 0.11 1.5 VALUES 0 2 0 0
+-------------------------------------------------RESULT DESCRIPTION
+

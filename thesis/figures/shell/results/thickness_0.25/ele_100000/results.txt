@@ -1,0 +1,1236 @@
+topopt model init
+meshing init
+call mesher begin
+topopt mesh main
+meshing cylinder shell
+RLM Diagnostics at 04/28/2021 07:08 
+
+    RLM version: 10.1BL2
+    RLM platform: x64_l1
+    OS version: 4.16.11-100.fc26.x86
+
+    Hostname: rechenknecht
+    User: ryan
+    Working directory: /home/ryan/pytartaros/applications/topology_optimization
+
+Environment:
+
+        HTTP_PROXY=<not set>
+        RLM_CONNECT_TIMEOUT=<not set>
+        RLM_EXTENDED_ERROR_MESSAGES=<not set>
+        RLM_LICENSE=<not set>
+        RLM_NO_UNLIMIT=<not set>
+        RLM_PATH_RANDOMIZE=<not set>
+        RLM_PROJECT=<not set>
+        RLM_QUEUE=<not set>
+        RLM_ROAM=<not set>
+        RLMSTAT=<not set>
+        csimsoft_LICENSE=<not set>
+
+    RLM hostid list:
+
+        a20ad315 4c52620462d2 4c5262158fde 525400d4f284 525400d4f284 ip=10.162.21.211 ip=192.168.124.1 
+
+License files:
+        /mhpc/programs64/Trelis-15.1/bin/licenses/remote.lic
+
+rlm_init() parameters:
+        1: /mhpc/programs64/Trelis-15.1/bin/licenses
+        2: <empty>
+        3: <empty>
+
+Nodelocked/roaming licenses which can be checked out
+
+    Client Cached Licenses (only the highest version # shown):
+
+        <none>
+
+
+    In license file /mhpc/programs64/Trelis-15.1/bin/licenses/remote.lic
+          (server at: 5055@10.162.21.1)
+
+        <none>
+
+    Roaming Licenses:
+
+        <none>
+
+
+                   CCCCC    UU   UU   BBBBBB    IIII   TTTTTT
+                  CC   CC   UU   UU   BB   BB    II      TT
+                  CC        UU   UU   BB   BB    II      TT
+                  CC        UU   UU   BBBBBB     II      TT
+                  CC        UU   UU   BB   BB    II      TT
+                  CC   CC   UU   UU   BB   BB    II      TT
+                   CCCCC     UUUUU    BBBBBB    IIII     TT  tm
+
+                            MESH GENERATION TOOLKIT        
+                                      FOR                   
+                   PRE-PROCESSING OF FINITE ELEMENT ANALYSES
+
+                 User community mailing list: cubit@sandia.gov   
+         Report bugs and enhancement requests to cubit-help@sandia.gov
+
+
+                         Cubit Version 15.1.3 64 Bit Build f215c0c
+                               VTK Version 5.10.1
+                              ACIS Version 24.0.1.0
+                            Exodus API Version 6.05
+                     Copyright 2001-2008 Sandia Corporation
+              Revised Fri Jan 9 16:43:49 2015 -0700
+                        Running 04/28/2021 07:08:59 AM
+
+             CUBIT includes Tetmesh-GHS3D by Distene S.A.S./INRIA.
+                  CUBIT includes ACIS software by Spatial Inc.
+                  CUBIT includes LP Solve by Michel Berkelaar.
+                       CUBIT includes VTK by Kitware Inc.
+           CUBIT includes Exodus II, based on netCDF by UCAR/Unidata.
+            CUBIT includes VERDICT, by Sandia National Laboratories.
+          CUBIT includes MESQUITE, by Argonne National Laboratory and
+                         Sandia National Laboratories.
+
+Machine type is Linux 4.16.11-100.fc26.x86_64
+Machine name is rechenknecht
+
+
+Commands will be journaled to '/home/ryan/pytartaros/applications/topology_optimization/cubit01.jou'
+WARNING: Could not open Display, will continue with graphics disabled
+	Cubit Version 15.1.3 Build f215c0c
+	VTK Version 5.10.1
+	ACIS Version 24.0.1.0
+	CAMAL Version 6.1.0
+	Mesquite Version 2.99
+	Revised Fri Jan 9 16:43:49 2015 -0700
+
+Your license does not expire.
+
+
+Setting Developer Commands: on
+
+Command journalling is Off.
+Default element shape set for QUAD/HEX meshing
+Successfully created cylinder volume 1 
+Journaled Command: create cylinder height 500 radius 243.75
+
+Successfully created cylinder volume 2 
+Journaled Command: create cylinder height 500 radius 256.25
+
+Updated volume(s): 2
+Destroyed volume(s): 1
+Journaled Command: subtract body 1 from body 2
+
+Journaled Command: create surface rectangle width 500 height 266.25 xplane
+
+ Moved Body 3:  x 0.000000e+00  y 1.331250e+02  z 0.000000e+00
+Journaled Command: move surface 10 y 133.125
+
+Journaled Command: rotate surface 10 angle 40 about z
+
+Updated volume(s): 2
+SECTION successfully completed
+Created volume 2 
+Journaled Command: section volume 2 with surface 10 reverse
+
+Journaled Command: rotate surface 10 angle -80 about z
+
+Updated volume(s): 2
+SECTION successfully completed
+Created volume 2 
+Journaled Command: section volume 2 with surface 10
+
+
+Deleted 1 free surfaces
+Journaled Command: delete surface 10
+
+
+
+Performing webcut operation...
+Created volume(s): 4
+Updated volume(s): 2
+Modified/Created volumes: 2 4 
+Journaled Command: webcut volume 2 with plane xplane
+
+Journaled Command: curve 23 interval 10
+
+Journaled Command: curve 24 interval 100
+
+Journaled Command: curve 37 interval 50
+
+Calculating Auto Size
+0   |    |    |    |    50   |    |    |    |  100
+**************************************************
+Volume 2 (Volume 2) meshing scheme automatically set to submap.
+Matching intervals successful.
+Meshing Volume 2 (Volume 2)
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 1000 faces for Surface 22 (Surface 22).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 500 faces for Surface 23 (Surface 23).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 5000 faces for Surface 24 (Surface 24).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 1000 faces for Surface 17 (Surface 17).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 500 faces for Surface 25 (Surface 25).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 5000 faces for Surface 26 (Surface 26).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 50000 hexes for Volume 2 (Volume 2).
+Volume 2 (Volume 2) meshing completed using scheme: submap
+
+Meshing Time (sec) : 0
+
+Meshing time: 0.162574 
+Journaled Command: mesh volume 2
+
+Journaled Command: curve 18 interval 10
+
+Journaled Command: curve 15 interval 100
+
+Journaled Command: curve 45 interval 50
+
+Volume 4 (Volume 4) meshing scheme automatically set to submap.
+Matching intervals successful.
+Meshing Volume 4 (Volume 4)
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 1000 faces for Surface 27 (Surface 27).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 5000 faces for Surface 28 (Surface 28).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 500 faces for Surface 29 (Surface 29).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 5000 faces for Surface 30 (Surface 30).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 1000 faces for Surface 12 (Surface 12).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 500 faces for Surface 31 (Surface 31).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 50000 hexes for Volume 4 (Volume 4).
+Volume 4 (Volume 4) meshing completed using scheme: submap
+
+Meshing Time (sec) : 0
+
+Meshing time: 0.158658 
+Journaled Command: mesh volume 4
+
+Updated volume(s): 2, 4
+Journaled Command: imprint tolerant volume 2 4
+
+Comparing Surfaces:
+Comparing 12 Surfaces for Merge
+0   |    |    |    |    50   |    |    |    |  100
+**************************************************
+Consolidated 1 pair of surfaces
+Comparing Curves:
+Comparing 24 Curves for Merge
+0   |    |    |    |    50   |    |    |    |  100
+**************************************************
+Consolidated 0 pair of curves 
+Consolidated 0 pairs of vertices
+Journaled Command: merge volume 2 4
+
+Added Curve 17 to NodeSet 1
+Journaled Command: nodeset 1 curve 17
+
+Added Curve 26 to NodeSet 2
+Journaled Command: nodeset 2 curve 26
+
+Added Curve 32 to NodeSet 3
+Journaled Command: nodeset 3 curve 32
+
+Disassociating the mesh from the volumes being united.
+Unmerging geometry.
+Uniting the volumes.
+Regularizing out unnecessary curves.
+Regularizing out unnecessary vertices.
+Remerging with neighbors.
+Applying composites to remove new curves.
+Applying composites to remove new vertices.
+Reassociating mesh to new united volume.
+Journaled Command: unite body 2 4 include_mesh
+
+
+Using ExodusII API version 6.05 and DB version 6.05 to export "/home/ryan/pytartaros-io/i/exo/cylindershell.exo".
+Writing Exodus file
+0   |    |    |    |    50   |    |    |    |  100
+**************************************************
+
+
+Executive Exodus summary:
+  Number of dimensions     = 3
+  Number of element blocks = 1
+  Number of sidesets       = 0
+  Number of nodesets       = 3
+  Number of bc sets        = 1
+  Number of elements       = 100000
+  Number of nodes          = 112211
+
+Finished writing /home/ryan/pytartaros-io/i/exo/cylindershell.exo
+
+QObject::startTimer: QTimer can only be used with threads started with QThread
+QObject::startTimer: QTimer can only be used with threads started with QThread
+QObject::startTimer: QTimer can only be used with threads started with QThread
+QObject::startTimer: QTimer can only be used with threads started with QThread
+
+call mesher end
+problem: cylindershell
+exo: /home/ryan/pytartaros-io/i/exo/cylindershell.exo
+loaded: cylindershell
+Generating .dat file...		3.88s elapsed
+errors are reported to /home/ryan/pytartaros-io/i/dat/cylindershell_pre0.err
+File /home/ryan/pytartaros-io/i/exo/cylindershell.exo was created with EXODUS II library version 6.05
+Mesh consists of 112211 Nodes, 100000 Elements, organized in 
+1 ElementBlocks, 3 NodeSets, 0 SideSets 
+
+creating and checking BACI input file       --> /home/ryan/pytartaros-io/i/dat/cylindershell.dat
+...Ensure positive element jacobians        in....4.2444 secs
+...Writing dat-file                         in....1.77254 secs
+...Read parameters
+...Read materials
+...Read field setup
+...Read/generate conditions                          in....0.00335982 secs
+...OK
+
+
+Adjusting parameters...		0.82s elapsed
+loaded: cylindershell
+Evaluating model...			418.51s elapsed
+simulation is done!
+
+****************************************
+*                                      *
+*           T A R T A R O S            *
+*                                      *
+*                                      *
+*            revision    -1            *
+*           parallel version           *
+*             fast version             *
+*                                      *
+*    Professur  fuer  Mechanik  auf    *
+*       Hoechstleistungsrechnern       *
+*                 MHPC                 *
+*   Technische Universitaet Muenchen   *
+*                                      *
+****************************************
+
+Tartaros SHA1: 5aaf084b3f0f157b4916bf973cf4954332c64ca5
+Trilinos SHA1: 
+Total number of processors: 20
+input is read from     /home/ryan/pytartaros-io/i/dat/cylindershell.dat
+errors are reported to /home/ryan/pytartaros-io/o/cylindershell0.err
+Entering jumbo reading mode for structure discretization ...
+Read, create and partition elements      in....
+numele 100000 nblock 20 bsize 5000
+ele block 0 reading 8.22681e-02 secs / distrib time 3.31371e-03 secs
+ele block 1 reading 8.31753e-02 secs / distrib time 7.25580e-02 secs
+ele block 2 reading 7.57943e-02 secs / distrib time 7.63350e-02 secs
+ele block 3 reading 7.45921e-02 secs / distrib time 6.95958e-02 secs
+ele block 4 reading 7.46874e-02 secs / distrib time 8.96629e-02 secs
+ele block 5 reading 7.70504e-02 secs / distrib time 7.05820e-02 secs
+ele block 6 reading 7.61656e-02 secs / distrib time 7.44915e-02 secs
+ele block 7 reading 7.87023e-02 secs / distrib time 7.24709e-02 secs
+ele block 8 reading 7.72651e-02 secs / distrib time 7.67312e-02 secs
+ele block 9 reading 7.92790e-02 secs / distrib time 7.31380e-02 secs
+ele block 10 reading 7.77201e-02 secs / distrib time 9.22876e-02 secs
+ele block 11 reading 8.05613e-02 secs / distrib time 8.87974e-02 secs
+ele block 12 reading 7.88227e-02 secs / distrib time 7.81204e-02 secs
+ele block 13 reading 8.05208e-02 secs / distrib time 7.52596e-02 secs
+ele block 14 reading 8.07562e-02 secs / distrib time 7.89100e-02 secs
+ele block 15 reading 8.18154e-02 secs / distrib time 7.50552e-02 secs
+ele block 16 reading 7.92041e-02 secs / distrib time 7.88423e-02 secs
+ele block 17 reading 8.36747e-02 secs / distrib time 7.52404e-02 secs
+ele block 18 reading 8.06520e-02 secs / distrib time 8.11175e-02 secs
+ele block 19 reading 8.44648e-02 secs / distrib time 9.14453e-02 secs
+parmetis:
+parmetis max nodal bandwith 27
+ZOLTAN Load balancing method = 10 (HYPERGRAPH)
+Graph rebalancing:    2.48884e+00 secs
+............................................... 6.15940e+00 secs
+Read, create and partition nodes
+numnode 112211 nblock 20 bsize 5610
+block 0 reading 6.30983e-02 secs / distrib 1.17563e-02 secs
+block 1 reading 6.25998e-02 secs / distrib 1.17559e-02 secs
+block 2 reading 6.22544e-02 secs / distrib 1.27266e-02 secs
+block 3 reading 6.22285e-02 secs / distrib 1.40589e-02 secs
+block 4 reading 6.28868e-02 secs / distrib 1.61047e-02 secs
+block 5 reading 6.29510e-02 secs / distrib 1.55478e-02 secs
+block 6 reading 6.31386e-02 secs / distrib 1.62227e-02 secs
+block 7 reading 6.25701e-02 secs / distrib 1.60270e-02 secs
+block 8 reading 6.30552e-02 secs / distrib 1.74185e-02 secs
+block 9 reading 6.27343e-02 secs / distrib 1.69337e-02 secs
+block 10 reading 6.29769e-02 secs / distrib 1.91563e-02 secs
+block 11 reading 6.30393e-02 secs / distrib 1.83889e-02 secs
+block 12 reading 6.34004e-02 secs / distrib 1.71107e-02 secs
+block 13 reading 6.35756e-02 secs / distrib 1.69985e-02 secs
+block 14 reading 6.37844e-02 secs / distrib 1.75927e-02 secs
+block 15 reading 6.37325e-02 secs / distrib 1.85776e-02 secs
+block 16 reading 6.31369e-02 secs / distrib 1.75426e-02 secs
+block 17 reading 6.32932e-02 secs / distrib 1.93584e-02 secs
+block 18 reading 6.41969e-02 secs / distrib 1.92703e-02 secs
+block 19 reading 6.37198e-02 secs / distrib 1.93320e-02 secs
+in............................................. 1.63882e+00 secs
+Complete discretization structure        in....+--------------------------------------------------+
+| FillComplete() on discretization structure       |
++--------------------------------------------------+
+0.0448028 secs
+
+   Discretization: structure
+   +-----+---------------+--------------+-----------------+----------------+
+   | PID |  n_rownodes   | n_ghostnodes |  n_rowelements  |   n_ghostele   |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   0 |          6070 |          775 |            5033 |            539 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   1 |          5728 |          800 |            5063 |            233 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   2 |          4488 |          829 |            4148 |            174 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   3 |          4982 |         1019 |            4556 |            350 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   4 |          5911 |          986 |            5108 |            584 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   5 |          5333 |         1316 |            4908 |            530 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   6 |          5221 |         1203 |            4724 |            566 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   7 |          5832 |         1319 |            5117 |            777 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   8 |          4055 |         1060 |            3976 |            182 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   9 |          5324 |          943 |            4910 |            241 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  10 |          6061 |          987 |            5164 |            648 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  11 |          6051 |          723 |            5403 |            187 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  12 |          6071 |         1010 |            5135 |            688 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  13 |          6060 |         1309 |            5654 |            434 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  14 |          6061 |         1355 |            5489 |            631 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  15 |          5670 |         1174 |            5276 |            357 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  16 |          6084 |         1254 |            5140 |            951 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  17 |          5594 |          889 |            5113 |            222 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  18 |          6021 |          940 |            5032 |            651 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  19 |          5594 |          848 |            5051 |            303 |
+   +-----+---------------+--------------+-----------------+----------------+
+
+Read/generate conditions                          in....0.0193668 secs
+
+Total CPU Time for INPUT:       4.850e+00  sec 
+
++--------------------------------------------------+
+| FillComplete() on discretization structure       |
+| AssignDegreesOfFreedom() ...                     |
+| InitializeElements() ...                         |
+| BoundaryConditionsGeometry() ...                 |
++--------------------------------------------------+
+default parameters in list 'DAT FILE->STRUCTURAL DYNAMIC':
+    INT_STRATEGY                    Old
+    PRESTRESS                       none
+    PRESTRESSTIME                   0.000e+00
+    RESEVRYERGY                     0
+    RESTARTATEND                    No
+    TIMEINIT                        0.000e+00
+    DAMPING                         No
+    M_DAMP                          -1.000e+00
+    K_DAMP                          -1.000e+00
+    DYNAMIC_RELAXATION              No
+    DYNRELAX_MIN_STEP               0
+    DAMPK_FUNCT                     -1
+    DAMPM_FUNCT                     -1
+    DAMPS_FUNCT                     -1
+    TIME_FUNCT                      -1
+    ENERGY_STOP                     -1.000e+00
+    TOLPRE                          1.000e-08
+    NORM_PRES                       Abs
+    TOLINCO                         1.000e-08
+    NORM_INCO                       Abs
+    NORMCOMBI_DISPPRES              And
+    NORMCOMBI_RESFINCO              And
+    STC_SCALING                     no
+    STC_LAYER                       1
+    PTCDT                           1.000e-01
+    PTCDTDT                         1.000e+00
+    TOLCONSTR                       1.000e-08
+    TOLCONSTRINCR                   1.000e-08
+    MINITER                         0
+    ITERNORM                        L2
+    DIVERCONT                       stop
+    MAXDIVCONREFINEMENTLEVEL        10
+    LSMAXITER                       30
+    ALPHA_LS                        5.000e-01
+    SIGMA_LS                        1.000e-04
+    MATERIALTANGENT                 analytical
+    CONTROLTYPE                     load
+    CONTROLNODE                     -1 -1 -1
+    LOADLIN                         No
+    MASSLIN                         No
+    NEGLECTINERTIA                  No
+    UZAWAPARAM                      1.000e+00
+    UZAWATOL                        1.000e-08
+    UZAWAMAXITER                    50
+    UZAWAALGO                       direct
+    ADAPTCONV                       No
+    ADAPTCONV_BETTER                1.000e-01
+    LUMPMASS                        No
+    MODIFIEDEXPLEULER               Yes
+    YOUNG_IS_TEMP_DEPENDENT         No
+    GEOMETRY                        full
+
+Welcome to Structural Time Integration 
+     __o__                          __o__
+__  /-----\__                  __  /-----\__
+\ \/       \ \    |       \    \ \/       \ \
+ \ |  tea  | |    |-------->    \ |  tea  | |
+  \|       |_/    |       /      \|       |_/
+    \_____/   ._                   \_____/   ._ _|_ /|
+              | |                            | | |   |
+
+with one-step-theta
+   theta = 5.000e-01
+
+
+******* WARNING *******
+Setting matrix block size to 3 (value of the parameter in the list) instead of 1 (provided matrix).
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    2           residual = 1.092033e-07
+
+
+		Solution time: 1.636932 (sec.)
+		total iterations: 2
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.788e+02
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.418750e-02
+                iter:   20           residual = 1.528560e-03
+                iter:   30           residual = 9.687728e-05
+                iter:   40           residual = 7.558880e-06
+                iter:   48           residual = 8.214576e-07
+
+
+		Solution time: 27.512233 (sec.)
+		total iterations: 48
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     1.08047e+01     3.13552e+00     2.91e+01  7.07e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.008952e-03
+                iter:   20           residual = 5.871975e-05
+                iter:   30           residual = 4.014817e-06
+                iter:   36           residual = 9.232417e-07
+
+
+		Solution time: 20.535040 (sec.)
+		total iterations: 36
+      2     1.60627e-05     2.73136e-03     2.21e+01  7.05e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.828117e-02
+                iter:   20           residual = 2.705086e-03
+                iter:   30           residual = 1.905539e-04
+                iter:   40           residual = 1.110160e-05
+                iter:   50           residual = 8.242456e-07
+
+
+		Solution time: 28.563372 (sec.)
+		total iterations: 50
+      3     1.06569e-05     9.75557e-08     3.01e+01  7.06e-01
+Finalised step 1 / 10 | time 1.000e-01 | dt 1.000e-01 | numiter 3 | wct 8.66e+01
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.788e+02
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.421957e-02
+                iter:   20           residual = 1.533316e-03
+                iter:   30           residual = 9.725502e-05
+                iter:   40           residual = 7.591776e-06
+                iter:   48           residual = 8.256099e-07
+
+
+		Solution time: 27.245353 (sec.)
+		total iterations: 48
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     1.15429e+01     3.14081e+00     2.88e+01  6.90e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.304086e-01
+                iter:   20           residual = 7.961284e-03
+                iter:   30           residual = 4.540556e-04
+                iter:   40           residual = 3.538824e-05
+                iter:   50           residual = 2.469490e-06
+                iter:   53           residual = 9.382367e-07
+
+
+		Solution time: 30.199469 (sec.)
+		total iterations: 53
+      2     2.15224e-01     4.53714e-01     3.18e+01  6.97e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.046338e-03
+                iter:   20           residual = 5.830018e-05
+                iter:   30           residual = 3.802655e-06
+                iter:   36           residual = 8.378553e-07
+
+
+		Solution time: 20.575310 (sec.)
+		total iterations: 36
+      3     1.06973e-05     5.58908e-05     2.21e+01  7.07e-01
+Finalised step 2 / 10 | time 2.000e-01 | dt 1.000e-01 | numiter 3 | wct 8.79e+01
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.788e+02
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.425602e-02
+                iter:   20           residual = 1.538714e-03
+                iter:   30           residual = 9.768384e-05
+                iter:   40           residual = 7.629158e-06
+                iter:   48           residual = 8.303490e-07
+
+
+		Solution time: 27.252760 (sec.)
+		total iterations: 48
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     1.13762e+01     3.14684e+00     2.88e+01  6.91e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.117406e-01
+                iter:   20           residual = 6.863469e-03
+                iter:   30           residual = 3.919300e-04
+                iter:   40           residual = 3.067223e-05
+                iter:   50           residual = 2.131834e-06
+                iter:   53           residual = 8.101636e-07
+
+
+		Solution time: 30.251312 (sec.)
+		total iterations: 53
+      2     1.54361e-01     3.83317e-01     3.18e+01  7.06e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 8.640317e-04
+                iter:   20           residual = 4.802314e-05
+                iter:   30           residual = 3.122618e-06
+                iter:   35           residual = 8.241807e-07
+
+
+		Solution time: 19.872740 (sec.)
+		total iterations: 35
+      3     1.06980e-05     3.49275e-05     2.14e+01  6.93e-01
+Finalised step 3 / 10 | time 3.000e-01 | dt 1.000e-01 | numiter 3 | wct 8.72e+01
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.788e+02
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.428455e-02
+                iter:   20           residual = 1.542980e-03
+                iter:   30           residual = 9.802290e-05
+                iter:   40           residual = 7.658722e-06
+                iter:   48           residual = 8.340924e-07
+
+
+		Solution time: 27.210494 (sec.)
+		total iterations: 48
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     1.25956e+01     3.15154e+00     2.88e+01  6.91e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.886708e-01
+                iter:   20           residual = 1.165048e-02
+                iter:   30           residual = 6.693126e-04
+                iter:   40           residual = 5.252592e-05
+                iter:   50           residual = 3.627369e-06
+                iter:   55           residual = 7.555624e-07
+
+
+		Solution time: 31.466786 (sec.)
+		total iterations: 55
+      2     5.45606e-01     7.21583e-01     3.30e+01  7.06e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.011282e-03
+                iter:   20           residual = 5.665606e-05
+                iter:   30           residual = 3.703959e-06
+                iter:   36           residual = 8.108423e-07
+
+
+		Solution time: 20.447579 (sec.)
+		total iterations: 36
+      3     1.06576e-05     1.38208e-04     2.20e+01  6.91e-01
+Finalised step 4 / 10 | time 4.000e-01 | dt 1.000e-01 | numiter 3 | wct 8.90e+01
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.788e+02
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.432372e-02
+                iter:   20           residual = 1.548792e-03
+                iter:   30           residual = 9.848507e-05
+                iter:   40           residual = 7.699071e-06
+                iter:   48           residual = 8.392353e-07
+
+
+		Solution time: 27.204405 (sec.)
+		total iterations: 48
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     1.17519e+01     3.15804e+00     2.88e+01  6.90e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.379380e-01
+                iter:   20           residual = 8.577933e-03
+                iter:   30           residual = 4.973601e-04
+                iter:   40           residual = 3.941453e-05
+                iter:   50           residual = 2.675654e-06
+                iter:   54           residual = 7.422368e-07
+
+
+		Solution time: 30.823747 (sec.)
+		total iterations: 54
+      2     2.54449e-01     4.90768e-01     3.24e+01  7.07e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 8.685451e-04
+                iter:   20           residual = 4.889890e-05
+                iter:   30           residual = 3.245284e-06
+                iter:   35           residual = 8.824017e-07
+
+
+		Solution time: 19.805954 (sec.)
+		total iterations: 35
+      3     1.05658e-05     5.79199e-05     2.14e+01  6.94e-01
+Finalised step 5 / 10 | time 5.000e-01 | dt 1.000e-01 | numiter 3 | wct 8.77e+01
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.788e+02
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.435140e-02
+                iter:   20           residual = 1.552952e-03
+                iter:   30           residual = 9.881564e-05
+                iter:   40           residual = 7.727937e-06
+                iter:   48           residual = 8.429096e-07
+
+
+		Solution time: 27.208658 (sec.)
+		total iterations: 48
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     1.23819e+01     3.16260e+00     2.88e+01  6.90e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.742894e-01
+                iter:   20           residual = 1.088124e-02
+                iter:   30           residual = 6.361353e-04
+                iter:   40           residual = 5.056116e-05
+                iter:   50           residual = 3.404080e-06
+                iter:   54           residual = 9.444084e-07
+
+
+		Solution time: 30.723313 (sec.)
+		total iterations: 54
+      2     4.53424e-01     6.55387e-01     3.23e+01  6.91e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 9.981992e-04
+                iter:   20           residual = 5.665613e-05
+                iter:   30           residual = 3.773340e-06
+                iter:   36           residual = 8.423040e-07
+
+
+		Solution time: 20.462186 (sec.)
+		total iterations: 36
+      3     1.06534e-05     1.14049e-04     2.20e+01  6.98e-01
+Finalised step 6 / 10 | time 6.000e-01 | dt 1.000e-01 | numiter 3 | wct 8.82e+01
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.788e+02
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.439005e-02
+                iter:   20           residual = 1.558715e-03
+                iter:   30           residual = 9.927465e-05
+                iter:   40           residual = 7.768060e-06
+                iter:   48           residual = 8.480429e-07
+
+
+		Solution time: 27.359367 (sec.)
+		total iterations: 48
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     1.12514e+01     3.16902e+00     2.89e+01  7.05e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.557210e-02
+                iter:   20           residual = 4.870739e-03
+                iter:   30           residual = 2.989581e-04
+                iter:   40           residual = 2.400226e-05
+                iter:   50           residual = 1.515226e-06
+                iter:   52           residual = 8.046872e-07
+
+
+		Solution time: 29.617773 (sec.)
+		total iterations: 52
+      2     7.23690e-02     2.56620e-01     3.12e+01  6.90e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.194096e-04
+                iter:   20           residual = 4.279187e-05
+                iter:   30           residual = 3.030913e-06
+                iter:   35           residual = 8.554439e-07
+
+
+		Solution time: 19.909706 (sec.)
+		total iterations: 35
+      3     1.07042e-05     1.47365e-05     2.15e+01  6.90e-01
+Finalised step 7 / 10 | time 7.000e-01 | dt 1.000e-01 | numiter 3 | wct 8.67e+01
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.788e+02
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.442019e-02
+                iter:   20           residual = 1.563248e-03
+                iter:   30           residual = 9.963455e-05
+                iter:   40           residual = 7.799542e-06
+                iter:   48           residual = 8.520811e-07
+
+
+		Solution time: 27.372666 (sec.)
+		total iterations: 48
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     1.13608e+01     3.17399e+00     2.89e+01  6.96e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 8.478134e-02
+                iter:   20           residual = 5.489415e-03
+                iter:   30           residual = 3.420927e-04
+                iter:   40           residual = 2.734811e-05
+                iter:   50           residual = 1.707362e-06
+                iter:   52           residual = 9.075706e-07
+
+
+		Solution time: 29.745587 (sec.)
+		total iterations: 52
+      2     9.27457e-02     2.89861e-01     3.13e+01  7.07e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 9.825419e-04
+                iter:   20           residual = 5.865111e-05
+                iter:   30           residual = 4.184084e-06
+                iter:   36           residual = 9.861526e-07
+
+
+		Solution time: 20.513136 (sec.)
+		total iterations: 36
+      3     1.05936e-05     2.32560e-05     2.21e+01  6.90e-01
+Finalised step 8 / 10 | time 8.000e-01 | dt 1.000e-01 | numiter 3 | wct 8.75e+01
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.788e+02
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.445544e-02
+                iter:   20           residual = 1.568539e-03
+                iter:   30           residual = 1.000570e-04
+                iter:   40           residual = 7.836506e-06
+                iter:   48           residual = 8.568213e-07
+
+
+		Solution time: 27.280051 (sec.)
+		total iterations: 48
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     1.12294e+01     3.17986e+00     2.89e+01  6.89e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 5.972298e-02
+                iter:   20           residual = 3.310196e-03
+                iter:   30           residual = 1.742427e-04
+                iter:   40           residual = 9.386913e-06
+                iter:   49           residual = 8.330377e-07
+
+
+		Solution time: 27.809484 (sec.)
+		total iterations: 49
+      2     3.64616e-02     1.93139e-01     2.94e+01  6.89e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.344228e-03
+                iter:   20           residual = 7.039654e-05
+                iter:   30           residual = 4.500731e-06
+                iter:   36           residual = 8.375644e-07
+
+
+		Solution time: 20.430423 (sec.)
+		total iterations: 36
+      3     1.06253e-05     1.12079e-05     2.20e+01  7.21e-01
+Finalised step 9 / 10 | time 9.000e-01 | dt 1.000e-01 | numiter 3 | wct 8.53e+01
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.788e+02
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.449009e-02
+                iter:   20           residual = 1.573749e-03
+                iter:   30           residual = 1.004705e-04
+                iter:   40           residual = 7.872745e-06
+                iter:   48           residual = 8.615059e-07
+
+
+		Solution time: 27.412335 (sec.)
+		total iterations: 48
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     1.12599e+01     3.18559e+00     2.90e+01  7.09e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 5.460639e-02
+                iter:   20           residual = 2.965407e-03
+                iter:   30           residual = 1.585974e-04
+                iter:   40           residual = 9.929090e-06
+                iter:   50           residual = 8.256151e-07
+
+
+		Solution time: 28.353273 (sec.)
+		total iterations: 50
+      2     2.98829e-02     1.74270e-01     2.99e+01  6.89e-01
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 9.648552e-04
+                iter:   20           residual = 5.252752e-05
+                iter:   30           residual = 3.710733e-06
+                iter:   36           residual = 8.456898e-07
+
+
+		Solution time: 20.407421 (sec.)
+		total iterations: 36
+      3     1.06423e-05     7.00223e-06     2.20e+01  6.93e-01
+Finalised step 10 / 10 | time 1.000e+00 | dt 1.000e-01 | numiter 3 | wct 8.60e+01
+--------------------------------------------------------------------------------
+
+
+Checking results of 0 tests:
+
+OK (0)
+====================================================================================================================================================
+
+                                                       TimeMonitor results over 20 processors
+
+Timer Name                                               MinOverProcs          MeanOverProcs         MaxOverProcs          MeanOverCallCounts       
+----------------------------------------------------------------------------------------------------------------------------------------------------
+ADAPTER::StructureTimIntBaseAlgorithm::SetupStructure    0.1434 (1)            0.2304 (1)            0.3856 (1)            0.2304 (1)               
+DRT::Discretization::Evaluate                            10.94 (62)            23.47 (62)            49.32 (62)            0.3785 (62)              
+DRT::Discretization::Evaluate LocationVector             0.374 (2.578e+05)     0.7671 (3.387e+05)    1.414 (3.319e+05)     2.265e-06 (3.387e+05)    
+DRT::Discretization::Evaluate PreEvaluate                0.0001667 (62)        0.0003034 (62)        0.0005511 (62)        4.893e-06 (62)           
+DRT::Discretization::Evaluate Resize                     0.1727 (2.578e+05)    0.3499 (3.387e+05)    0.6235 (3.319e+05)    1.033e-06 (3.387e+05)    
+DRT::Discretization::Evaluate assemble                   1.994 (2.578e+05)     4.305 (3.387e+05)     8.699 (3.319e+05)     1.271e-05 (3.387e+05)    
+DRT::Discretization::Evaluate elements                   7.885 (2.578e+05)     17.03 (3.387e+05)     36.96 (3.319e+05)     5.03e-05 (3.387e+05)     
+DRT::Discretization::SetState                            0.3464 (203)          2.796 (203)           6.661 (203)           0.01377 (203)            
+Epetra_CrsMatrix::Multiply(TransA,X,Y)                   297.6 (5.776e+04)     457.9 (5.875e+04)     762.8 (5.776e+04)     0.007793 (5.875e+04)     
+Hierarchy: Coarse: Computational Time                    0 (0)                 0.003848 (0)          0.07695 (0)           0 (0)                    
+----------------------------------------------------------------------------------------------------------------------------------------------------
+LINALG::Solver:  0)   TranslateSolverParameters          0.0002183 (1)         0.0003596 (1)         0.0006154 (1)         0.0003596 (1)            
+LINALG::Solver:  1)   Setup                              18.94 (31)            28.52 (31)            47.13 (31)            0.9199 (31)              
+LINALG::Solver:  1.1)   CreatePreconditioner             0.023 (31)            0.05437 (31)          0.1538 (31)           0.001754 (31)            
+LINALG::Solver:  2)   Solve                              311.9 (31)            469.7 (31)            776.2 (31)            15.15 (31)               
+LINALG::SparseMatrix::Complete                           0.381 (42)            1.434 (42)            2.92 (42)             0.03414 (42)             
+UtilitiesBase::GetMatrixDiagonalInverse                  0.2094 (62)           0.5096 (63.55)        1.044 (62)            0.008019 (63.55)         
+ZZ Entire Transpose                                      1.426 (62)            2.275 (63.55)         4.164 (62)            0.03579 (63.55)          
+====================================================================================================================================================
+
+Total CPU Time for CALCULATION: 4.129e+02  sec 
+
+processor 0 finished normally
+processor 6 finished normally
+processor 1 finished normally
+processor 2 finished normally
+processor 4 finished normally
+processor 8 finished normally
+processor 9 finished normally
+processor 10 finished normally
+processor 11 finished normally
+processor 12 finished normally
+processor 14 finished normally
+processor 15 finished normally
+processor 16 finished normally
+processor 17 finished normally
+processor 18 finished normally
+processor 19 finished normally
+processor 3 finished normally
+processor 5 finished normally
+processor 7 finished normally
+processor 13 finished normally
+
+
+simulation finished normally: True
+Postprocessing results...	25.46s elapsed
+(computing) coordinates for a Polynomial approximation
+writing 100000 HEX8 element(s) as 100000 hexa8 ensight cell(s)...
+writing dof-based field displacement
+writing element-based Cauchy stresses
+writing element-based Euler-Almansi strains
+writing element-based field Owner
+
+

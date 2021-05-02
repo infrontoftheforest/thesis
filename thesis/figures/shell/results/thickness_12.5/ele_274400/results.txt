@@ -1,0 +1,2754 @@
+topopt model init
+meshing init
+call mesher begin
+topopt mesh main
+meshing cylinder shell
+RLM Diagnostics at 04/28/2021 15:30 
+
+    RLM version: 10.1BL2
+    RLM platform: x64_l1
+    OS version: 4.16.11-100.fc26.x86
+
+    Hostname: rechenknecht
+    User: ryan
+    Working directory: /home/ryan/pytartaros/applications/topology_optimization
+
+Environment:
+
+        HTTP_PROXY=<not set>
+        RLM_CONNECT_TIMEOUT=<not set>
+        RLM_EXTENDED_ERROR_MESSAGES=<not set>
+        RLM_LICENSE=<not set>
+        RLM_NO_UNLIMIT=<not set>
+        RLM_PATH_RANDOMIZE=<not set>
+        RLM_PROJECT=<not set>
+        RLM_QUEUE=<not set>
+        RLM_ROAM=<not set>
+        RLMSTAT=<not set>
+        csimsoft_LICENSE=<not set>
+
+    RLM hostid list:
+
+        a20ad315 4c52620462d2 4c5262158fde 525400d4f284 525400d4f284 ip=10.162.21.211 ip=192.168.124.1 
+
+License files:
+        /mhpc/programs64/Trelis-15.1/bin/licenses/remote.lic
+
+rlm_init() parameters:
+        1: /mhpc/programs64/Trelis-15.1/bin/licenses
+        2: <empty>
+        3: <empty>
+
+Nodelocked/roaming licenses which can be checked out
+
+    Client Cached Licenses (only the highest version # shown):
+
+        <none>
+
+
+    In license file /mhpc/programs64/Trelis-15.1/bin/licenses/remote.lic
+          (server at: 5055@10.162.21.1)
+
+        <none>
+
+    Roaming Licenses:
+
+        <none>
+
+
+                   CCCCC    UU   UU   BBBBBB    IIII   TTTTTT
+                  CC   CC   UU   UU   BB   BB    II      TT
+                  CC        UU   UU   BB   BB    II      TT
+                  CC        UU   UU   BBBBBB     II      TT
+                  CC        UU   UU   BB   BB    II      TT
+                  CC   CC   UU   UU   BB   BB    II      TT
+                   CCCCC     UUUUU    BBBBBB    IIII     TT  tm
+
+                            MESH GENERATION TOOLKIT        
+                                      FOR                   
+                   PRE-PROCESSING OF FINITE ELEMENT ANALYSES
+
+                 User community mailing list: cubit@sandia.gov   
+         Report bugs and enhancement requests to cubit-help@sandia.gov
+
+
+                         Cubit Version 15.1.3 64 Bit Build f215c0c
+                               VTK Version 5.10.1
+                              ACIS Version 24.0.1.0
+                            Exodus API Version 6.05
+                     Copyright 2001-2008 Sandia Corporation
+              Revised Fri Jan 9 16:43:49 2015 -0700
+                        Running 04/28/2021 03:30:05 PM
+
+             CUBIT includes Tetmesh-GHS3D by Distene S.A.S./INRIA.
+                  CUBIT includes ACIS software by Spatial Inc.
+                  CUBIT includes LP Solve by Michel Berkelaar.
+                       CUBIT includes VTK by Kitware Inc.
+           CUBIT includes Exodus II, based on netCDF by UCAR/Unidata.
+            CUBIT includes VERDICT, by Sandia National Laboratories.
+          CUBIT includes MESQUITE, by Argonne National Laboratory and
+                         Sandia National Laboratories.
+
+Machine type is Linux 4.16.11-100.fc26.x86_64
+Machine name is rechenknecht
+
+
+Commands will be journaled to '/home/ryan/pytartaros/applications/topology_optimization/cubit01.jou'
+WARNING: Could not open Display, will continue with graphics disabled
+	Cubit Version 15.1.3 Build f215c0c
+	VTK Version 5.10.1
+	ACIS Version 24.0.1.0
+	CAMAL Version 6.1.0
+	Mesquite Version 2.99
+	Revised Fri Jan 9 16:43:49 2015 -0700
+
+Your license does not expire.
+
+
+Setting Developer Commands: on
+
+Command journalling is Off.
+Default element shape set for QUAD/HEX meshing
+Successfully created cylinder volume 1 
+Journaled Command: create cylinder height 500 radius 243.75
+
+Successfully created cylinder volume 2 
+Journaled Command: create cylinder height 500 radius 256.25
+
+Updated volume(s): 2
+Destroyed volume(s): 1
+Journaled Command: subtract body 1 from body 2
+
+Journaled Command: create surface rectangle width 500 height 266.25 xplane
+
+ Moved Body 3:  x 0.000000e+00  y 1.331250e+02  z 0.000000e+00
+Journaled Command: move surface 10 y 133.125
+
+Journaled Command: rotate surface 10 angle 40 about z
+
+Updated volume(s): 2
+SECTION successfully completed
+Created volume 2 
+Journaled Command: section volume 2 with surface 10 reverse
+
+Journaled Command: rotate surface 10 angle -80 about z
+
+Updated volume(s): 2
+SECTION successfully completed
+Created volume 2 
+Journaled Command: section volume 2 with surface 10
+
+
+Deleted 1 free surfaces
+Journaled Command: delete surface 10
+
+
+
+Performing webcut operation...
+Created volume(s): 4
+Updated volume(s): 2
+Modified/Created volumes: 2 4 
+Journaled Command: webcut volume 2 with plane xplane
+
+Journaled Command: curve 23 interval 14
+
+Journaled Command: curve 24 interval 140
+
+Journaled Command: curve 37 interval 70
+
+Calculating Auto Size
+0   |    |    |    |    50   |    |    |    |  100
+**************************************************
+Volume 2 (Volume 2) meshing scheme automatically set to submap.
+Matching intervals successful.
+Meshing Volume 2 (Volume 2)
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 1960 faces for Surface 22 (Surface 22).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 980 faces for Surface 23 (Surface 23).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 9800 faces for Surface 24 (Surface 24).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 1960 faces for Surface 17 (Surface 17).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 980 faces for Surface 25 (Surface 25).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 9800 faces for Surface 26 (Surface 26).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 137200 hexes for Volume 2 (Volume 2).
+Volume 2 (Volume 2) meshing completed using scheme: submap
+
+Meshing Time (sec) : 0
+
+Meshing time: 0.395193 
+Journaled Command: mesh volume 2
+
+Journaled Command: curve 18 interval 14
+
+Journaled Command: curve 15 interval 140
+
+Journaled Command: curve 45 interval 70
+
+Volume 4 (Volume 4) meshing scheme automatically set to submap.
+Matching intervals successful.
+Meshing Volume 4 (Volume 4)
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 1960 faces for Surface 27 (Surface 27).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 9800 faces for Surface 28 (Surface 28).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 980 faces for Surface 29 (Surface 29).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 9800 faces for Surface 30 (Surface 30).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 1960 faces for Surface 12 (Surface 12).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 980 faces for Surface 31 (Surface 31).
+Generating Mesh
+Processing...
+0   |    |    |    |    50   |    |    |    |  100
+
+Generated 137200 hexes for Volume 4 (Volume 4).
+Volume 4 (Volume 4) meshing completed using scheme: submap
+
+Meshing Time (sec) : 0
+
+Meshing time: 0.387920 
+Journaled Command: mesh volume 4
+
+Updated volume(s): 2, 4
+Journaled Command: imprint tolerant volume 2 4
+
+Comparing Surfaces:
+Comparing 12 Surfaces for Merge
+0   |    |    |    |    50   |    |    |    |  100
+**************************************************
+Consolidated 1 pair of surfaces
+Comparing Curves:
+Comparing 24 Curves for Merge
+0   |    |    |    |    50   |    |    |    |  100
+**************************************************
+Consolidated 0 pair of curves 
+Consolidated 0 pairs of vertices
+Journaled Command: merge volume 2 4
+
+Added Curve 17 to NodeSet 1
+Journaled Command: nodeset 1 curve 17
+
+Added Curve 26 to NodeSet 2
+Journaled Command: nodeset 2 curve 26
+
+Added Curve 32 to NodeSet 3
+Journaled Command: nodeset 3 curve 32
+
+Disassociating the mesh from the volumes being united.
+Unmerging geometry.
+Uniting the volumes.
+Regularizing out unnecessary curves.
+Regularizing out unnecessary vertices.
+Remerging with neighbors.
+Applying composites to remove new curves.
+Applying composites to remove new vertices.
+Reassociating mesh to new united volume.
+Journaled Command: unite body 2 4 include_mesh
+
+
+Using ExodusII API version 6.05 and DB version 6.05 to export "/home/ryan/pytartaros-io/i/exo/cylindershell.exo".
+Writing Exodus file
+0   |    |    |    |    50   |    |    |    |  100
+**************************************************
+
+
+Executive Exodus summary:
+  Number of dimensions     = 3
+  Number of element blocks = 1
+  Number of sidesets       = 0
+  Number of nodesets       = 3
+  Number of bc sets        = 1
+  Number of elements       = 274400
+  Number of nodes          = 298215
+
+Finished writing /home/ryan/pytartaros-io/i/exo/cylindershell.exo
+
+QObject::startTimer: QTimer can only be used with threads started with QThread
+QObject::startTimer: QTimer can only be used with threads started with QThread
+QObject::startTimer: QTimer can only be used with threads started with QThread
+QObject::startTimer: QTimer can only be used with threads started with QThread
+
+call mesher end
+problem: cylindershell
+exo: /home/ryan/pytartaros-io/i/exo/cylindershell.exo
+loaded: cylindershell
+Generating .dat file...		9.82s elapsed
+errors are reported to /home/ryan/pytartaros-io/i/dat/cylindershell_pre0.err
+File /home/ryan/pytartaros-io/i/exo/cylindershell.exo was created with EXODUS II library version 6.05
+Mesh consists of 298215 Nodes, 274400 Elements, organized in 
+1 ElementBlocks, 3 NodeSets, 0 SideSets 
+
+creating and checking BACI input file       --> /home/ryan/pytartaros-io/i/dat/cylindershell.dat
+...Ensure positive element jacobians        in....11.9563 secs
+...Writing dat-file                         in....5.22257 secs
+...Read parameters
+...Read materials
+...Read field setup
+...Read/generate conditions                          in....0.00367692 secs
+...OK
+
+
+Adjusting parameters...		2.22s elapsed
+loaded: cylindershell
+Evaluating model...			5704.36s elapsed
+simulation is done!
+
+****************************************
+*                                      *
+*           T A R T A R O S            *
+*                                      *
+*                                      *
+*            revision    -1            *
+*           parallel version           *
+*             fast version             *
+*                                      *
+*    Professur  fuer  Mechanik  auf    *
+*       Hoechstleistungsrechnern       *
+*                 MHPC                 *
+*   Technische Universitaet Muenchen   *
+*                                      *
+****************************************
+
+Tartaros SHA1: 5aaf084b3f0f157b4916bf973cf4954332c64ca5
+Trilinos SHA1: 
+Total number of processors: 20
+input is read from     /home/ryan/pytartaros-io/i/dat/cylindershell.dat
+errors are reported to /home/ryan/pytartaros-io/o/cylindershell0.err
+Entering jumbo reading mode for structure discretization ...
+Read, create and partition elements      in....
+numele 274400 nblock 20 bsize 13720
+ele block 0 reading 2.42814e-01 secs / distrib time 8.61122e-03 secs
+ele block 1 reading 2.45707e-01 secs / distrib time 2.28340e-01 secs
+ele block 2 reading 2.35637e-01 secs / distrib time 2.41870e-01 secs
+ele block 3 reading 2.22679e-01 secs / distrib time 2.70677e-01 secs
+ele block 4 reading 2.26782e-01 secs / distrib time 2.38329e-01 secs
+ele block 5 reading 2.33068e-01 secs / distrib time 2.42358e-01 secs
+ele block 6 reading 2.34978e-01 secs / distrib time 2.89062e-01 secs
+ele block 7 reading 2.42084e-01 secs / distrib time 2.85843e-01 secs
+ele block 8 reading 2.44774e-01 secs / distrib time 2.57675e-01 secs
+ele block 9 reading 2.48843e-01 secs / distrib time 2.49747e-01 secs
+ele block 10 reading 2.47325e-01 secs / distrib time 2.59416e-01 secs
+ele block 11 reading 2.50835e-01 secs / distrib time 2.53952e-01 secs
+ele block 12 reading 2.60264e-01 secs / distrib time 2.91424e-01 secs
+ele block 13 reading 2.55541e-01 secs / distrib time 2.62099e-01 secs
+ele block 14 reading 2.54621e-01 secs / distrib time 2.66636e-01 secs
+ele block 15 reading 2.58531e-01 secs / distrib time 2.62355e-01 secs
+ele block 16 reading 2.57413e-01 secs / distrib time 3.10301e-01 secs
+ele block 17 reading 2.65436e-01 secs / distrib time 2.65927e-01 secs
+ele block 18 reading 2.62009e-01 secs / distrib time 2.70274e-01 secs
+ele block 19 reading 2.66722e-01 secs / distrib time 2.64675e-01 secs
+parmetis:
+parmetis max nodal bandwith 27
+ZOLTAN Load balancing method = 10 (HYPERGRAPH)
+Graph rebalancing:    8.12516e+00 secs
+............................................... 1.99670e+01 secs
+Read, create and partition nodes
+numnode 298215 nblock 20 bsize 14910
+block 0 reading 1.77570e-01 secs / distrib 2.81712e-02 secs
+block 1 reading 1.79206e-01 secs / distrib 3.70033e-02 secs
+block 2 reading 1.77471e-01 secs / distrib 4.12604e-02 secs
+block 3 reading 1.78774e-01 secs / distrib 4.64663e-02 secs
+block 4 reading 1.79591e-01 secs / distrib 4.93375e-02 secs
+block 5 reading 1.80033e-01 secs / distrib 5.61937e-02 secs
+block 6 reading 1.80947e-01 secs / distrib 5.94587e-02 secs
+block 7 reading 1.81935e-01 secs / distrib 5.76612e-02 secs
+block 8 reading 1.82171e-01 secs / distrib 5.59886e-02 secs
+block 9 reading 1.82385e-01 secs / distrib 5.51945e-02 secs
+block 10 reading 1.82524e-01 secs / distrib 6.15011e-02 secs
+block 11 reading 1.82963e-01 secs / distrib 5.79415e-02 secs
+block 12 reading 1.82922e-01 secs / distrib 5.67667e-02 secs
+block 13 reading 1.83209e-01 secs / distrib 5.81900e-02 secs
+block 14 reading 1.83638e-01 secs / distrib 5.72708e-02 secs
+block 15 reading 1.83875e-01 secs / distrib 6.10522e-02 secs
+block 16 reading 1.83267e-01 secs / distrib 6.38313e-02 secs
+block 17 reading 1.81956e-01 secs / distrib 6.30253e-02 secs
+block 18 reading 1.83144e-01 secs / distrib 6.09515e-02 secs
+block 19 reading 1.84851e-01 secs / distrib 9.12208e-02 secs
+in............................................. 4.96926e+00 secs
+Complete discretization structure        in....+--------------------------------------------------+
+| FillComplete() on discretization structure       |
++--------------------------------------------------+
+0.179075 secs
+
+   Discretization: structure
+   +-----+---------------+--------------+-----------------+----------------+
+   | PID |  n_rownodes   | n_ghostnodes |  n_rowelements  |   n_ghostele   |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   0 |         15906 |         1788 |           14423 |            980 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   1 |         13924 |         2500 |           13547 |            611 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   2 |         12642 |         1885 |           12219 |            310 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   3 |         16159 |         1951 |           14410 |           1391 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   4 |         13461 |         1094 |           12411 |            210 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   5 |         13655 |         1846 |           12646 |            764 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   6 |         14833 |         2976 |           13723 |           1493 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   7 |         15780 |         1168 |           13889 |            913 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   8 |         15756 |         1955 |           14695 |            705 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |   9 |         14588 |         2167 |           13171 |           1306 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  10 |         14346 |         1674 |           13564 |            328 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  11 |         15878 |         1240 |           14032 |            879 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  12 |         15766 |         2652 |           14891 |           1049 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  13 |         15779 |         2458 |           14006 |           1861 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  14 |         13792 |         1704 |           12730 |            623 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  15 |         14639 |         2503 |           14069 |            747 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  16 |         15949 |         3086 |           14245 |           2063 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  17 |         13370 |         1768 |           12654 |            412 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  18 |         15813 |         2322 |           14738 |            914 |
+   +-----+---------------+--------------+-----------------+----------------+
+   |  19 |         16179 |         1397 |           14337 |            937 |
+   +-----+---------------+--------------+-----------------+----------------+
+
+Read/generate conditions                          in....0.0769261 secs
+
+Total CPU Time for INPUT:       1.373e+01  sec 
+
++--------------------------------------------------+
+| FillComplete() on discretization structure       |
+| AssignDegreesOfFreedom() ...                     |
+| InitializeElements() ...                         |
+| BoundaryConditionsGeometry() ...                 |
++--------------------------------------------------+
+default parameters in list 'DAT FILE->STRUCTURAL DYNAMIC':
+    INT_STRATEGY                    Old
+    PRESTRESS                       none
+    PRESTRESSTIME                   0.000e+00
+    RESEVRYERGY                     0
+    RESTARTATEND                    No
+    TIMEINIT                        0.000e+00
+    DAMPING                         No
+    M_DAMP                          -1.000e+00
+    K_DAMP                          -1.000e+00
+    DYNAMIC_RELAXATION              No
+    DYNRELAX_MIN_STEP               0
+    DAMPK_FUNCT                     -1
+    DAMPM_FUNCT                     -1
+    DAMPS_FUNCT                     -1
+    TIME_FUNCT                      -1
+    ENERGY_STOP                     -1.000e+00
+    TOLPRE                          1.000e-08
+    NORM_PRES                       Abs
+    TOLINCO                         1.000e-08
+    NORM_INCO                       Abs
+    NORMCOMBI_DISPPRES              And
+    NORMCOMBI_RESFINCO              And
+    STC_SCALING                     no
+    STC_LAYER                       1
+    PTCDT                           1.000e-01
+    PTCDTDT                         1.000e+00
+    TOLCONSTR                       1.000e-08
+    TOLCONSTRINCR                   1.000e-08
+    MINITER                         0
+    ITERNORM                        L2
+    DIVERCONT                       stop
+    MAXDIVCONREFINEMENTLEVEL        10
+    LSMAXITER                       30
+    ALPHA_LS                        5.000e-01
+    SIGMA_LS                        1.000e-04
+    MATERIALTANGENT                 analytical
+    CONTROLTYPE                     load
+    CONTROLNODE                     -1 -1 -1
+    LOADLIN                         No
+    MASSLIN                         No
+    NEGLECTINERTIA                  No
+    UZAWAPARAM                      1.000e+00
+    UZAWATOL                        1.000e-08
+    UZAWAMAXITER                    50
+    UZAWAALGO                       direct
+    ADAPTCONV                       No
+    ADAPTCONV_BETTER                1.000e-01
+    LUMPMASS                        No
+    MODIFIEDEXPLEULER               Yes
+    YOUNG_IS_TEMP_DEPENDENT         No
+    GEOMETRY                        full
+
+Welcome to Structural Time Integration 
+     __o__                          __o__
+__  /-----\__                  __  /-----\__
+\ \/       \ \    |       \    \ \/       \ \
+ \ |  tea  | |    |-------->    \ |  tea  | |
+  \|       |_/    |       /      \|       |_/
+    \_____/   ._                   \_____/   ._ _|_ /|
+              | |                            | | |   |
+
+with one-step-theta
+   theta = 5.000e-01
+
+
+******* WARNING *******
+Setting matrix block size to 3 (value of the parameter in the list) instead of 1 (provided matrix).
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    2           residual = 1.032702e-07
+
+
+		Solution time: 5.120675 (sec.)
+		total iterations: 2
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.535e+04
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.149558e-02
+                iter:   20           residual = 2.346485e-03
+                iter:   30           residual = 4.327033e-04
+                iter:   40           residual = 1.391460e-04
+                iter:   50           residual = 2.997270e-05
+                iter:   60           residual = 3.331763e-06
+                iter:   67           residual = 8.434724e-07
+
+
+		Solution time: 122.224611 (sec.)
+		total iterations: 67
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     1.00737e+05     5.84478e+02     1.27e+02  2.15e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.413783e-03
+                iter:   20           residual = 1.119612e-04
+                iter:   30           residual = 1.753101e-05
+                iter:   40           residual = 4.351420e-06
+                iter:   50           residual = 1.473606e-06
+                iter:   53           residual = 8.355584e-07
+
+
+		Solution time: 95.821900 (sec.)
+		total iterations: 53
+      2     7.54939e+02     5.92859e+01     1.01e+02  2.15e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.627721e-02
+                iter:   20           residual = 1.567630e-03
+                iter:   30           residual = 3.185141e-04
+                iter:   40           residual = 1.009908e-04
+                iter:   50           residual = 2.925626e-05
+                iter:   60           residual = 2.948791e-06
+                iter:   65           residual = 9.138822e-07
+
+
+		Solution time: 118.676654 (sec.)
+		total iterations: 65
+      3     1.43431e+01     6.17845e+00     1.24e+02  2.15e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.061617e-03
+                iter:   20           residual = 2.238692e-04
+                iter:   30           residual = 4.136446e-05
+                iter:   40           residual = 7.366624e-06
+                iter:   50           residual = 3.089797e-06
+                iter:   56           residual = 9.856796e-07
+
+
+		Solution time: 101.147040 (sec.)
+		total iterations: 56
+      4     4.00865e-05     1.04167e-02     1.06e+02  2.10e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.808008e-02
+                iter:   20           residual = 2.668350e-02
+                iter:   30           residual = 5.865282e-03
+                iter:   40           residual = 7.252656e-04
+                iter:   50           residual = 1.071582e-04
+                iter:   60           residual = 1.401105e-05
+                iter:   70           residual = 1.709010e-06
+                iter:   73           residual = 9.483846e-07
+
+
+		Solution time: 132.702390 (sec.)
+		total iterations: 73
+      5     1.27581e-05     2.24174e-06     1.38e+02  2.12e+00
+Finalised step 1 / 10 | time 1.000e-01 | dt 1.000e-01 | numiter 5 | wct 6.21e+02
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.535e+04
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.646463e-02
+                iter:   20           residual = 2.973295e-03
+                iter:   30           residual = 5.631908e-04
+                iter:   40           residual = 1.777046e-04
+                iter:   50           residual = 6.080295e-05
+                iter:   60           residual = 7.121454e-06
+                iter:   70           residual = 8.534444e-07
+
+
+		Solution time: 127.251091 (sec.)
+		total iterations: 70
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     1.42549e+05     7.18296e+02     1.32e+02  2.09e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.301260e-03
+                iter:   20           residual = 2.681282e-04
+                iter:   30           residual = 4.652710e-05
+                iter:   40           residual = 1.189988e-05
+                iter:   50           residual = 5.023120e-06
+                iter:   59           residual = 8.828255e-07
+
+
+		Solution time: 106.938263 (sec.)
+		total iterations: 59
+      2     8.35249e+03     2.01360e+02     1.12e+02  2.13e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 9.628648e-03
+                iter:   20           residual = 1.051783e-03
+                iter:   30           residual = 2.350562e-04
+                iter:   40           residual = 5.573780e-05
+                iter:   50           residual = 2.940064e-05
+                iter:   60           residual = 5.505004e-06
+                iter:   69           residual = 9.131188e-07
+
+
+		Solution time: 125.535069 (sec.)
+		total iterations: 69
+      3     5.38900e+02     4.14791e+01     1.31e+02  2.13e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.549663e-03
+                iter:   20           residual = 4.187208e-04
+                iter:   30           residual = 9.299847e-05
+                iter:   40           residual = 1.487229e-05
+                iter:   50           residual = 7.123812e-06
+                iter:   60           residual = 2.172646e-06
+                iter:   65           residual = 8.420558e-07
+
+
+		Solution time: 118.193312 (sec.)
+		total iterations: 65
+      4     1.65942e-01     7.36896e-01     1.23e+02  2.17e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.018412e-02
+                iter:   20           residual = 1.479128e-03
+                iter:   30           residual = 3.460087e-04
+                iter:   40           residual = 1.426609e-04
+                iter:   50           residual = 5.127336e-05
+                iter:   60           residual = 8.684499e-06
+                iter:   70           residual = 1.314297e-06
+                iter:   72           residual = 9.022684e-07
+
+
+		Solution time: 130.628938 (sec.)
+		total iterations: 72
+      5     1.28042e-05     7.26808e-04     1.36e+02  2.21e+00
+Finalised step 2 / 10 | time 2.000e-01 | dt 1.000e-01 | numiter 5 | wct 6.59e+02
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.535e+04
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.435310e-02
+                iter:   20           residual = 4.181665e-03
+                iter:   30           residual = 8.834504e-04
+                iter:   40           residual = 2.427567e-04
+                iter:   50           residual = 1.232697e-04
+                iter:   60           residual = 2.514845e-05
+                iter:   70           residual = 3.200045e-06
+                iter:   76           residual = 8.650038e-07
+
+
+		Solution time: 137.892772 (sec.)
+		total iterations: 76
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     2.27633e+05     9.54272e+02     1.43e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.917263e-04
+                iter:   20           residual = 6.386232e-05
+                iter:   30           residual = 1.208483e-05
+                iter:   40           residual = 1.835600e-06
+                iter:   45           residual = 9.654148e-07
+
+
+		Solution time: 81.010370 (sec.)
+		total iterations: 45
+      2     5.63458e+02     5.82699e+01     8.62e+01  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.258447e-02
+                iter:   20           residual = 4.806974e-03
+                iter:   30           residual = 1.232139e-03
+                iter:   40           residual = 2.006122e-04
+                iter:   50           residual = 6.211039e-05
+                iter:   60           residual = 3.406180e-05
+                iter:   70           residual = 1.042757e-05
+                iter:   80           residual = 1.787551e-06
+                iter:   84           residual = 8.894912e-07
+
+
+		Solution time: 152.952578 (sec.)
+		total iterations: 84
+      3     3.00274e+01     9.40471e+00     1.58e+02  2.22e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.923229e-03
+                iter:   20           residual = 3.723158e-04
+                iter:   30           residual = 1.008551e-04
+                iter:   40           residual = 1.479713e-05
+                iter:   50           residual = 3.202719e-06
+                iter:   56           residual = 8.822750e-07
+
+
+		Solution time: 100.732200 (sec.)
+		total iterations: 56
+      4     1.87844e-04     2.23319e-02     1.06e+02  2.24e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.308652e-02
+                iter:   20           residual = 1.630261e-02
+                iter:   30           residual = 8.554952e-03
+                iter:   40           residual = 2.195555e-03
+                iter:   50           residual = 5.374016e-04
+                iter:   60           residual = 1.124365e-04
+                iter:   70           residual = 2.441978e-05
+                iter:   80           residual = 2.653772e-06
+                iter:   87           residual = 8.387170e-07
+
+
+		Solution time: 158.218965 (sec.)
+		total iterations: 87
+      5     1.28337e-05     7.06479e-06     1.63e+02  2.21e+00
+Finalised step 3 / 10 | time 3.000e-01 | dt 1.000e-01 | numiter 5 | wct 6.81e+02
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.535e+04
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 5.344661e-02
+                iter:   20           residual = 5.796038e-03
+                iter:   30           residual = 1.429336e-03
+                iter:   40           residual = 3.984401e-04
+                iter:   50           residual = 1.590833e-04
+                iter:   60           residual = 6.728990e-05
+                iter:   70           residual = 1.241605e-05
+                iter:   80           residual = 1.333054e-06
+                iter:   82           residual = 9.311703e-07
+
+
+		Solution time: 150.056881 (sec.)
+		total iterations: 82
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     3.60614e+05     1.26440e+03     1.55e+02  2.22e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.713973e-03
+                iter:   20           residual = 1.985164e-04
+                iter:   30           residual = 3.769749e-05
+                iter:   40           residual = 8.568633e-06
+                iter:   50           residual = 3.488239e-06
+                iter:   60           residual = 1.265258e-06
+                iter:   62           residual = 9.816040e-07
+
+
+		Solution time: 111.748391 (sec.)
+		total iterations: 62
+      2     2.68287e+04     4.30029e+02     1.17e+02  2.17e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.604565e-02
+                iter:   20           residual = 2.304313e-03
+                iter:   30           residual = 7.901746e-04
+                iter:   40           residual = 2.220888e-04
+                iter:   50           residual = 5.982697e-05
+                iter:   60           residual = 3.651522e-05
+                iter:   70           residual = 1.887829e-05
+                iter:   80           residual = 3.753705e-06
+                iter:   90           residual = 9.897497e-07
+
+
+		Solution time: 164.052427 (sec.)
+		total iterations: 90
+      3     2.15969e+04     3.12731e+02     1.69e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.580427e-03
+                iter:   20           residual = 4.231197e-04
+                iter:   30           residual = 1.461922e-04
+                iter:   40           residual = 3.920720e-05
+                iter:   50           residual = 8.778720e-06
+                iter:   60           residual = 3.549403e-06
+                iter:   70           residual = 2.053537e-06
+                iter:   80           residual = 9.112696e-07
+
+
+		Solution time: 145.771694 (sec.)
+		total iterations: 80
+      4     1.67948e+02     3.00617e+01     1.51e+02  2.22e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.577230e-02
+                iter:   20           residual = 3.129848e-03
+                iter:   30           residual = 1.118014e-03
+                iter:   40           residual = 2.408018e-04
+                iter:   50           residual = 8.352940e-05
+                iter:   60           residual = 3.709927e-05
+                iter:   70           residual = 2.401098e-05
+                iter:   80           residual = 7.355478e-06
+                iter:   90           residual = 1.910110e-06
+                iter:   94           residual = 9.823909e-07
+
+
+		Solution time: 172.841781 (sec.)
+		total iterations: 94
+      5     8.66686e-01     1.77895e+00     1.78e+02  2.22e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.740504e-03
+                iter:   20           residual = 6.677635e-04
+                iter:   30           residual = 2.580612e-04
+                iter:   40           residual = 5.018788e-05
+                iter:   50           residual = 1.783563e-05
+                iter:   60           residual = 5.770068e-06
+                iter:   70           residual = 3.833053e-06
+                iter:   80           residual = 1.180206e-06
+                iter:   82           residual = 9.564532e-07
+
+
+		Solution time: 150.363196 (sec.)
+		total iterations: 82
+      6     1.29195e-05     1.27074e-03     1.56e+02  2.22e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.346154e-02
+                iter:   20           residual = 1.282673e-02
+                iter:   30           residual = 7.704095e-03
+                iter:   40           residual = 2.266375e-03
+                iter:   50           residual = 4.689519e-04
+                iter:   60           residual = 1.659133e-04
+                iter:   70           residual = 4.529049e-05
+                iter:   80           residual = 1.348787e-05
+                iter:   90           residual = 3.023317e-06
+                iter:   96           residual = 8.413533e-07
+
+
+		Solution time: 176.762814 (sec.)
+		total iterations: 96
+      7     1.28940e-05     4.99436e-07     1.82e+02  2.22e+00
+Finalised step 4 / 10 | time 4.000e-01 | dt 1.000e-01 | numiter 7 | wct 1.14e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.535e+04
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.297878e-02
+                iter:   20           residual = 9.113966e-03
+                iter:   30           residual = 2.939296e-03
+                iter:   40           residual = 1.099939e-03
+                iter:   50           residual = 2.412979e-04
+                iter:   60           residual = 1.417456e-04
+                iter:   70           residual = 8.658560e-05
+                iter:   80           residual = 2.445717e-05
+                iter:   90           residual = 6.482198e-06
+                iter:  100           residual = 1.596718e-06
+                iter:  105           residual = 9.818707e-07
+
+
+		Solution time: 194.382216 (sec.)
+		total iterations: 105
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     8.28410e+05     2.11617e+03     2.00e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.291846e-03
+                iter:   20           residual = 8.474622e-05
+                iter:   30           residual = 1.105807e-05
+                iter:   40           residual = 1.545310e-06
+                iter:   44           residual = 9.255077e-07
+
+
+		Solution time: 79.570443 (sec.)
+		total iterations: 44
+      2     1.82780e+04     4.18256e+02     8.49e+01  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.353911e-02
+                iter:   20           residual = 5.170037e-03
+                iter:   30           residual = 1.662556e-03
+                iter:   40           residual = 6.794923e-04
+                iter:   50           residual = 2.560074e-04
+                iter:   60           residual = 1.172270e-04
+                iter:   70           residual = 6.568310e-05
+                iter:   80           residual = 5.211975e-05
+                iter:   90           residual = 2.415202e-05
+                iter:  100           residual = 1.093354e-05
+                iter:  110           residual = 5.848919e-06
+                iter:  120           residual = 2.310046e-06
+                iter:  130           residual = 1.658985e-06
+                iter:  140           residual = 1.225180e-06
+                iter:  143           residual = 8.971494e-07
+
+
+		Solution time: 261.454183 (sec.)
+		total iterations: 143
+      3     1.11061e+05     8.42082e+02     2.67e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.330638e-03
+                iter:   20           residual = 4.101464e-04
+                iter:   30           residual = 6.370203e-05
+                iter:   40           residual = 1.830871e-05
+                iter:   50           residual = 6.188683e-06
+                iter:   60           residual = 2.198771e-06
+                iter:   70           residual = 1.008460e-06
+                iter:   71           residual = 9.452643e-07
+
+
+		Solution time: 129.414244 (sec.)
+		total iterations: 71
+      4     1.55666e+03     1.15247e+02     1.35e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.010854e-02
+                iter:   20           residual = 3.794411e-03
+                iter:   30           residual = 1.054918e-03
+                iter:   40           residual = 3.113080e-04
+                iter:   50           residual = 1.213000e-04
+                iter:   60           residual = 7.971358e-05
+                iter:   70           residual = 6.046343e-05
+                iter:   80           residual = 4.905730e-05
+                iter:   90           residual = 2.150716e-05
+                iter:  100           residual = 6.925472e-06
+                iter:  110           residual = 4.303124e-06
+                iter:  120           residual = 1.445331e-06
+                iter:  123           residual = 9.698673e-07
+
+
+		Solution time: 226.124731 (sec.)
+		total iterations: 123
+      5     4.77818e+02     5.74264e+01     2.31e+02  2.22e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.630929e-03
+                iter:   20           residual = 6.943350e-04
+                iter:   30           residual = 1.112214e-04
+                iter:   40           residual = 3.034565e-05
+                iter:   50           residual = 1.201327e-05
+                iter:   60           residual = 5.946191e-06
+                iter:   70           residual = 4.348354e-06
+                iter:   80           residual = 3.333190e-06
+                iter:   90           residual = 2.431297e-06
+                iter:  100           residual = 1.292150e-06
+                iter:  108           residual = 9.700606e-07
+
+
+		Solution time: 199.636201 (sec.)
+		total iterations: 108
+      6     1.09459e-01     9.23609e-01     2.05e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.750065e-02
+                iter:   20           residual = 3.295208e-03
+                iter:   30           residual = 2.294662e-03
+                iter:   40           residual = 1.887446e-03
+                iter:   50           residual = 1.204040e-03
+                iter:   60           residual = 6.194457e-04
+                iter:   70           residual = 2.953424e-04
+                iter:   80           residual = 1.087262e-04
+                iter:   90           residual = 3.097785e-05
+                iter:  100           residual = 1.495409e-05
+                iter:  110           residual = 8.255970e-06
+                iter:  120           residual = 2.590951e-06
+                iter:  128           residual = 9.984200e-07
+
+
+		Solution time: 235.316685 (sec.)
+		total iterations: 128
+      7     1.30276e-05     2.89154e-03     2.41e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 5.420216e-03
+                iter:   20           residual = 2.725110e-03
+                iter:   30           residual = 1.192568e-03
+                iter:   40           residual = 7.420478e-04
+                iter:   50           residual = 6.132515e-04
+                iter:   60           residual = 4.296274e-04
+                iter:   70           residual = 1.586649e-04
+                iter:   80           residual = 7.095546e-05
+                iter:   90           residual = 1.636333e-05
+                iter:  100           residual = 1.990084e-06
+                iter:  107           residual = 9.859497e-07
+
+
+		Solution time: 197.826244 (sec.)
+		total iterations: 107
+      8     1.29566e-05     1.15645e-07     2.03e+02  2.20e+00
+Finalised step 5 / 10 | time 5.000e-01 | dt 1.000e-01 | numiter 8 | wct 1.60e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.535e+04
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.058102e-01
+                iter:   20           residual = 1.589091e-02
+                iter:   30           residual = 3.651173e-03
+                iter:   40           residual = 1.160189e-03
+                iter:   50           residual = 4.340729e-04
+                iter:   60           residual = 2.381696e-04
+                iter:   70           residual = 1.480438e-04
+                iter:   80           residual = 1.263874e-04
+                iter:   90           residual = 7.865195e-05
+                iter:  100           residual = 4.907635e-05
+                iter:  110           residual = 3.516453e-05
+                iter:  120           residual = 1.868414e-05
+                iter:  130           residual = 1.546241e-05
+                iter:  140           residual = 1.065249e-05
+                iter:  150           residual = 6.186060e-06
+                iter:  160           residual = 2.560331e-06
+                iter:  167           residual = 9.117054e-07
+
+
+		Solution time: 304.331318 (sec.)
+		total iterations: 167
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     4.13372e+06     5.44643e+03     3.10e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 8.676849e-04
+                iter:   20           residual = 2.709627e-05
+                iter:   30           residual = 5.082910e-06
+                iter:   39           residual = 8.798275e-07
+
+
+		Solution time: 70.502927 (sec.)
+		total iterations: 39
+      2     2.19128e+05     1.12732e+03     7.57e+01  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.131473e-02
+                iter:   20           residual = 2.277651e-02
+                iter:   30           residual = 6.082180e-03
+                iter:   40           residual = 1.281281e-03
+                iter:   50           residual = 2.602317e-04
+                iter:   60           residual = 1.587170e-04
+                iter:   70           residual = 1.101481e-04
+                iter:   80           residual = 4.146589e-05
+                iter:   90           residual = 1.322448e-05
+                iter:  100           residual = 2.567254e-06
+                iter:  109           residual = 9.222832e-07
+
+
+		Solution time: 200.988147 (sec.)
+		total iterations: 109
+      3     4.80275e+08     5.49060e+04     2.06e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 9.731352e-05
+                iter:   18           residual = 8.498460e-07
+
+
+		Solution time: 32.979411 (sec.)
+		total iterations: 18
+      4     4.13423e+08     1.30212e+04     3.82e+01  2.16e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.859058e-05
+                iter:   18           residual = 8.640023e-07
+
+
+		Solution time: 32.972956 (sec.)
+		total iterations: 18
+      5     1.18512e+08     6.79399e+03     3.81e+01  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.102711e-04
+                iter:   20           residual = 4.872603e-06
+                iter:   25           residual = 5.562866e-07
+
+
+		Solution time: 45.409631 (sec.)
+		total iterations: 25
+      6     3.37548e+07     4.72829e+03     5.06e+01  2.17e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.216689e-04
+                iter:   20           residual = 3.145384e-05
+                iter:   30           residual = 1.385021e-06
+                iter:   32           residual = 7.493554e-07
+
+
+		Solution time: 57.733118 (sec.)
+		total iterations: 32
+      7     9.64866e+06     2.68088e+03     6.29e+01  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.059306e-03
+                iter:   20           residual = 2.268583e-04
+                iter:   30           residual = 2.226882e-05
+                iter:   40           residual = 1.557232e-06
+                iter:   42           residual = 9.326908e-07
+
+
+		Solution time: 75.680511 (sec.)
+		total iterations: 42
+      8     2.91173e+06     1.59398e+03     8.08e+01  2.23e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.037175e-03
+                iter:   20           residual = 6.259852e-04
+                iter:   30           residual = 1.124946e-04
+                iter:   40           residual = 1.823996e-05
+                iter:   50           residual = 2.398822e-06
+                iter:   54           residual = 9.634589e-07
+
+
+		Solution time: 97.853200 (sec.)
+		total iterations: 54
+      9     1.29560e+06     1.89587e+03     1.03e+02  2.16e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 9.689982e-03
+                iter:   20           residual = 8.786059e-04
+                iter:   30           residual = 2.066280e-04
+                iter:   40           residual = 4.191236e-05
+                iter:   50           residual = 7.557779e-06
+                iter:   60           residual = 1.392367e-06
+                iter:   63           residual = 8.990596e-07
+
+
+		Solution time: 114.779401 (sec.)
+		total iterations: 63
+     10     6.46405e+05     1.49695e+03     1.20e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.213105e-02
+                iter:   20           residual = 1.496584e-03
+                iter:   30           residual = 3.532585e-04
+                iter:   40           residual = 7.785761e-05
+                iter:   50           residual = 1.666775e-05
+                iter:   60           residual = 3.685021e-06
+                iter:   70           residual = 1.047322e-06
+                iter:   71           residual = 9.188853e-07
+
+
+		Solution time: 129.352862 (sec.)
+		total iterations: 71
+     11     4.20761e+05     1.23824e+03     1.35e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.041636e-02
+                iter:   20           residual = 1.711865e-03
+                iter:   30           residual = 3.113608e-04
+                iter:   40           residual = 9.979492e-05
+                iter:   50           residual = 2.254419e-05
+                iter:   60           residual = 4.112274e-06
+                iter:   70           residual = 1.267747e-06
+                iter:   73           residual = 9.197481e-07
+
+
+		Solution time: 132.859907 (sec.)
+		total iterations: 73
+     12     1.48216e+05     6.66847e+02     1.38e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.369760e-02
+                iter:   20           residual = 3.093553e-03
+                iter:   30           residual = 4.393378e-04
+                iter:   40           residual = 2.160079e-04
+                iter:   50           residual = 6.428932e-05
+                iter:   60           residual = 1.146734e-05
+                iter:   70           residual = 3.159662e-06
+                iter:   80           residual = 1.399097e-06
+                iter:   84           residual = 9.936526e-07
+
+
+		Solution time: 154.000512 (sec.)
+		total iterations: 84
+     13     4.50423e+04     3.48846e+02     1.59e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 9.596723e-03
+                iter:   20           residual = 2.711933e-03
+                iter:   30           residual = 3.525041e-04
+                iter:   40           residual = 1.772750e-04
+                iter:   50           residual = 7.330685e-05
+                iter:   60           residual = 1.911573e-05
+                iter:   70           residual = 4.955912e-06
+                iter:   80           residual = 1.373411e-06
+                iter:   84           residual = 9.753886e-07
+
+
+		Solution time: 152.713756 (sec.)
+		total iterations: 84
+     14     2.24550e+03     7.10257e+01     1.58e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.365091e-02
+                iter:   20           residual = 3.971051e-03
+                iter:   30           residual = 6.202354e-04
+                iter:   40           residual = 2.822258e-04
+                iter:   50           residual = 1.283791e-04
+                iter:   60           residual = 4.298903e-05
+                iter:   70           residual = 1.136993e-05
+                iter:   80           residual = 2.493694e-06
+                iter:   89           residual = 9.077549e-07
+
+
+		Solution time: 162.003458 (sec.)
+		total iterations: 89
+     15     1.35890e+01     5.30668e+00     1.67e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 9.329540e-03
+                iter:   20           residual = 2.954669e-03
+                iter:   30           residual = 5.948419e-04
+                iter:   40           residual = 2.295797e-04
+                iter:   50           residual = 9.371366e-05
+                iter:   60           residual = 3.846627e-05
+                iter:   70           residual = 1.131686e-05
+                iter:   80           residual = 2.333908e-06
+                iter:   88           residual = 9.510693e-07
+
+
+		Solution time: 160.260318 (sec.)
+		total iterations: 88
+     16     2.48952e-04     1.97303e-02     1.65e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.545753e-02
+                iter:   20           residual = 1.581983e-02
+                iter:   30           residual = 6.713677e-03
+                iter:   40           residual = 2.361511e-03
+                iter:   50           residual = 6.034016e-04
+                iter:   60           residual = 1.957490e-04
+                iter:   70           residual = 7.130152e-05
+                iter:   80           residual = 2.379021e-05
+                iter:   90           residual = 1.130778e-05
+                iter:  100           residual = 3.931781e-06
+                iter:  110           residual = 1.685983e-06
+                iter:  115           residual = 9.741972e-07
+
+
+		Solution time: 211.811438 (sec.)
+		total iterations: 115
+     17     1.15979e-05     2.66682e-06     2.17e+02  2.21e+00
+Finalised step 6 / 10 | time 6.000e-01 | dt 1.000e-01 | numiter 17 | wct 2.30e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.535e+04
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.228871e-02
+                iter:   20           residual = 7.696475e-03
+                iter:   30           residual = 1.520940e-03
+                iter:   40           residual = 3.292077e-04
+                iter:   50           residual = 1.832907e-04
+                iter:   60           residual = 4.627502e-05
+                iter:   70           residual = 9.335207e-06
+                iter:   80           residual = 2.617981e-06
+                iter:   88           residual = 9.855109e-07
+
+
+		Solution time: 161.245951 (sec.)
+		total iterations: 88
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     2.49868e+04     2.51190e+02     1.66e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.118020e-01
+                iter:   20           residual = 2.103428e-01
+                iter:   30           residual = 4.296361e-02
+                iter:   40           residual = 2.081818e-02
+                iter:   50           residual = 7.565464e-03
+                iter:   60           residual = 2.031217e-03
+                iter:   70           residual = 4.514771e-04
+                iter:   80           residual = 1.167288e-04
+                iter:   90           residual = 5.349081e-05
+                iter:  100           residual = 2.074962e-05
+                iter:  110           residual = 1.033938e-05
+                iter:  120           residual = 4.507464e-06
+                iter:  130           residual = 1.292186e-06
+                iter:  132           residual = 9.975284e-07
+
+
+		Solution time: 241.765229 (sec.)
+		total iterations: 132
+      2     1.08745e+07     6.21291e+03     2.47e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 8.437681e-04
+                iter:   20           residual = 4.238383e-05
+                iter:   30           residual = 3.414561e-06
+                iter:   34           residual = 8.458021e-07
+
+
+		Solution time: 61.537920 (sec.)
+		total iterations: 34
+      3     1.05351e+06     1.59174e+03     6.68e+01  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.111565e-02
+                iter:   20           residual = 9.261015e-04
+                iter:   30           residual = 1.444272e-04
+                iter:   40           residual = 1.943069e-05
+                iter:   50           residual = 2.177728e-06
+                iter:   54           residual = 9.794501e-07
+
+
+		Solution time: 97.780830 (sec.)
+		total iterations: 54
+      4     5.54535e+05     1.03166e+03     1.03e+02  2.17e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 9.252136e-03
+                iter:   20           residual = 9.262799e-04
+                iter:   30           residual = 1.251956e-04
+                iter:   40           residual = 1.809771e-05
+                iter:   50           residual = 2.202532e-06
+                iter:   54           residual = 9.214725e-07
+
+
+		Solution time: 98.077330 (sec.)
+		total iterations: 54
+      5     1.18796e+05     4.69311e+02     1.03e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.448898e-02
+                iter:   20           residual = 1.668437e-03
+                iter:   30           residual = 2.485409e-04
+                iter:   40           residual = 4.903346e-05
+                iter:   50           residual = 6.543171e-06
+                iter:   60           residual = 1.093974e-06
+                iter:   61           residual = 9.300885e-07
+
+
+		Solution time: 110.741153 (sec.)
+		total iterations: 61
+      6     1.58608e+04     1.64502e+02     1.16e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.010117e-02
+                iter:   20           residual = 1.372134e-03
+                iter:   30           residual = 1.955429e-04
+                iter:   40           residual = 4.390632e-05
+                iter:   50           residual = 6.649118e-06
+                iter:   60           residual = 1.254911e-06
+                iter:   62           residual = 8.912322e-07
+
+
+		Solution time: 112.455427 (sec.)
+		total iterations: 62
+      7     1.67778e+02     1.55313e+01     1.18e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.275285e-02
+                iter:   20           residual = 1.761580e-03
+                iter:   30           residual = 2.704069e-04
+                iter:   40           residual = 5.903382e-05
+                iter:   50           residual = 9.253005e-06
+                iter:   60           residual = 1.854636e-06
+                iter:   64           residual = 8.693258e-07
+
+
+		Solution time: 116.244120 (sec.)
+		total iterations: 64
+      8     3.85031e-02     1.99244e-01     1.21e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.010116e-02
+                iter:   20           residual = 1.480210e-03
+                iter:   30           residual = 2.683578e-04
+                iter:   40           residual = 4.580902e-05
+                iter:   50           residual = 6.897520e-06
+                iter:   60           residual = 1.269038e-06
+                iter:   62           residual = 9.132275e-07
+
+
+		Solution time: 112.056975 (sec.)
+		total iterations: 62
+      9     1.12073e-05     3.40866e-05     1.17e+02  2.21e+00
+Finalised step 7 / 10 | time 7.000e-01 | dt 1.000e-01 | numiter 9 | wct 1.20e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.535e+04
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.762626e-02
+                iter:   20           residual = 3.874028e-03
+                iter:   30           residual = 3.160842e-04
+                iter:   40           residual = 8.889619e-05
+                iter:   50           residual = 1.574960e-05
+                iter:   60           residual = 2.661180e-06
+                iter:   67           residual = 8.354776e-07
+
+
+		Solution time: 121.792813 (sec.)
+		total iterations: 67
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     3.71184e+04     1.19242e+02     1.27e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 5.104026e-01
+                iter:   20           residual = 4.946628e-02
+                iter:   30           residual = 1.167610e-02
+                iter:   40           residual = 2.563734e-03
+                iter:   50           residual = 3.687287e-04
+                iter:   60           residual = 6.718953e-05
+                iter:   70           residual = 1.022743e-05
+                iter:   80           residual = 2.006435e-06
+                iter:   85           residual = 9.230182e-07
+
+
+		Solution time: 155.512146 (sec.)
+		total iterations: 85
+      2     3.35311e+06     3.81861e+03     1.61e+02  2.20e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.736175e-03
+                iter:   20           residual = 4.814265e-04
+                iter:   30           residual = 9.921565e-05
+                iter:   40           residual = 2.995852e-05
+                iter:   50           residual = 6.724789e-06
+                iter:   60           residual = 1.429133e-06
+                iter:   64           residual = 9.222873e-07
+
+
+		Solution time: 115.704567 (sec.)
+		total iterations: 64
+      3     7.40736e+05     1.67542e+03     1.21e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.198940e-02
+                iter:   20           residual = 8.836453e-03
+                iter:   30           residual = 1.144739e-03
+                iter:   40           residual = 5.974956e-04
+                iter:   50           residual = 2.322278e-04
+                iter:   60           residual = 7.108369e-05
+                iter:   70           residual = 2.076725e-05
+                iter:   80           residual = 1.112547e-05
+                iter:   90           residual = 4.939830e-06
+                iter:  100           residual = 1.341123e-06
+                iter:  104           residual = 9.818901e-07
+
+
+		Solution time: 191.807260 (sec.)
+		total iterations: 104
+      4     7.75899e+06     5.04741e+03     1.97e+02  2.20e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.017475e-03
+                iter:   20           residual = 1.141668e-04
+                iter:   30           residual = 1.739846e-05
+                iter:   40           residual = 2.916125e-06
+                iter:   47           residual = 9.870594e-07
+
+
+		Solution time: 84.670176 (sec.)
+		total iterations: 47
+      5     5.89476e+05     1.45996e+03     8.98e+01  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.968769e-02
+                iter:   20           residual = 1.619117e-02
+                iter:   30           residual = 2.022013e-03
+                iter:   40           residual = 1.055003e-03
+                iter:   50           residual = 4.276333e-04
+                iter:   60           residual = 1.944205e-04
+                iter:   70           residual = 1.345366e-04
+                iter:   80           residual = 9.484505e-05
+                iter:   90           residual = 4.449407e-05
+                iter:  100           residual = 1.474585e-05
+                iter:  110           residual = 7.044320e-06
+                iter:  120           residual = 3.272555e-06
+                iter:  130           residual = 2.068456e-06
+                iter:  140           residual = 1.403632e-06
+                iter:  150           residual = 9.751100e-07
+
+
+		Solution time: 273.411911 (sec.)
+		total iterations: 150
+      6     1.87417e+07     1.04989e+04     2.79e+02  2.20e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.975726e-04
+                iter:   20           residual = 6.138264e-05
+                iter:   30           residual = 4.782105e-06
+                iter:   39           residual = 7.990103e-07
+
+
+		Solution time: 70.234578 (sec.)
+		total iterations: 39
+      7     1.90693e+06     1.86522e+03     7.54e+01  2.46e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 8.541788e-03
+                iter:   20           residual = 1.146219e-03
+                iter:   30           residual = 1.998086e-04
+                iter:   40           residual = 4.818868e-05
+                iter:   50           residual = 1.436833e-05
+                iter:   60           residual = 4.036302e-06
+                iter:   68           residual = 9.531329e-07
+
+
+		Solution time: 123.430977 (sec.)
+		total iterations: 68
+      8     3.66889e+06     6.29703e+03     1.29e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.774483e-03
+                iter:   20           residual = 1.933021e-04
+                iter:   30           residual = 1.819381e-05
+                iter:   40           residual = 2.098703e-06
+                iter:   44           residual = 9.306998e-07
+
+
+		Solution time: 79.210724 (sec.)
+		total iterations: 44
+      9     1.56298e+06     4.00244e+03     8.44e+01  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.640776e-02
+                iter:   20           residual = 2.133462e-03
+                iter:   30           residual = 3.843485e-04
+                iter:   40           residual = 8.609078e-05
+                iter:   50           residual = 2.694818e-05
+                iter:   60           residual = 4.153296e-06
+                iter:   67           residual = 8.571403e-07
+
+
+		Solution time: 120.888526 (sec.)
+		total iterations: 67
+     10     2.13058e+07     1.55255e+04     1.26e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.843944e-04
+                iter:   20           residual = 5.755675e-06
+                iter:   25           residual = 7.079481e-07
+
+
+		Solution time: 45.304950 (sec.)
+		total iterations: 25
+     11     2.33937e+06     1.33137e+03     5.05e+01  2.22e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.968684e-03
+                iter:   20           residual = 1.068281e-04
+                iter:   30           residual = 1.032934e-05
+                iter:   40           residual = 9.920468e-07
+
+
+		Solution time: 72.130992 (sec.)
+		total iterations: 40
+     12     1.82845e+06     2.36397e+03     7.73e+01  2.17e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.902826e-03
+                iter:   20           residual = 8.866726e-05
+                iter:   30           residual = 1.893614e-05
+                iter:   40           residual = 2.635237e-06
+                iter:   44           residual = 9.177583e-07
+
+
+		Solution time: 79.451437 (sec.)
+		total iterations: 44
+     13     6.12165e+05     1.65627e+03     8.46e+01  2.20e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 5.797307e-03
+                iter:   20           residual = 4.230510e-04
+                iter:   30           residual = 6.699529e-05
+                iter:   40           residual = 9.442357e-06
+                iter:   50           residual = 1.552698e-06
+                iter:   53           residual = 9.721688e-07
+
+
+		Solution time: 95.656408 (sec.)
+		total iterations: 53
+     14     9.30426e+05     1.93502e+03     1.01e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.435798e-03
+                iter:   20           residual = 9.384084e-05
+                iter:   30           residual = 1.542519e-05
+                iter:   40           residual = 2.412436e-06
+                iter:   45           residual = 9.223386e-07
+
+
+		Solution time: 81.457547 (sec.)
+		total iterations: 45
+     15     9.34118e+04     4.71702e+02     8.67e+01  2.18e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.004538e-02
+                iter:   20           residual = 1.068326e-03
+                iter:   30           residual = 1.755897e-04
+                iter:   40           residual = 2.272977e-05
+                iter:   50           residual = 5.065664e-06
+                iter:   59           residual = 8.220518e-07
+
+
+		Solution time: 106.994903 (sec.)
+		total iterations: 59
+     16     7.41845e+04     4.75191e+02     1.12e+02  2.20e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.659037e-03
+                iter:   20           residual = 1.358311e-04
+                iter:   30           residual = 2.249631e-05
+                iter:   40           residual = 3.827487e-06
+                iter:   50           residual = 9.932506e-07
+
+
+		Solution time: 90.775591 (sec.)
+		total iterations: 50
+     17     5.14369e+02     2.99586e+01     9.60e+01  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.252395e-02
+                iter:   20           residual = 1.820615e-03
+                iter:   30           residual = 2.611745e-04
+                iter:   40           residual = 2.713045e-05
+                iter:   50           residual = 7.990484e-06
+                iter:   60           residual = 8.838494e-07
+
+
+		Solution time: 109.155802 (sec.)
+		total iterations: 60
+     18     3.77890e+00     2.95612e+00     1.14e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.545221e-03
+                iter:   20           residual = 1.807015e-04
+                iter:   30           residual = 3.086639e-05
+                iter:   40           residual = 4.410333e-06
+                iter:   50           residual = 1.134273e-06
+                iter:   51           residual = 9.614947e-07
+
+
+		Solution time: 92.358213 (sec.)
+		total iterations: 51
+     19     1.33247e-05     1.19907e-03     9.76e+01  2.20e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.518781e-02
+                iter:   20           residual = 1.147696e-02
+                iter:   30           residual = 1.405160e-03
+                iter:   40           residual = 2.487135e-04
+                iter:   50           residual = 3.108586e-05
+                iter:   60           residual = 3.566274e-06
+                iter:   65           residual = 9.839648e-07
+
+
+		Solution time: 118.244549 (sec.)
+		total iterations: 65
+     20     1.27674e-05     9.47883e-07     1.23e+02  2.20e+00
+Finalised step 8 / 10 | time 8.000e-01 | dt 1.000e-01 | numiter 20 | wct 2.42e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.535e+04
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.823394e-02
+                iter:   20           residual = 2.616407e-03
+                iter:   30           residual = 4.401048e-04
+                iter:   40           residual = 6.300202e-05
+                iter:   50           residual = 1.559419e-05
+                iter:   60           residual = 1.700107e-06
+                iter:   63           residual = 9.287693e-07
+
+
+		Solution time: 113.985979 (sec.)
+		total iterations: 63
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     1.04296e+05     6.42395e+02     1.19e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.623602e-01
+                iter:   20           residual = 1.306097e-02
+                iter:   30           residual = 2.152888e-03
+                iter:   40           residual = 3.579346e-04
+                iter:   50           residual = 6.440324e-05
+                iter:   60           residual = 1.137086e-05
+                iter:   70           residual = 1.779340e-06
+                iter:   73           residual = 8.359093e-07
+
+
+		Solution time: 132.397179 (sec.)
+		total iterations: 73
+      2     1.25017e+07     8.55130e+03     1.38e+02  2.23e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.004717e-04
+                iter:   20           residual = 1.014632e-05
+                iter:   30           residual = 7.525028e-07
+
+
+		Solution time: 54.005734 (sec.)
+		total iterations: 30
+      3     1.51065e+06     3.21395e+03     5.92e+01  2.17e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.110802e-02
+                iter:   20           residual = 2.585192e-03
+                iter:   30           residual = 5.058847e-04
+                iter:   40           residual = 9.893458e-05
+                iter:   50           residual = 2.450537e-05
+                iter:   60           residual = 6.248685e-06
+                iter:   70           residual = 1.626058e-06
+                iter:   76           residual = 9.662746e-07
+
+
+		Solution time: 137.732361 (sec.)
+		total iterations: 76
+      4     5.40965e+07     2.08501e+04     1.43e+02  2.23e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.706996e-04
+                iter:   20           residual = 8.980065e-07
+
+
+		Solution time: 36.297842 (sec.)
+		total iterations: 20
+      5     1.37368e+07     3.32464e+03     4.14e+01  2.17e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.417244e-03
+                iter:   20           residual = 6.073971e-05
+                iter:   30           residual = 2.323878e-06
+                iter:   33           residual = 9.836659e-07
+
+
+		Solution time: 59.538307 (sec.)
+		total iterations: 33
+      6     2.97772e+06     3.42281e+03     6.47e+01  2.16e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 8.984002e-03
+                iter:   20           residual = 7.468805e-04
+                iter:   30           residual = 7.708715e-05
+                iter:   40           residual = 6.355389e-06
+                iter:   49           residual = 9.116483e-07
+
+
+		Solution time: 88.982601 (sec.)
+		total iterations: 49
+      7     7.16540e+06     7.21290e+03     9.42e+01  2.20e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.843615e-03
+                iter:   20           residual = 2.088353e-04
+                iter:   30           residual = 1.428474e-05
+                iter:   40           residual = 1.311073e-06
+                iter:   42           residual = 8.190399e-07
+
+
+		Solution time: 75.989358 (sec.)
+		total iterations: 42
+      8     1.08400e+06     1.91827e+03     8.12e+01  2.20e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.780131e-02
+                iter:   20           residual = 3.542515e-03
+                iter:   30           residual = 5.692005e-04
+                iter:   40           residual = 6.166101e-05
+                iter:   50           residual = 8.608014e-06
+                iter:   60           residual = 1.342147e-06
+                iter:   62           residual = 9.772818e-07
+
+
+		Solution time: 112.591099 (sec.)
+		total iterations: 62
+      9     1.20016e+07     7.99564e+03     1.18e+02  2.16e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.174243e-03
+                iter:   20           residual = 7.735849e-05
+                iter:   30           residual = 5.733077e-06
+                iter:   38           residual = 9.994298e-07
+
+
+		Solution time: 68.926410 (sec.)
+		total iterations: 38
+     10     1.01705e+06     1.32753e+03     7.41e+01  2.18e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.268294e-02
+                iter:   20           residual = 1.685800e-03
+                iter:   30           residual = 2.380427e-04
+                iter:   40           residual = 2.960047e-05
+                iter:   50           residual = 4.745039e-06
+                iter:   59           residual = 8.348993e-07
+
+
+		Solution time: 107.193244 (sec.)
+		total iterations: 59
+     11     8.33631e+05     1.41819e+03     1.12e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 7.635029e-03
+                iter:   20           residual = 1.001137e-03
+                iter:   30           residual = 1.196690e-04
+                iter:   40           residual = 1.983622e-05
+                iter:   50           residual = 2.287578e-06
+                iter:   55           residual = 8.644687e-07
+
+
+		Solution time: 99.119378 (sec.)
+		total iterations: 55
+     12     1.80467e+05     5.43338e+02     1.04e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.776293e-02
+                iter:   20           residual = 2.684107e-03
+                iter:   30           residual = 3.646893e-04
+                iter:   40           residual = 8.347940e-05
+                iter:   50           residual = 1.351473e-05
+                iter:   60           residual = 2.728837e-06
+                iter:   66           residual = 8.173417e-07
+
+
+		Solution time: 118.970076 (sec.)
+		total iterations: 66
+     13     6.47191e+04     3.19498e+02     1.24e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.693911e-03
+                iter:   20           residual = 1.092734e-03
+                iter:   30           residual = 1.302142e-04
+                iter:   40           residual = 3.877532e-05
+                iter:   50           residual = 6.356095e-06
+                iter:   60           residual = 1.181071e-06
+                iter:   62           residual = 8.573281e-07
+
+
+		Solution time: 111.613856 (sec.)
+		total iterations: 62
+     14     1.25307e+03     3.56917e+01     1.17e+02  2.16e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.927568e-02
+                iter:   20           residual = 3.202811e-03
+                iter:   30           residual = 4.555277e-04
+                iter:   40           residual = 1.298198e-04
+                iter:   50           residual = 2.389742e-05
+                iter:   60           residual = 4.640599e-06
+                iter:   70           residual = 9.062657e-07
+
+
+		Solution time: 126.479185 (sec.)
+		total iterations: 70
+     15     6.24792e+00     2.21638e+00     1.32e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 6.222622e-03
+                iter:   20           residual = 1.163898e-03
+                iter:   30           residual = 1.552474e-04
+                iter:   40           residual = 4.817374e-05
+                iter:   50           residual = 1.098904e-05
+                iter:   60           residual = 1.974051e-06
+                iter:   65           residual = 8.868370e-07
+
+
+		Solution time: 117.302711 (sec.)
+		total iterations: 65
+     16     2.39889e-05     2.80453e-03     1.22e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 8.361679e-02
+                iter:   20           residual = 1.745374e-02
+                iter:   30           residual = 3.822666e-03
+                iter:   40           residual = 9.134384e-04
+                iter:   50           residual = 2.090897e-04
+                iter:   60           residual = 4.417337e-05
+                iter:   70           residual = 6.737916e-06
+                iter:   80           residual = 9.290321e-07
+
+
+		Solution time: 145.060487 (sec.)
+		total iterations: 80
+     17     1.13376e-05     3.28319e-07     1.50e+02  2.20e+00
+Finalised step 9 / 10 | time 9.000e-01 | dt 1.000e-01 | numiter 17 | wct 1.87e+03
+--------------------------------------------------------------------------------
+
+Structural predictor for field 'structure' ConstDisVelAcc yields absolute res-norm 4.535e+04
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 1.710891e-02
+                iter:   20           residual = 3.120296e-03
+                iter:   30           residual = 3.453821e-04
+                iter:   40           residual = 8.345975e-05
+                iter:   50           residual = 2.015278e-05
+                iter:   60           residual = 3.845191e-06
+                iter:   69           residual = 9.979453e-07
+
+
+		Solution time: 124.663109 (sec.)
+		total iterations: 69
+numiter    abs-res-norm    abs-dis-norm           ts        te
+      1     7.47104e+03     1.21248e+02     1.30e+02  2.20e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 2.766574e-01
+                iter:   20           residual = 3.857327e-02
+                iter:   30           residual = 7.377629e-03
+                iter:   40           residual = 2.011171e-03
+                iter:   50           residual = 3.645755e-04
+                iter:   60           residual = 6.916190e-05
+                iter:   70           residual = 9.032478e-06
+                iter:   80           residual = 1.678437e-06
+                iter:   84           residual = 9.251513e-07
+
+
+		Solution time: 152.796287 (sec.)
+		total iterations: 84
+      2     2.96795e+04     3.40774e+02     1.58e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.215610e-03
+                iter:   20           residual = 3.729193e-04
+                iter:   30           residual = 8.473437e-05
+                iter:   40           residual = 1.900161e-05
+                iter:   50           residual = 2.994664e-06
+                iter:   57           residual = 8.914661e-07
+
+
+		Solution time: 102.467101 (sec.)
+		total iterations: 57
+      3     7.33093e+01     1.17536e+01     1.08e+02  2.21e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 3.002044e-02
+                iter:   20           residual = 4.004343e-03
+                iter:   30           residual = 7.163613e-04
+                iter:   40           residual = 1.485329e-04
+                iter:   50           residual = 2.427366e-05
+                iter:   60           residual = 4.670372e-06
+                iter:   70           residual = 9.087441e-07
+
+
+		Solution time: 126.353560 (sec.)
+		total iterations: 70
+      4     5.16917e-02     2.21219e-01     1.32e+02  2.20e+00
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** MueLu::Hierarchy
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:   10           residual = 4.121407e-03
+                iter:   20           residual = 5.403041e-04
+                iter:   30           residual = 1.075845e-04
+                iter:   40           residual = 2.529459e-05
+                iter:   50           residual = 3.231152e-06
+                iter:   56           residual = 9.895972e-07
+
+
+		Solution time: 100.704035 (sec.)
+		total iterations: 56
+      5     1.12773e-05     2.15295e-05     1.06e+02  2.21e+00
+Finalised step 10 / 10 | time 1.000e+00 | dt 1.000e-01 | numiter 5 | wct 6.57e+02
+--------------------------------------------------------------------------------
+
+
+Checking results of 0 tests:
+
+OK (0)
+=====================================================================================================================================================
+
+                                                       TimeMonitor results over 20 processors
+
+Timer Name                                               MinOverProcs         MeanOverProcs        MaxOverProcs             MeanOverCallCounts       
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+ADAPTER::StructureTimIntBaseAlgorithm::SetupStructure    0.4327 (1)           0.5711 (1)           1.182 (1)                0.5711 (1)               
+DRT::Discretization::Evaluate                            79.4 (130)           122.3 (130)          265.1 (130)              0.9409 (130)             
+DRT::Discretization::Evaluate LocationVector             2.548 (1.736e+06)    3.797 (1.904e+06)    9.189 (2.002e+06)        1.994e-06 (1.904e+06)    
+DRT::Discretization::Evaluate PreEvaluate                0.0006332 (130)      0.0009654 (130)      0.002426 (130)           7.426e-06 (130)          
+DRT::Discretization::Evaluate Resize                     1.178 (1.743e+06)    1.675 (1.904e+06)    3.701 (2.002e+06)        8.799e-07 (1.904e+06)    
+DRT::Discretization::Evaluate assemble                   12.28 (1.743e+06)    19.58 (1.904e+06)    46.46 (2.002e+06)        1.028e-05 (1.904e+06)    
+DRT::Discretization::Evaluate elements                   59.66 (1.736e+06)    92.49 (1.904e+06)    195 (2.002e+06)          4.858e-05 (1.904e+06)    
+DRT::Discretization::SetState                            2.517 (475)          8.502 (475)          24.26 (475)              0.0179 (475)             
+Epetra_CrsMatrix::Multiply(TransA,X,Y)                   4204 (2.815e+05)     5530 (2.863e+05)     1.151e+04 (2.815e+05)    0.01931 (2.863e+05)      
+Hierarchy: Coarse: Computational Time                    0 (0)                0.01264 (0)          0.2527 (0)               0 (0)                    
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+LINALG::Solver:  0)   TranslateSolverParameters          0.0002244 (1)        0.0003175 (1)        0.0006506 (1)            0.0003175 (1)            
+LINALG::Solver:  1)   Setup                              185 (99)             241.1 (99)           503.5 (99)               2.436 (99)               
+LINALG::Solver:  1.1)   CreatePreconditioner             0.2693 (99)          0.6189 (99)          3.362 (99)               0.006251 (99)            
+LINALG::Solver:  2)   Solve                              4486 (99)            5847 (99)            1.221e+04 (99)           59.06 (99)               
+LINALG::SparseMatrix::Complete                           1.081 (110)          3.444 (110)          8.299 (110)              0.03131 (110)            
+UtilitiesBase::GetMatrixDiagonalInverse                  2.316 (198)          3.641 (202.9)        7.157 (198)              0.01794 (202.9)          
+ZZ Entire Transpose                                      14.11 (198)          19.63 (202.9)        44.72 (198)              0.09673 (202.9)          
+=====================================================================================================================================================
+
+Total CPU Time for CALCULATION: 5.690e+03  sec 
+
+processor 0 finished normally
+processor 4 finished normally
+processor 14 finished normally
+processor 5 finished normally
+processor 7 finished normally
+processor 8 finished normally
+processor 10 finished normally
+processor 11 finished normally
+processor 12 finished normally
+processor 16 finished normally
+processor 18 finished normally
+processor 19 finished normally
+processor 1 finished normally
+processor 2 finished normally
+processor 3 finished normally
+processor 6 finished normally
+processor 9 finished normally
+processor 13 finished normally
+processor 15 finished normally
+processor 17 finished normally
+
+
+simulation finished normally: True
+Postprocessing results...	71.82s elapsed
+(computing) coordinates for a Polynomial approximation
+writing 274400 HEX8 element(s) as 274400 hexa8 ensight cell(s)...
+writing dof-based field displacement
+writing element-based Cauchy stresses
+writing element-based Euler-Almansi strains
+writing element-based field Owner
+
+
