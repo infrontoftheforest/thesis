@@ -1,0 +1,15 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {\relax 2.1}{\ignorespaces A comparison of the smoothing effect for the model problem\nobreakspace {}\ref {eq:model_problem} with $n = 50$ using the damped Jacobi method with $\omega = 2/3$. The smoothing progress after $m$ iterations for different initial guesses are shown in the columns, with the initial guesses being the eigenvectors from\nobreakspace {}\ref {eq:eigenvectors} for different values of $k$. The highly-oscillatory modes approach the homogeneous solution and are damped faster than smooth modes.\relax }}{6}{figure.caption.4}
+\contentsline {figure}{\numberline {\relax 2.2}{\ignorespaces An example of the aggregation process for a graph where the strongly coupled nodes are in the pattern of a 5-point stencil. On the left, the nodes which have been aggregated after step 1 of the aggregation are shaded. At this step, there are no more nodes with a completely unaggregated strongly coupled neighborhood. On the right, the existing aggregates are expanded according to step 2. After this there are no more unaggregated nodes, so step 3 of the aggregation process is unnecessary.\relax }}{17}{figure.caption.5}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {\relax 4.1}{\ignorespaces 3 dimensional cantilever beam\relax }}{29}{figure.caption.6}
+\contentsline {figure}{\numberline {\relax 4.2}{\ignorespaces Weak scaling results (\texttildelow $10^4$ elements per core) for the cantilever beam example. Comparison of results for different beam length-to-height ratios $r$. A larger $r$-value is more slender.\relax }}{33}{figure.caption.9}
+\contentsline {figure}{\numberline {\relax 4.3}{\ignorespaces Weak scaling results (\texttildelow $10^6$ elements per core) for the cantilever beam example using $r = 10$.\relax }}{34}{figure.caption.10}
+\contentsline {figure}{\numberline {\relax 4.4}{\ignorespaces Weak scaling (\texttildelow $10^4$ elements per core) solve time comparison of SuperLU direct solver against Aztec GMRES preconditioned with MueLu SA-AMG. Note that the scaling is represented on a log-scale.\relax }}{35}{figure.caption.11}
+\contentsline {figure}{\numberline {\relax 4.5}{\ignorespaces Solve times for using GMRES preconditioned with SA-AMG to solve the small blade test systems.\relax }}{37}{figure.caption.12}
+\contentsline {figure}{\numberline {\relax 4.6}{\ignorespaces Amount of iterations for using GMRES preconditioned with SA-AMG to solve the small blade test systems.\relax }}{38}{figure.caption.13}
+\contentsline {figure}{\numberline {\relax 4.7}{\ignorespaces Cylindrical shell geometry. The straight sides are constrained with Dirichlet boundary conditions along the bottom edges, and the curved edges are free. The vertical load is applied in the middle of the shell, parallel to the straight sides.\relax }}{39}{figure.caption.14}
+\contentsline {figure}{\numberline {\relax 4.8}{\ignorespaces Scaling study of the shell dynamic snap-through using a constant 20 cores.\relax }}{41}{figure.caption.16}
+\addvspace {10\p@ }

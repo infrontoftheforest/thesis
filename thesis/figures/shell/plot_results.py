@@ -19,6 +19,20 @@ def get_num_nodes(output_file):
     return numele
 
 
+def get_mean_gmres_iters(output_file):
+    iterations_str = r'^\s+total iterations: (?P<iters>\d+)'
+    total_iters = 0
+    solves = 0.0
+    with open(output_file, 'r') as f:
+        for line in f:
+            m = re.match(iterations_str, line)
+            if m:
+                iters = int(m.group('iters'))
+                total_iters += iters
+                solves += 1.0
+    return float(total_iters)/solves
+
+
 def get_total_gmres_iters(output_file):
     iterations_str = r'^\s+total iterations: (?P<iters>\d+)'
     total_iters = 0
@@ -98,7 +112,7 @@ for thickness in thicknesses:
         log_file = str(Path(dir_path, 'results.txt'))
         num_dofs = 3*get_num_nodes(log_file)
         sol_time = get_lin_solve_time(log_file, 20)
-        num_iters = get_total_gmres_iters(log_file)
+        num_iters = get_mean_gmres_iters(log_file)
         dofs[thickness].append(num_dofs)
         sol_times[thickness].append(sol_time)
         iters[thickness].append(num_iters)
@@ -136,6 +150,26 @@ fig.set_size_inches(width, height)
 plt.savefig('shell.pdf')
 plt.show()
 
+fig, ax = plt.subplots()
+fig.subplots_adjust(left=.08, bottom=.12, right=0.95, top=.97) #font 10
+
+for thickness in thicknesses:
+    if thickness == 10.0:
+        ax.plot(dofs[thickness][:-1], sol_times[thickness][:-1], color='gold', marker='o', label=f'{thickness} mm thickness', markersize=3)
+    elif thickness == 12.5:
+        ax.plot(dofs[thickness], iters[thickness], color='darkturquoise', linestyle='--', marker='o', label=f'{thickness} mm thickness', markersize=3)
+    else:
+        ax.plot(dofs[thickness], iters[thickness], marker='o', label=f'{thickness} mm thickness', markersize=3)
+
+ax.legend()
+ax.set(xlabel='Degrees of Freedom', ylabel='Mean GMRES iterations')
+plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+ax.set_xlim(left=0)
+ax.set_ylim(bottom=0)
+# ax.set_title(f'Small Blade Klaus Discretizations')
+fig.set_size_inches(width, height)
+plt.savefig('shell_iters.pdf')
+plt.show()
 
 #  nodes = [1323, 8450, 59049, 440657]
 #  dofs = [x*3 for x in nodes]

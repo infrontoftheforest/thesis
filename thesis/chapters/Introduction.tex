@@ -1,103 +1,12 @@
 % !TEX root = ../main.tex
 \chapter{Introduction}
 \label{chapter:Introduction}
-% This document has been created in order to show you some of the capabilities 
-% of \LaTeX.  A great resource for an introduction to \LaTeX\xspace is Tobias
-% Oetiker's ''The Not So Short Introduction to \LaTeXe'' \cite{latex}.  Please
-% page through that document
-% before starting with your thesis.
-% Oh, and let's use the mysterious word \gls{computer} here to give the glossary
-% a reason to appear.
-% A third useful option to reference stuff besides citing or glossarying (?) 
-% is using footnotes. Just like
-% this\footnote{Properly formatted clickable URL: \url{https://www.tum.de/}}
-% one.
-% And: lists! Lists with bullet points are amazing. I mean, just look at this:
-% \begin{itemize}
-% 	\item list
-% 	\item all 
-% 	\item the 
-% 	\item things!
-% \end{itemize}
-% % use enumerate for numbers instead of points: 
-% % https://en.wikibooks.org/wiki/LaTeX/List_Structures#List_structures
-% \par
-% Anyways your introduction goes here.
 
+% Motivation
+In many fields, computer simulations can replace or supplement physical experiments. Through the mathematical modeling of physical problems from scientific and engineering disciplines, systems of partial differential equations are required to be solved. The discretization of these continuous systems by various means allows the solution to be approximated with a numerical method. In this thesis the focus is on solving the large sparse linear systems of equations that arise from discretization by methods such as the finite element method.
 
-% Below a few \LaTeX examples are included for beginners
-% \comment{You can also put comments in the margins for you or your advisor}
-% \begin{figure}[ht]
-%   \centering
-%   \includegraphics[width=5cm]{images/swing_function_plot.png}
-%   \caption{$u(x)$}%{Numerically solved solution}
-%   \label{fig:swingPlot}
-% \end{figure}
+The development and implementation of efficient solution methods is essential to solving larger and more intricate problems. Direct methods can be appealing due to the black-box nature and ease of use, however, with larger and larger systems, the computational and memory resources required tend to be limiting factors for these methods. Although direct methods can arrive at a solution in a finite amount of steps, they do not scale optimally for such large systems. Certain iterative methods, while harder to tune and optimize, can achieve better scaling, and can make efficient use of increasingly-important parallel computing resources.
 
-
-% Equations can also be labeled
-% \begin{equation}
-% 	\pi = \mathrm{e}^{i\cdot\phi}
-% 	\label{eq:equation1}
-% \end{equation}
-
-
-% And later referenced. Even in subfigures.
-% \begin{figure}[!htb]
-%   \centering
-%   \begin{subfigure}[b]{0.3\textwidth}
-%     \centering
-%   \includegraphics[width=\textwidth]{images/CircCenter}
-%   \caption{Equation~\ref{eq:equation1}}\label{fig:circcenter}
-% \end{subfigure}
-% \hfill
-%   \begin{subfigure}[b]{0.3\textwidth}
-%     \centering
-%   \includegraphics[width=\textwidth]{images/GeneralOffset}
-%   \label{fig:generaloffset}
-%   \caption{Equation~\ref{eq:equation1}}
-% \end{subfigure}
-% \end{figure}
-% \section{Including code}
-
-% Code can be using the package
-% \href{https://www.sharelatex.com/learn/Code\_Highlighting\_with\_minted}{Minted}.
-
-% An exaple of which of can be found below (see Source Code~\ref{lst:nice_listing})
-% \begin{listing}
-% 	%the language syntax can be declared here.
-% 	\begin{minted}{python} 
-% 	import numpy as np
-	
-% 	def incmatrix(genl1,genl2):
-% 	    m = len(genl1)
-% 	    n = len(genl2)
-% 	    M = None #to become the incidence matrix
-% 	    VT = np.zeros((n*m,1), int)  #dummy variable
-	
-% 	    #compute the bitwise xor matrix
-% 	    M1 = bitxormatrix(genl1)
-% 	    M2 = np.triu(bitxormatrix(genl2),1)
-	
-% 	    for i in range(m-1):
-% 	        for j in range(i+1, m):
-% 	            [r,c] = np.where(M2 == M1[i,j])
-% 	            for k in range(len(r)):
-% 	                VT[(i)*n + r[k]] = 1;
-% 	                VT[(i)*n + c[k]] = 1;
-% 	                VT[(j)*n + r[k]] = 1;
-% 	                VT[(j)*n + c[k]] = 1;
-	
-% 	                if M is None:
-% 	                    M = np.copy(VT)
-% 	                else:
-% 	                    M = np.concatenate((M, VT), 1)
-	
-% 	                VT = np.zeros((n*m,1), int)
-	
-% 	    return M
-% 	\end{minted}
-
-%   \caption{My nice listing}
-%   \label{lst:nice_listing}
-% \end{listing}
+% Problem types to solve
+This thesis will focus on the application of Krylov subspace methods, which in the optimal case are preconditioned to improve the rate of convergence, even for ill-conditioned linear systems. One of the most effective methods available for preconditioning Krylov methods are multigrid methods. Multigrid methods were developed as an effective method to deal with the shortcomings of more simple relaxation-based iterative methods, which is that they do not quickly and effectively reduce the low-oscillatory error components. The general idea behind multigrid methods is to represent the error which relaxation methods fail to eliminate on a coarser grid, such that it is more oscillatory and can be more effectively reduced. Different types of multigrid methods exist, and all require an understanding of the underlying principles to obtain the desired performance. Without this understanding, it is difficult to choose the correct parameters to obtain the performance these methods are known for, namely linear scaling with the number of unknowns and ability to solve ill-conditioned problems. The next section will focus on the development of geometric multigrid methods which require multiple discretizations to represent the problem on a coarser and coarser grid. This will then lead into a discussion of the aggregation algebraic multigrid methods, which can solve systems with unstructured meshes, or even without a geometric discretization. These multigrid methods will be used in the preconditioning of iterative methods known as Krylov subspace solvers in order to obtain robust and fast convergence for 3D elasticity problems in mechanics.
+ 

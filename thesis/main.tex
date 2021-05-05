@@ -58,7 +58,7 @@
 
 \input{components/glossary}
 
-\makeglossaries
+% \makeglossaries
 
 \begin{document}
 
@@ -71,16 +71,18 @@
  \input{components/titlepage}
 
  \input{components/disclaimer}
-
- \input{components/acknowledgements}
+%TODO
+%  \input{components/acknowledgements}
 
 %  \input{components/quote}
 
  \input{components/abstract}
 
  \tableofcontents
- \addtocontents{toc}{\protect\thispagestyle{empty}}
- \pagenumbering{gobble}
+%  \addtocontents{toc}{\protect\thispagestyle{empty}}
+%  \pagenumbering{gobble}
+
+ \listoffigures
 
  \mainmatter
 
@@ -88,7 +90,7 @@
 
  \clearemptydoublepage
 
- \printglossaries
+%  \printglossaries
 
  \addcontentsline{toc}{chapter}{Bibliography}
  \bibliography{bibliography/literature}

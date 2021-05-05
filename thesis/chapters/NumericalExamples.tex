@@ -74,7 +74,7 @@ To compare the performance of a Krylov solver preconditioned with SA-AMG with th
 % describe the solver setup
 The solver consists of a nonlinear Newton solver performing a time integration scheme, although the problem being considered is non-transient. At each Newton iteration, a linear system of equations has to be solved. The load $F$ starting at 0 is increased by a constant amount each time step so that it reaches the desired load value at the final time step. This is done to give the Newton statics solver better convergence properties, since the incrementally applied load results in the solution being within the method's radius of convergence. For this experiment, 10 load steps were used, and the statics solver was considered converged if the residuals for the Newton iterations were below $10^{-5}$.
 
-Within each Newton iteration, the system of equations is solved with a GMRES method that is preconditioned with an SA-AMG solver. The GMRES convergence criterion of $\norm{r_k}_2/\norm{r_0}_2 < 10^{-6}$ was used, with a maximum number of iterations of 1000. The particular implementation was a restarted GMRES which would restart after the Krylov subspace reached a chosen size of 100.
+Within each Newton iteration, the system of equations is solved with a GMRES method that is preconditioned with an SA-AMG solver. The GMRES convergence criterion of $\norm{\mathbf{r}_k}_2/\norm{\mathbf{r}_0}_2 < 10^{-6}$ was used, with a maximum number of iterations of 1000. The particular implementation was a restarted GMRES which would restart after the Krylov subspace reached a chosen size of 100.
 
 \begin{table}[ht]
     \centering
@@ -84,7 +84,7 @@ Within each Newton iteration, the system of equations is solved with a GMRES met
     \hline
     Cycle Type                          & V                     \\
     Max Levels                          & 7                     \\
-    Muelu Reuse Strategy                & Nothing               \\
+    MueLu Reuse Strategy                & Nothing               \\
     PDE Equations                       & 3                     \\
     \hline
     Aggregation: Type                    & Uncoupled             \\
@@ -130,10 +130,10 @@ The amount of GMRES iterations was somewhat constant which demonstrated the cons
 
 The study was also repeated using one of the beams ($r = 10$) for $10^6$ elements per core. The results of this are shown in Figure~\ref{fig:weak_scaling_1M}. The same scaling pattern for the linear system solve times was observed, but the number of GMRES iterations appears to be more consistent.
 
-A comparison of weak scaling properties to a sparse direct solver, SuperLU, was also made. SuperLU operates using an LU decomposition with partial pivoting. The results are shown in Figure~\ref{fig:superlu}. The study was done with $10^4$ elements per core using the thicker beam ($r=10$). The wall time performance of SuperLU was much slower than that of preconditioned GMRES, being one to two orders of magnitude larger. This is a much worse performance than the close to $O(n)$ scaling that the iterative version. Additionally, even though the hardware used had 95 GB of RAM available, the memory requirements for SuperLU were too large to solve systems larger than $0.95*10^6$. For the AMG preconditioner, the amount of memory required as well as the cost per iteration can be characterized by the operator complexity~\cite{Gee2009}
+A comparison of weak scaling properties to a sparse direct solver, SuperLU, was also made. SuperLU operates using an LU decomposition with partial pivoting. The results are shown in Figure~\ref{fig:superlu}. The study was done with $10^4$ elements per core using the thicker beam ($r=10$). The wall time performance of SuperLU was much slower than that of preconditioned GMRES, being one to two orders of magnitude larger. This is a much worse performance than the close to $O(n)$ scaling that the iterative version. Additionally, even though the hardware used had 95 GB of RAM available, the memory requirements for SuperLU were too large to solve systems larger than $0.95*10^6$ degrees of freedom. For the AMG preconditioner, the amount of memory required as well as the cost per iteration can be characterized by the operator complexity~\cite{Gee2009}.
 
 \begin{equation}
-    c = \frac{\displaystyle \sum_{k=1}^{N_{levels}}{\text{nz}(A_k)}}{\text{nz}(A_1)}
+    C_{\text{op}} = \frac{\displaystyle \sum_{k=1}^{N_{levels}}{\text{nz}(A_k)}}{\text{nz}(A_1)}
 \end{equation}
 
 where nz$()$ is the amount of non-zeroes in a matrix. This is a comparison of the total amount of non-zeroes in $A$ across all levels to that of the fine level $A$. The operator complexity varies with the problem size, but for the examples shown, the operator complexity varies from 1.07 to 1.16. This indicates that the computational effort and memory required to solve the multigrid problem is not extremely large compared to the original fine level problem.
@@ -235,9 +235,7 @@ An example of the information that MueLu reports about the operator complexity i
 
 \section{Turbojet Engine Blade}
 \subsection{Problem Description}
-% discussion of nullspace vectors, form for 3D elasticity
-% stand-alone solver, only A was available and provided directly
-For this experiment, matrices from an external finite element program were provided as the linear system to be solved. The purpose of this originally was to evaluate the feasibility of including a Krylov solver preconditioned with SA-AMG as an alternative to the sparse direct solvers already in use. The matrices as well as the right-hand side and near nullspace vectors were provided by MTU Aero Engines. The near nullspace vectors of the finest levelwere needed as separate input, so that the tentative prolongator can be calculated as in Equation~\ref{eq:prolongator_req}. For elasticity they are the rigid body modes in 3 dimensions, which for one node is
+For this experiment, matrices from an external open source finite element program called Calculix~\cite{dhondt2017calculix} were provided as the linear systems to be solved. The purpose of this originally was to evaluate the feasibility of including a Krylov solver preconditioned with SA-AMG as an alternative to the sparse direct solvers already in use. The matrices as well as the right-hand side and near nullspace vectors were provided by MTU Aero Engines. The near nullspace vectors of the finest level were needed as separate input, so that the tentative prolongator can be calculated as in Equation~\ref{eq:prolongator_req}. For elasticity, they are the rigid body modes in 3 dimensions, which for one node is
 
 \begin{equation}
     \begin{pmatrix}
@@ -250,7 +248,9 @@ For this experiment, matrices from an external finite element program were provi
 where $\mathbf{x}$ is the nodal coordinate vector, $\mathbf{\hat{x}}$ is a reference point~\cite{Gee2006}. The first three columns are modes of translation in x, y, and z, respectively, and the last three columns are modes of rotation about x, y, and z, respectively. These rigid body modes can be stacked for every node in a block-wise fashion to form the necessary input for the SA-AMG preconditioner.
 
 \subsection{Results}
-The discretizations had a range of degrees of freedom from approximately 10,000 to 170,000. The original idea was to use a much larger system more representative of work done in the field. The original example contained 996,840 degrees of freedom with approximately $1.64 \cdot 10^8$ non-zero entries. Similar solver settings were used in the Muelu example, but after failure to converge, a direct solver was tried. For the direct solver, the solvers in the Amesos library were reporting detected singularities, but this was not the case with solvers used at MTU. After several attempts to diagnose the failure for the large discretization, experiments were performed with the smaller systems of the same blade. The results are shown in Figures~\ref{fig:blade1} and~\ref{fig:blade2}.
+The discretizations had a range of degrees of freedom from approximately 10,000 to 170,000. The original idea was to use a much larger system more representative of work done in the field. The original example contained 996,840 degrees of freedom with approximately $1.64 \cdot 10^8$ non-zero entries. Similar solver settings were used in the MueLu example, but after failure to converge, a direct solver was tried. For the direct solver, the solvers in the Amesos library were reporting detected singularities, but this was not the case with solvers used at MTU. After several attempts to diagnose the failure for the large discretization, experiments were performed with the smaller systems of the same blade. The results are shown in Figures~\ref{fig:blade1} and~\ref{fig:blade2}.
+
+In Figure~\ref{fig:blade11}, the scaling for two processors halves the solve time as expected, but the same does not happen when the amount of processors is doubled to four and the solve times remain approximately the same. For eight processors, the curve has an outlier which was re-run with the same results. In Figure~\ref{fig:blade12}, strong scaling is shown, with an increase in the amount of processors for a given discretization. This showed promising results for small systems, but the largest system fails to scale well. In Figure~\ref{fig:blade2}, the amount of GMRES iterations are shown, which are large for one solve. This could indicate a preconditioning which was not adequate. Overall more investigation into the mechanics of the problem would be needed to solve this issue.
 
 % graphs, what was tried
 \begin{figure}[ht]
@@ -258,27 +258,33 @@ The discretizations had a range of degrees of freedom from approximately 10,000 
         \centering
         \includegraphics[width=\columnwidth]{blade/blade_klaus_small.pdf}
         \caption{Linear solve times for the various blade discretizations.}
+        \label{fig:blade11}
     \end{subfigure}
     \begin{subfigure}{\columnwidth}
         \centering
         \includegraphics[width=\columnwidth]{blade/blade_klaus_small_sizes.pdf}
-        \caption{Strong scaling results for the small blade discretizations.}
+        \caption{Strong scaling results for the blade discretizations.}
+        \label{fig:blade12}
     \end{subfigure}
-    \caption{}
+    \caption{Solve times for using GMRES preconditioned with SA-AMG to solve the small blade test systems.}
     \label{fig:blade1}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\columnwidth]{blade/blade_klaus_small_iters.pdf}
-    \caption{}
+    \caption{Amount of iterations for using GMRES preconditioned with SA-AMG to solve the small blade test systems.}
     \label{fig:blade2}
 \end{figure}
 
 \clearpage
 
-\section{Cylindrical Shell}
+\section{Cylindrical Shell Snap-Through}
 \subsection{Problem Description}
+
+To determine how the SA-AMG preconditioner works with ill-conditioned problems, a study of snap-through of a thin cylindrical shell was performed. Three-dimensional shell models tend to have ill-conditioned stiffness matrices~\cite{Wall2000} and in a dynamic snap-though simulation the system properties change such that it becomes even more ill-conditioned.
+
+Figure~\ref{fig:shell} shows the geometry of the shell, similar to that of Scordelis and Lo~\cite{Scordelis1969}. The shell was parameterized by varying thicknesses, and discretized with solid 8 node hexahedral elements. Dirichlet boundary conditions were used to fix the straight edges of the shell while the load $\sigma_y$ through the middle of the shell was increased in a dynamic simulation until snap-through was observed. This value for the load was then used in a scaling study, wherein the amount of elements in the axial, radial and circumferential dimensions were increased to solve a larger system.
 
 \tdplotsetmaincoords{-35}{0}
 \begin{figure}[ht]
@@ -308,22 +314,52 @@ The discretizations had a range of degrees of freedom from approximately 10,000 
   \end{scope}
 \end{tikzpicture}
 \caption{Cylindrical shell geometry. The straight sides are constrained with Dirichlet boundary conditions along the bottom edges, and the curved edges are free. The vertical load is applied in the middle of the shell, parallel to the straight sides.}
+\label{fig:shell}
 \end{figure}
 
+The nonlinear solver was set up as a dynamic solver with an explicit one-step time stepping scheme, with a GMRES method preconditioned by SA-AMG used to solve the linear systems at each nonlinear step. The same linear solver settings as detailed in Table~\ref{table:muelu}, with the exception that the maximum size for the coarse level being changed to 200 degrees of freedom.
 
-% diagram of shell, properties used
-% different height ratios, increasing force until snap through
+For determining the snap-through load, the shell was meshed with a discretization of $4 \times 40 \times 40$ solid elements in the radial, circumferential, and axial directions, respectively. The load was set to be linearly increasing over time in a dynamic from 0 to a sufficiently high final value to cause snap-through. The simulation was then run with 100 timesteps of 0.01 seconds, with a Newton convergence criterion of $\norm{\mathbf{r}_k}/\norm{\mathbf{r}_0} < 10^{-3}$. This allowed the snap-through load to be visually examined in the Paraview software by determining the time step in which snap-through occurred, which would give the corresponding load causing this snap-through. This process could be repeated to give a more accurate value if the final load was chosen to be too high during the first run. The loads determined for the various shell thicknesses are shown in Table~\ref{table:shell}.
+
+Several discretizations of the problem were then created to vary the number of degrees of freedom. These were then dynamically simulated with the now-determined snap-through load, using the same previously-mentioned solver settings.
+
+\begin{table}[h]
+    \centering
+\begin{tabular}{|r|r|}
+    \hline
+    Thickness & Load  \\
+    $h$ (mm) & $\sigma_y$ (N/mm) \\
+    \hline
+    0.25 & 192.0 \\
+    2.5 &  2002.5 \\
+    5.0 &  4675.0 \\
+    7.5 &  8500.0 \\
+    10.0 & 11160.0 \\
+    12.5 & 21500.0 \\
+    \hline
+\end{tabular}
+\caption{Load at which snap-through was achieved.}
+\label{table:shell}
+\end{table}
 
 % citing the same stuff from bischoff dissertation
-% citing paper on shell stuff
 
 \subsection{Results}
-
-% graph/table of forces required for snap-through
-%
+Using a constant 20 cores, several discretizations of the shell with increasing numbers of degrees of freedom were simulated, and the results for this scaling study are shown in Figure~\ref{fig:shell_scaling}, which shows a linear scaling of the solution time for the degrees of freedom. One simulation for a shell thickness of 10.0 mm failed for a discretization of $32 \times 320 \times 320$ elements due to a negative deformation gradient determinant. This particular thickness value also did not perform as expected with respect to the GMRES iterations. The expected pattern is that the number of GMRES iterations stays relatively constant. Besides this outlier, the SA-AMG preconditioner performs well on the shell problem which is an ill-conditioned problem, and is otherwise able to successfully achieve the expected scaling pattern.
+%TODO: more 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=\columnwidth]{shell/shell.pdf}
-    \caption{}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{shell/shell.pdf}
+        \caption{Mean linear solve time per nonlinear iteration (10 total timesteps).}
+    \end{subfigure}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{shell/shell_iters.pdf}
+        \caption{Mean GMRES iterations per nonlinear iteration (10 total timesteps).}
+    \end{subfigure}
+    \caption{Scaling study of the shell dynamic snap-through using a constant 20 cores.}
+    \label{fig:shell_scaling}
 \end{figure}

@@ -1,2 +1,6 @@
 \chapter{Conclusion}
 \label{chapter:Conclusion}
+
+The use smoothed aggregation multigrid methods as a preconditioner to the solution of sparse linear systems can result in scalable and efficient solutions, but the parameters have to be carefully determined and consideration to the theory behind the methods is necessary. The ideas critical to understanding the workings of geometric, algebraic, and aggregation multigrid methods was presented, as well as how they can be used to precondition Krylov subspace solvers.
+
+Numerical experiments were performed to demonstrate the importance of choosing the multigrid parameters well. For a cantilever beam, better performance than existing direct solvers based on LU decomposition was achieved. For the particular turbine blade experiments, there was difficulty encountered with both the use of direct and indirect methods, which needs to be further studied, but the general application of the multigrid in the context of mechanics problems has still been quite successful, so it is still well worth implementing for such problems. Finally, the performance in solving ill-conditioned systems involving snap-through of thin shells was demonstrated.
